@@ -1,0 +1,77 @@
+<!--
+  Generated template for the TabJobJobAvailablePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content padding>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="{{this.global_items.do_translation('Pull to refresh')}}" refreshingSpinner="circles" refreshingText="{{this.global_items.do_translation('Refreshing')}}...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <ion-grid no-padding>
+
+        <ion-row *ngIf="banner_collection.length>0">
+            <ion-col col-12>
+                <ion-slides autoplay="2000" loop="true" speed="500" pager [dir]=this.global_items.App_direction>
+                    <ion-slide *ngFor="let item of banner_collection">
+                        <img src="{{item.image}}">
+                    </ion-slide>
+                </ion-slides>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <div no-padding style="overflow-x: auto;">
+                <table style="width: 100%;margin-top: 10px">
+                    <tr style="width: 100%">
+                        <td>
+                            <button ion-button round outline style="text-transform: uppercase;background: #22b573;color: #ffffff;" (click)="suggest()">{{this.global_items.do_translation('Suggest')}}</button>
+                        </td>
+                        <td>
+                            <button ion-button round outline style="text-transform: uppercase;" [ngClass]="class_style" id="all" (click)="category_sort(0)">{{this.global_items.do_translation('All')}}</button>
+                        </td>
+
+                        <td *ngFor="let category of categories_list['data']">
+                            <button ion-button round outline (click)="category_sort(category.pk_i_id)" [ngClass]="{'selected_category_item':set_style_value === category.pk_i_id,'not_selected_category_item':set_style_value !== category.pk_i_id}">{{category.name}}</button>
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+
+        </ion-row>
+        <ion-row>
+            <ion-col col-12>
+                <div class="forum-card">
+                    <ion-card *ngFor="let item of available_jobs['data']" (click)="moveIn(item.pk_i_id,'jobs_available')">
+                        <ion-row class="news-card">
+                            <ion-col col-5>
+                                <img [src]="getImagesPath(item)" alt="" class="img-responsive" style="height: 100% !important;">
+                            </ion-col>
+                            <ion-col col-7>
+                                <p class="title_style dot_style" [ngClass]="{'rtl_word_align':this.global_items.App_direction=='rtl'}">{{item.title | removehtmltags}}</p>
+                                <p class="dot_style"> <span class="title_style" [ngClass]="{'rtl_word_align':this.global_items.App_direction=='rtl'}">{{global_items.do_translation('Career Level')}}:</span> <span> {{item.career_level | removehtmltags}}</span></p>
+                                <p class="dot_style"><span class="title_style" [ngClass]="{'rtl_word_align':this.global_items.App_direction=='rtl'}">{{global_items.do_translation('Monthly Salary')}}:</span> <span> {{item.salary | removehtmltags}}</span></p>
+                                <p class="dot_style"><span class="title_style" [ngClass]="{'rtl_word_align':this.global_items.App_direction=='rtl'}">{{global_items.do_translation('Employment Type')}}:</span> <span>{{item.employment_type | removehtmltags}}</span></p>
+                                <p class="dot_style">
+                                    <ion-icon ios="md-pin" md="md-pin"></ion-icon> <span>{{item.location | removehtmltags}}</span>
+                                </p>
+                            </ion-col>
+                        </ion-row>
+                    </ion-card>
+                    <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+                        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+                    </ion-infinite-scroll>
+                </div>
+                <div *ngIf="(available_jobs['data'].length==0 && available_jobs['display']=='empty')?true:false">
+                    <p class="empty">{{this.global_items.do_translation('No Items In This Category')}}</p>
+                </div>
+                <div style="height: 100%;width: 100%;display: flex" *ngIf="available_jobs['display']=='loading'">
+                    <div style="margin: auto">
+                        <ion-spinner></ion-spinner>
+                    </div>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

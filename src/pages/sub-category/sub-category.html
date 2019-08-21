@@ -1,0 +1,50 @@
+<!--
+  Generated template for the SubCategoryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <div class="back-box">
+        <ion-grid no-padding>
+            <ion-row no-padding>
+                <ion-col col-2 (click)="goback()">
+                    <p class="main icon-back"></p>
+                </ion-col>
+                <ion-col col-10>
+                    <p [ngClass]="{'rtl_text_align':this.global_providers.App_direction=='rtl'}">{{this.global_providers.do_translation('SUBCATEGORIES')}}</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+    </div>
+</ion-header>
+
+
+<ion-content no-padding>
+    <ion-list>
+        <ion-item (click)="showall()" style="border-bottom: 3px solid whitesmoke;" *ngIf="id!=8">
+            <ion-avatar item-start style="margin-top: 10px;text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 0px;">
+                <ion-icon ios="ios-arrow-dropright-outline" md="ios-arrow-dropright-outline"></ion-icon>
+            </ion-avatar>
+            <h2>{{this.global_providers.do_translation('All')}}</h2>
+        </ion-item>
+        <ion-item style="border-bottom: 3px solid whitesmoke;" *ngFor="let item of subcategories" (click)="show_inner_sub_categories(item.pk_i_id,item.name,item.fk_i_parent_id)">
+            <!-- <ion-avatar item-start>
+                <img src="{{item.icon}}">
+            </ion-avatar> -->
+            <ion-avatar item-start style="margin-top: 10px;
+            margin-bottom: 0px;">
+                <p class="main-icon-green" style="font-size: 2em;
+                text-align: center;
+                margin-bottom: 0px;">
+                    <!-- <ion-icon name="{{cat.s_icon}}"></ion-icon> -->
+                    <i class="{{'icon-'+item.s_icon}}"></i>
+                </p>
+            </ion-avatar>
+            <h2>{{item.name}}</h2>
+        </ion-item>
+    </ion-list>
+</ion-content>

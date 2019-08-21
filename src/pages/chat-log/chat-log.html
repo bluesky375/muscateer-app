@@ -1,0 +1,51 @@
+<!--
+  Generated template for the ChatLogPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.finn
+-->
+<ion-header>
+    <div class="back-box">
+        <ion-grid no-padding>
+            <ion-row no-padding>
+                <ion-col col-2 (click)="goback()">
+                    <p class="main icon-back"></p>
+                </ion-col>
+                <ion-col col-10>
+                    <p [ngClass]="{'rtl_align':global_items.App_direction=='rtl'}">{{global_items.do_translation('Chat Logs')}}</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</ion-header>
+
+
+<ion-content>
+    <ion-grid no-padding>
+        <ion-row no-padding>
+            <ion-col col-12 class="chat-list" *ngIf="!loading ;else loadingBlock">
+                <ion-list>
+                    <ion-item *ngFor="let mhead of chatList" (click)="redirectToChat(mhead)">
+                        <ion-avatar item-start>
+                            <img src="{{mhead.user.photoURL}}" alt="" class="img-responsive">
+                        </ion-avatar>
+                        <h2>{{mhead.user.name}}</h2>
+                        <!-- <span *ngIf="mhead.unread_count " class="msg-no">
+                   {{mhead.unread_count}}
+               </span> -->
+                        <span *ngIf="mhead.unread_count" [ngClass]="{'rtl_msgno':global_items.App_direction=='rtl','ltr_msgno':global_items.App_direction=='ltr'}"> {{mhead.unread_count}}</span>
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+            <ng-template #loadingBlock>
+                <ion-spinner name="bubbles" class="spinner-center"></ion-spinner>
+            </ng-template>
+            <!-- <p *ngIf="emptyChat" class="empty-chat">No chat found</p> -->
+
+        </ion-row>
+    </ion-grid>
+    <div *ngIf="emptyChat" style="position: relative; height: 100%; width: 100%; overflow: hidden">
+        <img class="background" style="height: 80px;width: 80px" src="assets/images/sad.png">
+        <p class="no_item_style">Empty</p>
+    </div>
+</ion-content>

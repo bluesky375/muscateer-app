@@ -1,0 +1,244 @@
+<!--
+  Generated template for the ForumInnerPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <div class="back-box">
+        <ion-grid no-padding>
+            <ion-row no-padding>
+                <ion-col col-2 (click)="goback()">
+                    <p class="main icon-back"></p>
+                </ion-col>
+                <ion-col col-7>
+                    <p [ngClass]="{'rtl_text_align':this.global_items.App_direction=='rtl'}">{{this.global_items.do_translation('Back to Forums')}}</p>
+                </ion-col>
+                <ion-col *ngIf="type =='tourism'" col-3 (click)="suggest()">
+                    <p id="suggest" [ngClass]="{'rtl_text_align':this.global_items.App_direction=='rtl'}"> {{this.global_items.do_translation('suggest')}}</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+    </div>
+</ion-header>
+
+
+<ion-content class="has-subheader">
+    <div class="inner-classifieds">
+        <img [src]="getImagesPath(items.data)" alt="" class="img-responsive w-100" imageViewer *ngIf="slide_image_list.length==0">
+        <ion-slides pager [dir]="this.global_items.App_direction" *ngIf="slide_image_list.length>0">
+            <div *ngFor="let image of slide_image_list" style="height: 250px">
+                <ion-slide class="inner-slide" style="position: relative; width: 411px">
+                    <img src="{{settings.IMAGE_URL+image.path}}" style="height: auto !important" imageViewer>
+                </ion-slide>
+            </div>
+        </ion-slides>
+        <ion-grid>
+            <ion-row no-padding>
+                <!-- tourism -->
+                <ion-col col-12 *ngIf="type =='tourism'">
+                    <ion-row>
+                        <!-- <ion-col col-3>
+                            <p>{{global_items.do_translation('Total rating')}}:</p>
+                        </ion-col> -->
+                        <ion-col col-12>
+                            <!-- <rating (user_is_rated)="user_is_rated($event)" *ngIf="showRating" [fontSize]="30" [value]="hasRating()" [total]="hasTotal()" [type]="type_id" [id]="id" style="margin: -26px 0px -30px 0px;display: block;">
+                            </rating> -->
+                            <ionic3-star-rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#ffd700" defaultColor="#ffd700" readonly="true" [rating]="user_rate">
+                            </ionic3-star-rating>
+                        </ion-col>
+                        <!-- <ion-col col-4>
+                            <p style="    color: #22b573;
+                                font-weight: bold;">{{this.global_items.do_translation(show_rating_status)}}</p>
+                        </ion-col> -->
+                    </ion-row>
+                </ion-col>
+                <!-- tourism -->
+                <ion-col col-11 class="p-t-0">
+                    <p class="main">{{items.title | removehtmltags}}
+                    </p>
+                </ion-col>
+                <ion-col col-1>
+                    <span (click)="report(type)" class="ion-md-alert f-16"></span>
+                </ion-col>
+
+                <ion-col col-12>
+                    <ion-row class="border-btm" no-padding>
+                        <ion-col col-4 no-padding>
+                            <p class="inner-user" [ngClass]="{'rtl_text_align':this.global_items.App_direction=='rtl'}" *ngIf="this.global_items.App_direction=='ltr'">
+                                <ion-icon *ngIf="items.is_verified_user==1" ios="ios-checkmark" md="ios-checkmark" style="color: #22b573;font-size: 2.0em;position: absolute;left: 15px;bottom: 5px;"></ion-icon>
+                                <span class="icon-user-1">
+                            </span>
+                                <span>{{items.user_name}}</span>
+                            </p>
+
+                            <p class="inner-user" [ngClass]="{'rtl_text_align':this.global_items.App_direction=='rtl'}" *ngIf="this.global_items.App_direction=='rtl'">
+                                <span>{{items.user_name}}</span>
+                                <ion-icon *ngIf="items.is_verified_user==1" ios="ios-checkmark" md="ios-checkmark" style="color: #22b573;font-size: 2.0em;position: absolute;right: -5px;bottom: 5px;"></ion-icon>
+                                <span class="icon-user-1">
+                            </span>
+                            </p>
+                        </ion-col>
+                        <ion-col col-6 no-padding>
+                            <p class="inner-date" [ngClass]="{'rtl_text_align':this.global_items.App_direction=='rtl'}">{{this.global_items.do_translation('Posted on')}} {{items.date}}</p>
+                            <!-- <p class="inner-date" [ngClass]="{'rtl_text_align':this.global_items.App_direction=='rtl'}">{{this.global_items.do_translation('Posted on')}} {{getcurrent_date()}}</p> -->
+
+                        </ion-col>
+                        <ion-col col-2 no-padding>
+                            <p class="inner-share" (click)="share(items)">
+                                <span>{{this.global_items.do_translation('Share')}}</span>
+                                <span class="icon-share-icon"></span>
+                            </p>
+                        </ion-col>
+                    </ion-row>
+                </ion-col>
+                <ion-col col-12>
+                    <p class="sub">{{items.description | removehtmltags}}</p>
+                </ion-col>
+                <!-- start restaurants-->
+                <ion-col col-12 id="test">
+                    <!-- <p class="more_details_theme">Venue:<span class="loaded_more_details_theme">{{items.venue}}</span></p>
+            <p class="more_details_theme">Average Prices:<span class="loaded_more_details_theme">{{items.avg_price}}</span></p>
+            <p class="more_details_theme">Cuisine:<span class="loaded_more_details_theme">{{items.cuisine}}</span></p>
+            <p class="more_details_theme">Meals:<span class="loaded_more_details_theme">{{items.meals}}</span></p>
+            <p class="more_details_theme">restaurants Features:<span class="loaded_more_details_theme">{{items.features}}</span></p>
+            <p class="more_details_theme">Good For:<span class="loaded_more_details_theme">{{items.good_for}}</span></p>
+             -->
+
+
+                    <p *ngIf="items.venue" class="more_details_theme">{{this.global_items.do_translation('Venue')}} :
+                        <span class="loaded_more_details_theme">{{items.venue | removehtmltags}}</span>
+                    </p>
+                    <p *ngIf="items.avg_price" class="more_details_theme"> {{this.global_items.do_translation('Average Prices')}} :
+                        <span class="loaded_more_details_theme">{{items.avg_price}}</span>
+                    </p>
+                    <p *ngIf="items.cuisine" class="more_details_theme"> {{this.global_items.do_translation('Cuisine')}} :
+                        <span class="loaded_more_details_theme">{{items.cuisine |removehtmltags}}</span>
+                    </p>
+                    <p *ngIf="items.meals" class="more_details_theme"> {{this.global_items.do_translation('Working hours')}} :
+                        <span class="loaded_more_details_theme">{{items.meals | removehtmltags}}</span>
+                    </p>
+                    <p *ngIf="items.features" class="more_details_theme"> {{this.global_items.do_translation('Restaurant Features')}} :
+                        <span class="loaded_more_details_theme">{{items.features | removehtmltags}}</span>
+                    </p>
+                    <p *ngIf="items.good_for" class="more_details_theme"> {{this.global_items.do_translation('Good For')}} :
+                        <span class="loaded_more_details_theme">{{items.good_for | removehtmltags}}</span>
+                    </p>
+                    <!-- <p *ngIf="items.contact_info" class="more_details_theme"> {{this.global_items.do_translation('Contact Information')}} :</p> -->
+                    <!-- <p *ngIf="items.contact_info" class="loaded_more_details_theme">{{items.contact_info | removehtmltags}}</p> -->
+
+                    <p *ngIf="(items.contact_info==null||items.contact_info==undefined||items.contact_info=='')?false:true" class="more_details_theme">{{this.global_items.do_translation('Address')}} :
+                        <span class="loaded_more_details_theme">{{items.contact_info | removehtmltags}}</span>
+                    </p>
+                    <p *ngIf="(items.language==null||items.language==undefined||items.language=='')?false:true" class="more_details_theme">{{this.global_items.do_translation('Language')}} :
+                        <span class="loaded_more_details_theme">{{items.language | removehtmltags}}</span>
+                    </p>
+                    <p *ngIf="(items.show_times==null||items.show_times==undefined||items.show_times=='')?false:true" class="more_details_theme">{{this.global_items.do_translation('Show Times')}} :
+                        <span class="loaded_more_details_theme">{{items.show_times | removehtmltags}}</span>
+                    </p>
+                    <p *ngIf="(items.theatre==null||items.theatre==undefined||items.theatre=='')?false:true" class="more_details_theme">{{this.global_items.do_translation('Theatre')}} :
+                        <span class="loaded_more_details_theme">{{items.theatre | removehtmltags}}</span>
+                    </p>
+                    <p *ngIf="(items.genre==null||items.genre==undefined||items.genre=='')?false:true" class="more_details_theme">{{this.global_items.do_translation('Genre')}} :
+                        <span class="loaded_more_details_theme">{{items.genre | removehtmltags}}</span>
+                    </p>
+                    <p (click)="Openinbrowser(items.youtube_trailer)" *ngIf="(items.youtube_trailer==null||items.youtube_trailer==undefined||items.youtube_trailer=='')?false:true" class="more_details_theme" style="color: #5590f9 !important;">{{this.global_items.do_translation('Watch Trailer')}}
+                        <!-- <span class="loaded_more_details_theme" style="color: #5590f9 !important;">https://youtu.be/{{items.youtube_trailer | removehtmltags}}</span> -->
+                    </p>
+                    <!-- <p (click)="Bookshow(items.booking_url)" *ngIf="(items.booking_url==null||items.booking_url==undefined||items.booking_url=='')?false:true" class="more_details_theme" style="color: #5590f9 !important;">{{this.global_items.do_translation('Book tickets')}}
+                        <span class="loaded_more_details_theme" style="color: #5590f9 !important;">{{items.booking_url | removehtmltags}}</span>
+                    </p> -->
+                </ion-col>
+                <!-- end restaurants-->
+                <ion-col col-12 *ngIf="(items.booking_url==null||items.booking_url==undefined||items.booking_url=='')?false:true" style="text-align: center">
+                    <ion-col col-6 (click)="Bookshow(items.booking_url)">
+                        <button ion-button>{{this.global_items.do_translation('Book tickets')}}</button>
+                    </ion-col>
+                </ion-col>
+
+                <ion-col col-12 *ngIf="items.isShowlocation==true">
+                    <button ion-button (click)="Gotomap(items.latitude , items.longitude)">{{this.global_items.do_translation('View On Map')}}</button>
+                </ion-col>
+                <ion-col col-12>
+                    <ion-row>
+                        <ion-col col-12>
+                            <ion-row>
+                                <!-- <p *ngIf="type =='tourism'" style="    color: #22b573;
+                                    font-weight: bold;">{{global_items.do_translation('Write your review')}} !</p> -->
+                                <ion-col col-12 *ngIf="type !='tourism'">
+                                    <table class="post-comment">
+                                        <tr>
+                                            <td style="padding-right: 0px;
+                                            text-align: center;font-size: 1.0em;padding-top: 1%;">
+                                                <span class="icon-user-1"></span>
+                                            </td>
+                                            <!-- <td *ngIf="type =='tourism'">
+                                                <ion-input [(ngModel)]="commentValue" placeholder="{{this.global_items.do_translation('Write your review')}}" (keyup.enter)="hide_keyboard()"></ion-input>
+                                            </td>
+                                            <td *ngIf="type !='tourism'">
+                                                <ion-input [(ngModel)]="commentValue" placeholder="{{this.global_items.do_translation('Comment here')}}" (keyup.enter)="hide_keyboard()"></ion-input>
+                                            </td> -->
+                                            <td>
+                                                <ion-input [(ngModel)]="commentValue" placeholder="{{this.global_items.do_translation('Comment here')}}" (keyup.enter)="hide_keyboard()"></ion-input>
+                                            </td>
+                                            <td>
+                                                <span type="submit" [ngClass]="{'dsp-blck': true}" (click)="onPost(commentValue)" class="triangle ion-md-send"></span>
+
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </ion-col>
+
+                                <ion-col col-12>
+                                    <!-- <p class="comment_head">{{this.global_items.do_translation('Disclaimer')}}</p> <span class="comment_description">{{this.global_items.comment_Disclaimer}}</span> -->
+                                    <ion-col col-12 *ngIf="global_items.App_direction=='ltr'">
+                                        <p class="comment_head">{{this.global_items.do_translation('Disclaimer')}}</p> <span class="comment_description">{{this.global_items.comment_Disclaimer_ltr}}</span>
+                                    </ion-col>
+
+                                    <ion-col col-12 *ngIf="global_items.App_direction=='rtl'">
+                                        <p class="comment_head">{{this.global_items.do_translation('Disclaimer')}}</p> <span class="comment_description">{{this.global_items.comment_Disclaimer_rtl}}</span>
+                                    </ion-col>
+                                </ion-col>
+                                <ion-col col-12 *ngIf="type !='tourism'">
+                                    <table class="comment-table">
+                                        <tr *ngFor="let user of users['comments'] let i = index">
+                                            <td class="user_icon_div" *ngIf="user.author.is_verified_user==1; else else_template">
+                                                <img [src]="getImagesPath_comments(user.author)">
+                                                <ion-icon ios="md-checkmark" md="md-checkmark" class="user_icon_badge"></ion-icon>
+                                            </td>
+                                            <ng-template #else_template>
+                                                <td>
+                                                    <img [src]="getImagesPath_comments(user.author)">
+                                                </td>
+                                            </ng-template>
+                                            <td style="padding-left:10px ">
+                                                <p>{{user.author.name}}</p>
+                                                <p>{{user.comment | removehtmltags}}</p>
+                                            </td>
+                                            <td class="width-10" style="position: relative" *ngIf="userId != user.author.pk_i_id">
+                                                <span style="position: absolute;top: 20px;" (click)="report('comment',user.pk_i_id)" class="ion-md-alert f-16"></span>
+                                            </td>
+                                            <td class="width-10" style="position: relative">
+                                                <span style="position: absolute;top: 20px;" *ngIf="userId == user.author.pk_i_id" (click)="deleteComment(user.pk_i_id,i)" class="ion-md-trash f-16"></span>
+                                            </td>
+                                        </tr>
+                                        <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+                                            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+                                        </ion-infinite-scroll>
+                                    </table>
+                                </ion-col>
+                                <ion-col col-12 *ngIf="type =='tourism'">
+                                    <p *ngIf="type =='tourism'" style="    color: #22b573;
+                                        font-weight: bold;">{{global_items.do_translation('Write your review')}} !</p>
+                                    <review-comments *ngIf="(e_id==null||e_id==undefined||e_id==''||type_id==undefined||type_id==null||type_id=='')?false:true" [parent_id]="e_id" [type_id]="type_id"></review-comments>
+                                </ion-col>
+                            </ion-row>
+                        </ion-col>
+                    </ion-row>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</ion-content>

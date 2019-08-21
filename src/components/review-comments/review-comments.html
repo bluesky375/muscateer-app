@@ -1,0 +1,170 @@
+<!-- <div>
+  {{text}}
+</div> -->
+<div>
+    <ion-grid>
+        <!-- loged user review section start -->
+        <ion-row class="border_bottom" *ngIf="(all_reviews['reviewd']==1||is_loged_in==false)?false:true">
+            <ion-col col-3 col-sm-3 col-md-3 col-lg-2 col-xl-2 style="display: flex">
+                <img src="{{user['profile_picture']}}" alt="" (onerror)="null;this.src='assets/images/sad.png'" srcset="" style="height: 100%;width: 100%;margin: auto !important">
+            </ion-col>
+            <ion-col col-9 col-sm-9 col-md-9 col-lg-10 col-xl-10>
+                <ion-row>
+                    <p class="user_name_style">{{user['s_name']}}</p>
+                </ion-row>
+                <ion-row>
+                    <ionic3-star-rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#ffd700" defaultColor="#ffd700" readonly="false" [rating]="user_rate">
+                    </ionic3-star-rating>
+                </ion-row>
+            </ion-col>
+            <ion-col col-12>
+                <ion-row>
+                    <ion-col col-9 col-sm-9 col-md-9 col-lg-10 col-xl-10 style="display: flex">
+                        <ion-textarea [(ngModel)]="user_review" rows='5' placeholder="{{global_items.do_translation('Write your review')}}"></ion-textarea>
+                    </ion-col>
+                    <ion-col col-3 col-sm-3 col-md-3 col-lg-2 col-xl-2 style="display: flex">
+                        <button ion-button clear round (click)="post_review()" [disabled]="(all_reviews['reviewd']==1||is_loged_in==false)?true:false" style="margin: auto !important">
+                            <ion-icon ios="md-send" md="md-send"></ion-icon>
+                        </button>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+        <!-- loged user review section end -->
+        <!-- users review section start -->
+        <ion-row *ngIf="all_reviews_length>0">
+            <ion-row *ngFor="let item of all_reviews['reviews'].data;let i=index">
+                <ion-row class="border_bottom">
+                    <ion-col col-3 col-sm-3 col-md-3 col-lg-2 col-xl-2 style="display: flex">
+                        <div style="margin: auto">
+                            <div class="user_icon_div">
+                                <img src="{{settings.IMAGE_URL+item['author'].profile_picture}}" alt="" (onerror)="null;this.src='assets/images/sad.png'" srcset="" style="height: 100%;width: 100%">
+                                <ion-icon ios="md-checkmark" md="md-checkmark" class="new_user_icon_badge" *ngIf="(item['author'].is_verified_user==0||item['author'].is_verified_user=='0'||item['author'].is_verified_user==null||item['author'].is_verified_user==undefined)?false:true"></ion-icon>
+                            </div>
+                            <p class="user_name_style">{{item['author'].name}}</p>
+                        </div>
+                    </ion-col>
+                    <!-- user id match review -->
+                    <ion-col col-7 col-sm-7 col-md-7 col-lg-8 col-xl-8 style="background: #eee;border-radius: 10px;" *ngIf="var_fetchUserId==item['user_id']">
+                        <ion-row>
+                            <ionic3-star-rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#ffd700" defaultColor="#ffd700" readonly="true" [rating]="item['score']">
+                            </ionic3-star-rating>
+                        </ion-row>
+                        <ion-row>
+                            <p style="width: 100%">{{item['review']}}</p>
+                        </ion-row>
+
+                    </ion-col>
+                    <ion-col col-2 *ngIf="var_fetchUserId==item['user_id']" style="margin: 0px;padding: 0px;display:flex" (click)="delete_post('forum/review-rating/delete/',item.pk_i_id)">
+                        <button ion-button full clear color="danger" style="margin: auto">
+                                <ion-icon name="trash"></ion-icon>
+                              </button>
+                    </ion-col>
+                    <!-- ----------------- -->
+                    <!-- userid doesnt match -->
+                    <ion-col col-9 col-sm-9 col-md-9 col-lg-10 col-xl-10 style="background: #eee;border-radius: 10px;" *ngIf="(var_fetchUserId==item['user_id'])?false:true">
+                        <ion-row>
+                            <ionic3-star-rating activeIcon="ios-star" defaultIcon="ios-star-outline" activeColor="#ffd700" defaultColor="#ffd700" readonly="true" [rating]="item['score']">
+                            </ionic3-star-rating>
+                        </ion-row>
+                        <ion-row>
+                            <p style="width: 100%">{{item['review']}}</p>
+                        </ion-row>
+
+                    </ion-col>
+                    <!-- --------------------- -->
+                    <ion-col col-12>
+                        <ion-row>
+                            <ion-col col-4 style="display: flex" (click)="post_like_dislike(1,item['eid'],item['like'])">
+                                <button ion-button clear style="margin: auto;    font-size: 1.5em !important;">
+                                                        <ion-badge color="#22b573">{{item['likes']}}</ion-badge>
+                                                                    <ion-icon md="ios-thumbs-up" ios="ios-thumbs-up" *ngIf="(item['like']==1 || item['like']=='1')"></ion-icon>
+                                                                    <ion-icon md="ios-thumbs-up-outline" ios="ios-thumbs-up-outline" *ngIf="(item['like']==null || item['like']==undefined||item['like']==0 || item['like']=='0')"></ion-icon>
+                                                                  </button>
+                            </ion-col>
+                            <ion-col col-4 style="display: flex" (click)="post_like_dislike(0,item['eid'],item['like'])">
+                                <button ion-button clear style="margin: auto;    font-size: 1.5em !important;">
+                                                        <ion-badge color="#22b573">{{item['dislikes']}}</ion-badge>
+                    
+                                                                    <ion-icon md="ios-thumbs-down" ios="ios-thumbs-down" *ngIf="(item['like']==0 || item['like']=='0')"></ion-icon>
+                                                                    <ion-icon md="ios-thumbs-down-outline" ios="ios-thumbs-down-outline" *ngIf="(item['like']==null || item['like']==undefined||item['like']==1 || item['like']=='1')"></ion-icon>
+                                                                  </button>
+
+                            </ion-col>
+
+                            <ion-col col-4 style="display: flex">
+                                <button ion-button clear style="margin: auto;    font-size: 1.5em !important;" (click)="open_close_reply(i,item['open_reply'])" [disabled]="(is_loged_in==true)?false:true">
+                                                                    <ion-icon md="ios-chatboxes-outline" ios="ios-chatboxes-outline" *ngIf="(item['open_reply']==0 || item['open_reply']=='0')"></ion-icon>
+                                                                    <ion-icon md="ios-chatboxes" ios="ios-chatboxes" *ngIf="(item['open_reply']==null || item['open_reply']==undefined||item['open_reply']==1 || item['open_reply']=='1')"></ion-icon>
+                                                                  </button>
+                            </ion-col>
+                        </ion-row>
+
+                    </ion-col>
+                </ion-row>
+
+                <!-- replay section start -->
+                <ion-row>
+                    <ion-col col-11 push-1>
+                        <!-- post reply -->
+                        <ion-row class="border_bottom" *ngIf="(is_loged_in==true && item['open_reply']==1)">
+                            <ion-col col-3 col-sm-3 col-md-3 col-lg-2 col-xl-2 style="display: flex">
+                                <div style="margin: auto">
+                                    <img src="{{user['profile_picture']}}" alt="" (onerror)="null;this.src='assets/images/sad.png'" srcset="" style="height: 100%;width: 100%">
+                                    <p class="user_name_style">{{user.s_name}}</p>
+                                </div>
+                            </ion-col>
+                            <ion-col col-9 col-sm-9 col-md-9 col-lg-10 col-xl-10>
+                                <ion-row>
+                                    <ion-textarea rows='5' placeholder="{{global_items.do_translation('Write your reply')}}" [(ngModel)]="user_reply"></ion-textarea>
+                                </ion-row>
+                                <ion-row>
+                                    <button ion-button clear full [disabled]="(is_loged_in==false)?true:false" (click)="post_comment(item['eid'])" style="border: 1px solid #22b573;">{{global_items.do_translation('Post')}}</button>
+                                </ion-row>
+                            </ion-col>
+                        </ion-row>
+                        <!-- post reply end -->
+                        <!-- show reply start -->
+                        <ion-row *ngIf="item.comments['data'].length>0">
+                            <ion-row *ngFor="let c_item of item['comments']['data']" class="border_bottom review_text">
+                                <ion-col col-3 col-sm-3 col-md-3 col-lg-2 col-xl-2 style="display: flex">
+                                    <div style="margin: auto">
+                                        <div class="user_icon_div">
+                                            <img src="{{settings.IMAGE_URL+c_item.author.profile_picture}}" alt="" (onerror)="null;this.src='assets/images/sad.png'" srcset="" style="height: 100%;width: 100%">
+                                            <ion-icon ios="md-checkmark" md="md-checkmark" class="new_user_icon_badge" *ngIf="(c_item.author.is_verified_user==0||c_item.author.is_verified_user=='0'||c_item.author.is_verified_user==null||c_item.author.is_verified_user==undefined)?false:true"></ion-icon>
+                                        </div>
+                                        <p class="user_name_style">{{c_item.author.name}}</p>
+                                    </div>
+                                </ion-col>
+                                <!-- user id match to comment id -->
+                                <ion-col col-7 col-sm-7 col-md-7 col-lg-8 col-xl-8 style="display: flex" *ngIf="var_fetchUserId==c_item.user_id">
+                                    <p style="margin: auto !important">{{c_item.comment}}</p>
+                                </ion-col>
+                                <ion-col col-2 *ngIf="var_fetchUserId==c_item.user_id" style="margin: 0px;padding: 0px;display:flex" (click)="delete_post('forum/review-rating/delete_comment/',c_item.pk_i_id)">
+                                    <button ion-button full clear color="danger" style="margin: auto">
+                                            <ion-icon name="trash"></ion-icon>
+                                          </button>
+                                </ion-col>
+                                <!-- --------------------------- -->
+                                <!-- user id !match comment -->
+                                <ion-col col-9 col-sm-9 col-md-9 col-lg-10 col-xl-10 style="display: flex" *ngIf="(var_fetchUserId==c_item.user_id)?false:true">
+                                    <p style="margin: auto !important">{{c_item.comment}}</p>
+                                </ion-col>
+                                <!-- ....................................... -->
+                            </ion-row>
+                            <!-- <ion-row>
+                                <p>{{global_items.do_translation('Load more')}}</p>
+                            </ion-row> -->
+                        </ion-row>
+                        <!-- show reply end -->
+                    </ion-col>
+                </ion-row>
+                <!-- replay section end -->
+            </ion-row>
+        </ion-row>
+        <!-- users review section end-->
+        <!-- <ion-row>
+            
+        </ion-row> -->
+    </ion-grid>
+</div>

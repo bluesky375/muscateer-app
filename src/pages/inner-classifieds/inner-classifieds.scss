@@ -1,0 +1,27 @@
+.grey {
+    color: color($colors, d-grey);
+}
+
+.red {
+    color: #ff6161;
+}
+
+.rtl_align {
+    text-align: right !important;
+}
+
+[dir=ltr] .verified_user_style {
+    color: #22b573;
+    font-size: 2.0em;
+    position: absolute;
+    left: 15px;
+    bottom: 5px;
+}
+
+[dir=rtl] .verified_user_style {
+    color: #22b573;
+    font-size: 2.0em;
+    position: absolute;
+    right: -5px;
+    bottom: 5px;
+}

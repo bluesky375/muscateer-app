@@ -1,0 +1,67 @@
+page-classified-show-all-prmotions {
+    .toolbar_title {
+        text-align: left;
+        color: #ffffff;
+        font-size: 16px;
+        text-transform: uppercase;
+        font-weight: 400;
+        padding-top: 14px;
+        padding-bottom: 10px;
+        margin: 0;
+    }
+    .promotion_venue_style {
+        height: 21px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        /* font-size: 16px; */
+        white-space: nowrap;
+        font-weight: 500;
+        color: #22b573 !important;
+        font-size: 12px;
+        font-weight: 700;
+    }
+    .selected_category_item {
+        background: white;
+        // border: 1px solid #ccc;
+        border-radius: 6px;
+        color: #5a4f4f;
+        text-transform: none;
+    }
+    .not_selected_category_item {
+        color: #5a4f4f;
+        // background: #f3f3f3;
+        background: #eaeaea;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        text-transform: none;
+    }
+    .background {
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0px !important;
+        background: #f9f9f9;
+        left: 50%;
+    }
+    .no_item_style {
+        position: absolute;
+        bottom: -60%;
+        margin: 0px !important;
+        color: #a5a5a5;
+        width: 100%;
+        text-align: center;
+    }
+    .no-scroll .scroll-content {
+        overflow: hidden;
+    }
+}
+
+[dir=rtl] page-classified-show-all-prmotions ion-card-content {
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+}
+
+[dir=ltr] page-classified-show-all-prmotions ion-card-content {
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+}

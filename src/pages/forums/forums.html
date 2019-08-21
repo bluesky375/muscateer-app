@@ -1,0 +1,555 @@
+<!--
+  Generated template for the ForumsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-content #contentRef (ionScroll)="scrollingFun($event)">
+    <!-- ion-refresher -->
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="{{this.global_items.do_translation('Pull to refresh')}}" refreshingSpinner="circles" refreshingText="{{this.global_items.do_translation('Refreshing')}}...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <!-- ion-refresher -->
+    <ion-grid>
+        <ion-row style="overflow-x: auto; overflow: hidden">
+            <ion-col col-12 style="overflow-x: scroll">
+                <table style="width: 100%; height: fit-content;">
+                    <tr style="width: 100%; height: fit-content;">
+                        <td style="height: fit-content;">
+                            <ion-card class="ion_card_forums_category" [ngClass]="{'selected':this.global_items.tab_forum_head=='news'}">
+                                <p class="ion_card_forums_p" (click)="typeClick('news')">
+                                    <ion-icon [ngClass]="{'forum_icon_rtl':this.global_items.App_direction=='rtl','forum_icon':this.global_items.App_direction=='ltr'}" ios="ios-paper-outline" md="ios-paper-outline"></ion-icon> {{this.global_items.do_translation('News & Feeds')}}
+                                </p>
+                            </ion-card>
+                        </td>
+                        <td style="height: fit-content;">
+                            <ion-card class="ion_card_forums_category" [ngClass]="{'selected':this.global_items.tab_forum_head=='advice'}">
+                                <p class="ion_card_forums_p" (click)="typeClick('advice')">
+                                    <ion-icon [ngClass]="{'forum_icon_rtl':this.global_items.App_direction=='rtl','forum_icon':this.global_items.App_direction=='ltr'}" ios="ios-help-circle-outline" md="ios-help-circle-outline"></ion-icon>
+                                    {{this.global_items.do_translation('Advice & Help')}}</p>
+                            </ion-card>
+                        </td>
+                        <td style="height: fit-content;">
+                            <ion-card class="ion_card_forums_category" [ngClass]="{'selected':this.global_items.tab_forum_head=='muscut'}">
+                                <p class="ion_card_forums_p" (click)="typeClick('muscut')">
+                                    <ion-icon [ngClass]="{'forum_icon_rtl':this.global_items.App_direction=='rtl','forum_icon':this.global_items.App_direction=='ltr'}" ios="ios-pizza-outline" md="ios-pizza-outline"></ion-icon>{{this.global_items.do_translation('Muscat Foodies')}}</p>
+                            </ion-card>
+                        </td>
+
+                        <td style="height: fit-content;">
+                            <ion-card class="ion_card_forums_category" [ngClass]="{'selected':this.global_items.tab_forum_head=='feeds'}">
+                                <p class="ion_card_forums_p" (click)="typeClick('feeds')">
+                                    <ion-icon [ngClass]="{'forum_icon_rtl':this.global_items.App_direction=='rtl','forum_icon':this.global_items.App_direction=='ltr'}" ios="logo-octocat" md="logo-octocat"></ion-icon>
+                                    {{this.global_items.do_translation('Muscateer Pets')}}</p>
+                            </ion-card>
+                        </td>
+
+                        <td style="height: fit-content;">
+                            <ion-card class="ion_card_forums_category" [ngClass]="{'selected':this.global_items.tab_forum_head=='relax'}">
+                                <p class="ion_card_forums_p" (click)="typeClick('relax')">
+                                    <ion-icon [ngClass]="{'forum_icon_rtl':this.global_items.App_direction=='rtl','forum_icon':this.global_items.App_direction=='ltr'}" ios="ios-videocam-outline" md="ios-videocam-outline"></ion-icon>{{this.global_items.do_translation('Relax Lounge')}}</p>
+                            </ion-card>
+
+                        </td>
+                        <!-- <td style="height: fit-content;">
+                            <ion-card class="ion_card_forums_category" [ngClass]="{'selected':this.global_items.tab_forum_head=='tourism'}">
+                                <p class="ion_card_forums_p" (click)="typeClick('tourism')">
+                                    <ion-icon [ngClass]="{'forum_icon_rtl':this.global_items.App_direction=='rtl','forum_icon':this.global_items.App_direction=='ltr'}" ios="ios-paper-plane-outline" md="ios-paper-plane-outline"></ion-icon>{{this.global_items.do_translation('Tourism')}}</p>
+                            </ion-card>
+                        </td> -->
+                    </tr>
+                </table>
+            </ion-col>
+            <!-- banner start -->
+            <ion-col col-12 *ngIf="banner_collection.length>0" style="margin-top: 10px;">
+                <ion-slides autoplay="2000" loop="true" speed="500" pager [dir]=this.global_items.App_direction>
+                    <ion-slide *ngFor="let item of banner_collection">
+                        <img src="{{item.image}}">
+                    </ion-slide>
+                </ion-slides>
+            </ion-col>
+            <!-- banner end -->
+            <ion-col col-12>
+                <p no-padding style="margin-bottom: 0px" class="des-text">{{this.global_items.do_translation('Recent comments')}}</p>
+            </ion-col>
+            <ion-col col-12 class="comment-slider">
+                <ion-slides slidesPerView="2.5" spaceBetween="10" [dir]="this.global_items.App_direction">
+                    <ion-slide *ngFor="let item of comments" style="overflow:hidden">
+                        <ion-row (click)="moveIn(item.parent_id,item.topic.view_type)">
+                            <ion-col col-5 style="text-align: center;
+                            font-size: 2em;" *ngIf="item.author.is_verified_user==1; else else_template">
+                                <div class="user_icon_div">
+                                    <img [src]="getProfilePic(item.author)" alt="" style="width: auto">
+                                    <ion-icon ios="md-checkmark" md="md-checkmark" class="new_user_icon_badge"></ion-icon>
+                                </div>
+                            </ion-col>
+                            <ng-template #else_template>
+                                <ion-col col-5>
+                                    <img [src]="getProfilePic(item.author)" alt="" style="width: auto">
+                                </ion-col>
+                            </ng-template>
+
+                            <ion-col col-7>
+                                <p>
+                                    <span>
+                    " {{item.comment}}"
+                  </span>
+                                </p>
+                            </ion-col>
+                        </ion-row>
+                    </ion-slide>
+                </ion-slides>
+            </ion-col>
+        </ion-row>
+        <ion-row [ngSwitch]="view">
+            <ion-col *ngSwitchCase="'news'">
+                <p class="des-text">{{this.global_items.do_translation('News and current Muscat affairs')}}</p>
+                <ion-row>
+                    <ion-col col-12 [ngSwitch]="news.display">
+                        <div *ngSwitchCase="'loading'" class="loader">
+                            <ion-spinner name="bubbles"></ion-spinner>
+                        </div>
+                        <div *ngSwitchCase="'show'" class="forum-card">
+                            <ion-card *ngFor="let item of news.data" (click)="moveIn(item.pk_i_id,'news')">
+                                <ion-row class="news-card">
+                                    <ion-col col-5>
+                                        <img [src]="getImagesPath(item)" alt="" class="img-responsive">
+                                    </ion-col>
+                                    <ion-col col-7>
+                                        <p class="title" [ngClass]="{'rtl_word_align':this.global_items.App_direction=='rtl'}">{{item.title | removehtmltags}}</p>
+                                        <!-- <p class="sub asdfg" [innerHTML]='item.description'></p> -->
+                                        <p class="sub asdfg" [ngClass]="{'rtl_word_align':this.global_items.App_direction=='rtl'}">{{item.description | removehtmltags}}</p>
+                                        <!-- <p class="sub">{{item.description}}</p> -->
+                                        <!-- <table>
+                      <tr>
+                        <td>{{item.user.s_name}}</td>
+                        <td>{{item.new_date}}</td>
+                        <td>
+                          <span class="ion-md-chatboxes"></span>{{item.commentsCount}}</td>
+                      </tr>
+                    </table> -->
+                                    </ion-col>
+                                </ion-row>
+                            </ion-card>
+                            <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+                                <ion-infinite-scroll-content></ion-infinite-scroll-content>
+                            </ion-infinite-scroll>
+                        </div>
+                        <div *ngSwitchCase="'empty'">
+                            <p class="empty">{{this.global_items.do_translation('No Items In This Category')}}</p>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+            <ion-col *ngSwitchCase="'tourism'">
+                <ion-row no-padding>
+                    <ion-col>
+                        <ion-row no-padding class="heading-row">
+                            <ion-col>
+                                <p>{{this.global_items.do_translation('THINGS TO DO')}}</p>
+                            </ion-col>
+                            <ion-col>
+                                <p (click)="viewAll('todo')">{{this.global_items.do_translation('View all')}}</p>
+                            </ion-col>
+                        </ion-row>
+
+                        <div style="overflow-x: scroll">
+                            <table style="width: 100%; height: fit-content;">
+                                <tr style="width: 100%; height: fit-content;">
+                                    <td *ngFor="let item of todo.items">
+                                        <ion-card style="width: 150px;" class="tourist-card" (click)="moveIn(item.pk_i_id,'tourism','todo')">
+                                            <img [src]="getImagesPath(item)" (error)="updateImageUrl($event)">
+                                            <ion-card-content>
+                                                <ion-grid no-padding>
+                                                    <ion-row>
+                                                        <p class="card-main">{{item.title | removehtmltags}}</p>
+                                                    </ion-row>
+                                                    <ion-row no-padding style="padding-bottom: 5px;
+                                                    padding-top: 5px; text-align: center;">
+                                                        <ion-col col-8 no-padding>
+                                                            <rating [fontSize]="16" [value]="hasRating(item)" [id]="item.pk_i_id" [type]="ratingType" [disabled]="true">
+                                                            </rating>
+                                                        </ion-col>
+                                                        <ion-col col-2 no-padding>
+                                                            <i class="ion-md-chatboxes card_comment_icon"></i>
+                                                        </ion-col>
+                                                        <ion-col col-2 no-padding>
+                                                            <p class="card_comment_count_text">{{item.commentsCount}}</p>
+                                                        </ion-col>
+                                                    </ion-row>
+                                                </ion-grid>
+                                                <!-- <ion-row>
+                                                    <rating [fontSize]="16" [value]="hasRating(item)" [id]="item.pk_i_id" [type]="ratingType" [disabled]="true">
+                                                    </rating>
+                                                </ion-row>
+                                                <p class="card-main">{{item.title}}</p>
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            name
+                                                        </td>
+                                                        <td>{{item.new_date}}
+                                                        </td>
+                                                        <td>
+                                                            <span class="ion-md-chatboxes"></span>{{item.commentsCount}}</td>
+                                                    </tr>
+
+                                                </table> -->
+                                            </ion-card-content>
+                                        </ion-card>
+                                    </td>
+
+                                </tr>
+                            </table>
+                        </div>
+
+
+                    </ion-col>
+                </ion-row>
+                <ion-row no-padding>
+                    <ion-col>
+                        <ion-row no-padding class="heading-row">
+                            <ion-col>
+                                <!-- <p>ATTRACTIONS</p> -->
+                                <p style="text-transform: uppercase">{{this.global_items.do_translation('MOVIES')}}</p>
+                            </ion-col>
+                            <ion-col>
+                                <p (click)="viewAll('attraction')">{{this.global_items.do_translation('View all')}}</p>
+                            </ion-col>
+                        </ion-row>
+
+                        <div style="overflow-x: scroll">
+                            <table style="width: 100%; height: fit-content">
+                                <tr style="width: 100%; height: fit-content;">
+                                    <td *ngFor="let item of attractions.items">
+                                        <ion-card style="width: 150px !important;" class="tourist-card" (click)="moveIn(item.pk_i_id,'tourism','attractions')">
+                                            <img [src]="getImagesPath(item)" (error)="updateImageUrl($event)">
+                                            <ion-card-content>
+                                                <!-- <ion-row>
+                                                    <rating [fontSize]="16" [value]="hasRating(item)" [id]="item.pk_i_id" [type]="ratingType" [disabled]="true"></rating>
+                                                </ion-row>
+                                                <p class="card-main">{{item.title}}</p>
+                                                <table class="card-bottom">
+                                                    <tr>
+                                                        <td>
+                                                            name
+                                                        </td>
+                                                        <td>
+                                                            {{item.new_date}}
+                                                        </td>
+                                                        <td>
+                                                            <span class="ion-md-chatboxes"></span>{{item.commentsCount}}</td>
+                                                    </tr>
+                                                </table> -->
+                                                <ion-grid no-padding>
+                                                    <ion-row>
+                                                        <p class="card-main">{{item.title | removehtmltags}}</p>
+                                                    </ion-row>
+                                                    <ion-row no-padding style="padding-bottom: 5px;
+                                                    padding-top: 5px; text-align: center;">
+                                                        <ion-col col-8 no-padding>
+                                                            <rating [fontSize]="16" [value]="hasRating(item)" [id]="item.pk_i_id" [type]="ratingType" [disabled]="true">
+                                                            </rating>
+                                                        </ion-col>
+                                                        <ion-col col-2 no-padding>
+                                                            <i class="ion-md-chatboxes card_comment_icon"></i>
+                                                        </ion-col>
+                                                        <ion-col col-2 no-padding>
+                                                            <p class="card_comment_count_text">{{item.commentsCount}}</p>
+                                                        </ion-col>
+                                                    </ion-row>
+                                                </ion-grid>
+                                            </ion-card-content>
+                                        </ion-card>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </ion-col>
+                </ion-row>
+                <ion-row no-padding>
+                    <ion-col>
+                        <ion-row no-padding class="heading-row">
+                            <ion-col>
+                                <p>{{this.global_items.do_translation('RESTAURANTS')}}</p>
+                            </ion-col>
+                            <ion-col>
+                                <p (click)="viewAll('restaurant')">{{this.global_items.do_translation('View all')}}</p>
+                            </ion-col>
+                        </ion-row>
+
+                        <div style="overflow-x: scroll">
+                            <table style="width: 100%; height: fit-content;">
+                                <tr style="width: 100%; height: fit-content;">
+                                    <td *ngFor="let item of restaurants.items">
+                                        <ion-card style="width: 150px !important;" class="tourist-card" (click)="moveIn(item.pk_i_id,'tourism','restaurants')">
+                                            <img [src]="getImagesPath(item)" (error)="updateImageUrl($event)">
+                                            <ion-card-content>
+                                                <!-- <ion-row>
+                                                    <rating [fontSize]="16" [value]="hasRating(item)" [id]="item.pk_i_id" [type]="ratingType" [disabled]="true"></rating>
+                                                </ion-row>
+                                                <p class="card-main">{{item.title}}</p>
+                                                <table class="card-bottom">
+                                                    <tr>
+                                                        <td>
+                                                            name
+                                                        </td>
+                                                        <td>
+                                                            {{item.new_date}}
+                                                        </td>
+                                                        <td>
+                                                            <span class="ion-md-chatboxes"></span>{{item.commentsCount}}</td>
+                                                    </tr>
+
+                                                </table> -->
+                                                <ion-grid no-padding>
+                                                    <ion-row>
+                                                        <p class="card-main">{{item.title | removehtmltags}}</p>
+                                                    </ion-row>
+                                                    <ion-row no-padding style="padding-bottom: 5px;
+                                                    padding-top: 5px; text-align: center;">
+                                                        <ion-col col-8 no-padding>
+                                                            <rating [fontSize]="16" [value]="hasRating(item)" [id]="item.pk_i_id" [type]="ratingType" [disabled]="true">
+                                                            </rating>
+                                                        </ion-col>
+                                                        <ion-col col-2 no-padding>
+                                                            <i class="ion-md-chatboxes card_comment_icon"></i>
+                                                        </ion-col>
+                                                        <ion-col col-2 no-padding>
+                                                            <p class="card_comment_count_text">{{item.commentsCount}}</p>
+                                                        </ion-col>
+                                                    </ion-row>
+                                                </ion-grid>
+                                            </ion-card-content>
+                                        </ion-card>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </ion-col>
+                </ion-row>
+                <ion-row no-padding>
+                    <ion-col>
+                        <ion-row no-padding class="heading-row">
+                            <ion-col>
+                                <p>{{this.global_items.do_translation("HOTELS")}}</p>
+                            </ion-col>
+                            <ion-col>
+                                <p (click)="viewAll('hotel')">{{this.global_items.do_translation('View all')}}</p>
+                            </ion-col>
+                        </ion-row>
+
+
+                        <div style="overflow-x: scroll">
+                            <table style="width: 100%; height: fit-content;">
+                                <tr style="width: 100%; height: fit-content;">
+                                    <td *ngFor="let item of hotels.items">
+                                        <ion-card style="width: 150px" class="tourist-card" (click)="moveIn(item.pk_i_id,'tourism','hotels')">
+                                            <img [src]="getImagesPath(item)" (error)="updateImageUrl($event)">
+                                            <ion-card-content>
+                                                <!-- <ion-row>
+                                                    <rating [fontSize]="16" [value]="hasRating(item)" [id]="item.pk_i_id" [type]="ratingType" [disabled]="true"></rating>
+                                                </ion-row>
+                                                <p class="card-main">{{item.title}}</p>
+                                                <table class="card-bottom">
+                                                    <tr>
+                                                        <td>
+                                                            name
+                                                        </td>
+                                                        <td>
+                                                            {{item.new_date}}
+                                                        </td>
+                                                        <td>
+                                                            <span class="ion-md-chatboxes"></span>{{item.commentsCount}}</td>
+                                                    </tr>
+
+                                                </table> -->
+                                                <ion-grid no-padding>
+                                                    <ion-row>
+                                                        <p class="card-main">{{item.title | removehtmltags}}</p>
+                                                    </ion-row>
+                                                    <ion-row no-padding style="padding-bottom: 5px;
+                                                    padding-top: 5px; text-align: center;">
+                                                        <ion-col col-8 no-padding>
+                                                            <rating [fontSize]="16" [value]="hasRating(item)" [id]="item.pk_i_id" [type]="ratingType" [disabled]="true">
+                                                            </rating>
+                                                        </ion-col>
+                                                        <ion-col col-2 no-padding>
+                                                            <i class="ion-md-chatboxes card_comment_icon"></i>
+                                                        </ion-col>
+                                                        <ion-col col-2 no-padding>
+                                                            <p class="card_comment_count_text">{{item.commentsCount}}</p>
+                                                        </ion-col>
+                                                    </ion-row>
+                                                </ion-grid>
+                                            </ion-card-content>
+                                        </ion-card>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+            <ion-col *ngSwitchCase="'advice'">
+                <p class="des-text">{{this.global_items.do_translation('What? When? Where? And how? A place for people to help each other')}}</p>
+                <ion-row>
+                    <ion-col col-12 [ngSwitch]="news.display">
+                        <div *ngSwitchCase="'loading'" class="loader">
+                            <ion-spinner name="bubbles"></ion-spinner>
+                        </div>
+                        <div *ngSwitchCase="'show'" class="forum-card">
+                            <ion-card *ngFor="let item of news.data" (click)="moveIn(item.pk_i_id,'advice')">
+                                <ion-row class="news-card">
+                                    <ion-col col-5>
+                                        <img [src]="getImagesPath(item)" alt="" class="img-responsive">
+                                    </ion-col>
+                                    <ion-col col-7>
+                                        <p class="title" [ngClass]="{'rtl_word_align':this.global_items.App_direction=='rtl'}">{{item.title | removehtmltags}}</p>
+                                        <p class="sub asdfg" [ngClass]="{'rtl_word_align':this.global_items.App_direction=='rtl'}">{{item.description | removehtmltags}}</p>
+                                        <!-- <p class="sub asdfg" [innerHTML]='item.description'></p> -->
+                                        <table>
+                                            <tr>
+                                                <td>{{item.user.s_name}}</td>
+                                                <td>{{item.new_date}}</td>
+                                                <td>
+                                                    <span class="ion-md-chatboxes"></span>{{item.commentsCount}}</td>
+                                            </tr>
+                                        </table>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-card>
+                            <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+                                <ion-infinite-scroll-content></ion-infinite-scroll-content>
+                            </ion-infinite-scroll>
+                        </div>
+                        <div *ngSwitchCase="'empty'">
+                            <p class="empty">{{this.global_items.do_translation('No Items In This Category')}}</p>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+            <ion-col *ngSwitchCase="'muscut'">
+                <p class="des-text">{{this.global_items.do_translation('Are you a foodie? Or found something interesting related to food? Share it here')}}</p>
+                <ion-row>
+                    <ion-col col-12 [ngSwitch]="news.display">
+                        <div *ngSwitchCase="'loading'" class="loader">
+                            <ion-spinner name="bubbles"></ion-spinner>
+                        </div>
+                        <div *ngSwitchCase="'show'" class="forum-card">
+                            <ion-card *ngFor="let item of news.data" (click)="moveIn(item.pk_i_id,'muscat')">
+                                <ion-row class="news-card">
+                                    <ion-col col-5>
+                                        <img [src]="getImagesPath(item)" alt="" class="img-responsive">
+                                    </ion-col>
+                                    <ion-col col-7>
+                                        <p class="title" [ngClass]="{'rtl_word_align':this.global_items.App_direction=='rtl'}">{{item.title | removehtmltags}}</p>
+                                        <p class="sub asdfg" [ngClass]="{'rtl_word_align':this.global_items.App_direction=='rtl'}">{{item.description | removehtmltags}}</p>
+                                        <!-- <p class="sub asdfg" [innerHTML]='item.description'></p> -->
+                                        <table>
+                                            <tr>
+                                                <td>{{item.user.s_name}}</td>
+                                                <td>{{item.new_date}}</td>
+                                                <td>
+                                                    <span class="ion-md-chatboxes"></span>{{item.commentsCount}}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-card>
+                            <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+                                <ion-infinite-scroll-content></ion-infinite-scroll-content>
+                            </ion-infinite-scroll>
+                        </div>
+                        <div *ngSwitchCase="'empty'">
+                            <p class="empty">{{this.global_items.do_translation('No Items In This Category')}}</p>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+            <ion-col *ngSwitchCase="'feeds'">
+                <p class="des-text">{{this.global_items.do_translation('Get answers to your questions and help out other pet lovers')}}</p>
+                <ion-row>
+                    <ion-col col-12 [ngSwitch]="news.display">
+                        <div *ngSwitchCase="'loading'" class="loader">
+                            <ion-spinner name="bubbles"></ion-spinner>
+                        </div>
+                        <div *ngSwitchCase="'show'" class="forum-card">
+                            <ion-card *ngFor="let item of news.data" (click)="moveIn(item.pk_i_id,'feeds')">
+                                <ion-row class="news-card">
+                                    <ion-col col-5>
+                                        <img [src]="getImagesPath(item)" alt="" class="img-responsive">
+                                    </ion-col>
+                                    <ion-col col-7>
+                                        <p class="title" [ngClass]="{'rtl_word_align':this.global_items.App_direction=='rtl'}">{{item.title |removehtmltags}}</p>
+                                        <!-- <p class="sub asdfg" [innerHTML]='item.description'></p> -->
+                                        <p class="sub asdfg" [ngClass]="{'rtl_word_align':this.global_items.App_direction=='rtl'}">{{item.description | removehtmltags}}</p>
+                                        <table>
+                                            <tr>
+                                                <td>{{item.user.s_name}}</td>
+                                                <td>{{item.new_date}}</td>
+                                                <td>
+                                                    <span class="ion-md-chatboxes"></span>{{item.commentsCount}}</td>
+                                            </tr>
+                                        </table>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-card>
+                            <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+                                <ion-infinite-scroll-content></ion-infinite-scroll-content>
+                            </ion-infinite-scroll>
+                        </div>
+                        <div *ngSwitchCase="'empty'">
+                            <p class="empty">{{this.global_items.do_translation('No Items In This Category')}}</p>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+            <ion-col *ngSwitchCase="'relax'">
+                <p class="des-text">{{this.global_items.do_translation('Laugh, smile, share and relax Muscateers')}}!</p>
+                <ion-row>
+                    <ion-col col-12 [ngSwitch]="news.display">
+                        <div *ngSwitchCase="'loading'" class="loader">
+                            <ion-spinner name="bubbles"></ion-spinner>
+                        </div>
+                        <div *ngSwitchCase="'show'" class="forum-card">
+                            <ion-card *ngFor="let item of news.data" (click)="moveIn(item.id,'relax')">
+                                <ion-row class="news-card">
+                                    <ion-col col-5>
+                                        <img [src]="getImagesPath(item)" alt="" class="img-responsive">
+                                    </ion-col>
+                                    <ion-col col-7>
+                                        <p class="title" [ngClass]="{'rtl_word_align':this.global_items.App_direction=='rtl'}">{{item.title |removehtmltags}}</p>
+                                        <p class="sub asdfg" [ngClass]="{'rtl_word_align':this.global_items.App_direction=='rtl'}">{{item.description | removehtmltags}}</p>
+                                        <!-- <p class="sub asdfg" [innerHTML]='item.description'></p> -->
+                                        <table>
+                                            <tr>
+                                                <td>{{item.user.s_name}}</td>
+                                                <td>{{item.new_date}}</td>
+                                                <td>
+                                                    <span class="ion-md-chatboxes"></span>{{item.commentsCount}}</td>
+                                            </tr>
+                                        </table>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-card>
+                            <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+                                <ion-infinite-scroll-content></ion-infinite-scroll-content>
+                            </ion-infinite-scroll>
+                        </div>
+                        <div *ngSwitchCase="'empty'">
+                            <p class="empty">{{this.global_items.do_translation('No Items In This Category')}}</p>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+
+    <!--<button ion-button (click)="backPage()">Forward</button>-->
+</ion-content>

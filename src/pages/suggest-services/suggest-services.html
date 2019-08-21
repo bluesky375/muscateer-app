@@ -1,0 +1,168 @@
+<!--
+  Generated template for the AddEventsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <div class="back-box">
+        <ion-grid no-padding>
+            <ion-row no-padding>
+                <ion-col col-2 (click)="goback()">
+                    <p class="main icon-back"></p>
+                </ion-col>
+                <ion-col col-8>
+                    <p [ngClass]="{'headstyle':this.globalItems.App_direction=='rtl'}">{{this.globalItems.do_translation('SUGGEST SERVICE')}}</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+    </div>
+</ion-header>
+
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-12>
+                <form class="reg-form" [formGroup]="form">
+                    <div class="form-group">
+
+                        <div class="reg-box">
+                            <div class="image-upload">
+                                <multiple-image (onupload)="handleImageChange($event)"></multiple-image>
+                            </div>
+                            <p>
+                                {{this.globalItems.do_translation('Title')}}
+                            </p>
+                            <ion-item>
+                                <ion-input placeholder="{{this.globalItems.do_translation('Title')}}" formControlName="title"></ion-input>
+
+                            </ion-item> <small *ngIf="isTouchedAndInvalid('title')" class="text-custom-red">* {{this.globalItems.do_translation('Required')}}</small>
+                        </div>
+                        <div class="reg-box">
+                            <p>{{this.globalItems.do_translation('Category')}} <span class="error" *ngIf="!category_id" danger> *</span></p>
+                            <ion-item class="outline">
+                                <!-- <ion-label>{{this.globalItems.do_translation('Choose Category')}}</ion-label> -->
+                                <ion-select okText="{{globalItems.do_translation('OK')}}" cancelText="{{globalItems.do_translation('CANCEL')}}" (ionChange)="choose_categories($event)" name="category" multiple="true" placeholder="{{this.globalItems.do_translation('Choose Category')}}">
+                                    <ion-option *ngFor="let category of categories_json_list['data']" [value]="category.pk_i_id">
+                                        {{category.name}}
+                                    </ion-option>
+                                </ion-select>
+                            </ion-item>
+
+                        </div>
+                        <div class="reg-box">
+                            <p>
+                                {{this.globalItems.do_translation('Email')}}
+                            </p>
+                            <ion-item>
+                                <ion-input type="email" placeholder="{{this.globalItems.do_translation('Email')}}" formControlName="email"></ion-input>
+                            </ion-item>
+                        </div>
+
+                        <div class="reg-box">
+                            <p>
+                                {{this.globalItems.do_translation('Mobile number')}}
+                            </p>
+                            <ion-item>
+                                <ion-input type="number" placeholder="{{this.globalItems.do_translation('Mobile number')}}" formControlName="phone"></ion-input>
+                            </ion-item>
+                        </div>
+                        <!-- <div class="reg-box">
+                            <p>
+                                {{this.globalItems.do_translation('Alternate Mobile No')}}
+                            </p>
+                            <ion-item>
+                                <ion-input placeholder="{{this.globalItems.do_translation('Alternate Mobile No.')}}" formControlName="alternate_mobile_no"></ion-input>
+                            </ion-item>
+                        </div> -->
+
+                        <div class="reg-box">
+                            <p>
+                                {{this.globalItems.do_translation('Website')}}
+                            </p>
+                            <ion-item>
+                                <ion-input placeholder="{{this.globalItems.do_translation('Website')}}" formControlName="website"></ion-input>
+                            </ion-item>
+                        </div>
+                        <div class="reg-box">
+                            <p>
+                                {{this.globalItems.do_translation('Facebook url')}}
+                            </p>
+                            <ion-item>
+                                <ion-input placeholder="{{this.globalItems.do_translation('Facebook url')}}" formControlName="facebook"></ion-input>
+                            </ion-item>
+                        </div>
+                        <div class="reg-box">
+                            <p>
+                                {{this.globalItems.do_translation('Twitter url')}}
+                            </p>
+                            <ion-item>
+                                <ion-input placeholder="{{this.globalItems.do_translation('Twitter url')}}" formControlName="twitter"></ion-input>
+                            </ion-item>
+                        </div>
+                        <div class="reg-box">
+                            <p>
+                                {{this.globalItems.do_translation('Instagram url')}}
+                            </p>
+                            <ion-item>
+                                <ion-input placeholder="{{this.globalItems.do_translation('Instagram url')}}" formControlName="instagram"></ion-input>
+                            </ion-item>
+                        </div>
+                        <!-- <div class="reg-box">
+                            <p>
+                                {{this.globalItems.do_translation('Location')}}
+                            </p>
+                            <ng4geo-autocomplete [userSettings]="userSettings" (componentCallback)="autoCompleteCallback1($event)"></ng4geo-autocomplete>
+                        </div> -->
+                        <div class="reg-box">
+                            <p>
+                                {{this.globalItems.do_translation('Description')}}
+                            </p>
+                            <ion-item>
+                                <ion-textarea placeholder="{{this.globalItems.do_translation('Description')}}" formControlName="description"></ion-textarea>
+
+                            </ion-item> <small *ngIf="isTouchedAndInvalid('description')" class="text-custom-red">* {{this.globalItems.do_translation('Required')}}</small>
+                        </div>
+                        <div class="reg-box">
+                            <p>
+                                {{this.globalItems.do_translation('Address')}}
+                            </p>
+                            <ion-item>
+                                <ion-textarea placeholder="{{this.globalItems.do_translation('Address')}}" formControlName="contact_info"></ion-textarea>
+
+                            </ion-item>
+                        </div>
+
+
+
+                        <p>
+                            {{this.globalItems.do_translation('Location')}}
+                        </p>
+                        <ng4geo-autocomplete [userSettings]="userSettings" (componentCallback)="autoCompleteCallback1($event)"></ng4geo-autocomplete>
+
+
+
+                        <div>
+                            <ion-item style="background: transparent;padding-top: 10px">
+                                <ion-checkbox (ionChange)="isAccepted($event)"></ion-checkbox>
+                                <ion-label *ngIf="this.globalItems.App_direction=='ltr'">I accept all <span style="color: #22b573" (click)="goTO_terms()">terms & conditions</span></ion-label>
+                                <ion-label *ngIf="this.globalItems.App_direction=='rtl'" style="color: #22b573" (click)="goTO_terms()">{{this.globalItems.do_translation('I accept all terms & conditions')}}</ion-label>
+                            </ion-item>
+                        </div>
+
+                        <!-- <div *ngIf="errors.length > 0" class="text-custom-red">
+                            <strong>Validation Error</strong>
+                            <p *ngFor="let error of errors">{{error.message}}</p>
+                            <p>Something Went Wrong.</p>
+                        </div> -->
+                        <button ion-button class="reg-btn" (click)="postItem(form.value)" [disabled]=disabled>{{this.globalItems.do_translation('POST')}}</button>
+                    </div>
+                </form>
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>

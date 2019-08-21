@@ -1,0 +1,17 @@
+page-event-today {
+    .sub {
+        height: 45px !important;
+        margin: 0 auto !important;
+        -webkit-line-clamp: 3 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        color: #808080 !important;
+        font-weight: 300;
+        font-size: 14px !important;
+        text-align: left;
+    }
+    .rtl_text_style {
+        text-align: right !important;
+    }
+}

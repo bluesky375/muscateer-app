@@ -1,0 +1,15 @@
+<ul class="list-inline multiple-img">
+    <li *ngFor="let image of imagesArray; let i=index" [ngClass]="{'up-error':isError(i)}">
+        <span class="ion-md-camera"></span>
+        <input type="file" (change)="getImage(i,$event)" accept="image/jpeg" class="file-input">
+        <img *ngIf="isImagePresent(i)" [src]="isImagePresent(i)" alt="Uploaded Image here" class="img-responsive ">
+        <span (click)="clearImage(i)" class="ion-md-close close"></span>
+        <span *ngIf="isUploading(i)" style="padding: 30px;    background: aliceblue;">
+          <div class="loader"></div>
+        </span>
+
+    </li>
+    <li>
+        <span (click)="addMore()" class="material-icons pointer ion-md-add add-more"></span>
+    </li>
+</ul>

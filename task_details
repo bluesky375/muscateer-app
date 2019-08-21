@@ -1,0 +1,205 @@
+start date :- 14-01-2019
+
+1:-forgot password
+2:-autocomplete location
+	*register {check box agrement}
+	*suggest restaurant
+	*suggest Hotels
+	*post and edit classifieds
+	*post and event classifieds
+3:-unauth user restriction
+4:-image loader
+5:-events bug fixed
+6:-saved and favourite bug fixed
+7:- contact us
+8:- about us content changed
+10:-comment issue fixed -(multiple post)
+11:-copy paste issue
+12:- map hotel,restaurants,events
+13:- calander
+14:- App preview slide for the initial launch
+15:- Otp resend option added
+16:- verified-users
+17:- [wp] set of avatars (location,image)
+18:- force update
+19:- pdf download and show alert done
+20:-call button issue fixed
+21:-html tags issue removed with use pipe
+22:-search issue fixed
+23:-logout issue fixed
+24:-register page field changed
+25:-verified user comments. -ribbon
+26:-forum,classifieds,events Disclaimer added
+27:-pull to refresh fixed
+28:-ios pdf download failed then open to external
+29:-Need an option to choose from default set of avatars under profile settings. Similar to what’s on website.
+30:-Highlight comments by verified users with a ribbon against their profile picture. (13)
+31:-call button issue,multiple click disable and alignment
+32:-regional location remove
+33:-verified users ,remove phone, gmail number
+34:-add badge for verified user, in inner pages and comments
+35:- add show on map option in classified, events ,forum ,hotel ,restaurants, 
+36:-otp resen show alert.
+37:-declaimer on every comment section
+38:-social media verified users, only show if have values
+39:-hotel to top hotels restaurants too
+40:-logout issue,
+41:ios pdf download issue-->view on browser
+42:-html problem
+43:-profile update
+44:verified users show more
+45:-Language -arabic [wp]
+46:- restaurants, hotle form edited
+47:- 404 page api
+48:-skip button change style,
+49:- classifieds,job add image --> style change to like forum
+50:- remove venue from classifieds and jobs
+51:-share button sharing title, not the link
+52- html tag issue on title {home-classifieds-promotions, comments}
+53:- pdf open instead of download >>view broucher
+54:- job post new https://docs.google.com/document/d/1140yZtoaRfdyocyf2kQOuMngFyf2mQL-apr8q4AgB3k/edit
+55: inner pages--> verified users badge and name [is_verified_user=1]
+56:-innerpages views [http://development.muscateer.om/en]
+57:-app language selection navigation drawer
+58:-change movie icon
+59:-legal_url ar/ en
+60:edit delete ar css
+61:-Added filter hotel,todo, restaurants already did
+62:-post hotels,todo form edited
+63:-added dedicated tab for promotion
+64:-promotion categories filter > category list added,
+65:-added events filter option
+wp
+
+//1:-Need an option to choose from default set of avatars under profile settings. Similar to what’s on website. [working now]
+
+//2:-Highlight comments by verified users with a ribbon against their profile picture. (13)
+
+3:-Threaded comments. So that people can reply to individual comments. Similar to what can be seen on facebook.
+
+//4:-pdf download specific folder show downloading on dialogue box
+//5:-call button issue,multiple click disable and alignment
+
+6:-fix bug when edit posted sections [bug]
+
+//7:-distance between current position and shop location,
+
+//8:-html tag remove
+
+//9:-regional location remove
+
+//10:-verified users ,remove phone, gmail number
+
+//11:-increase skip touch area
+//12:- hide distance (7 th point)
+//13:- add badge for verified user, in inner pages and comments
+//14:- add show on map option in classified, events ,forum ,hotel ,restaurants, 
+// 15:-otp resen show alert.
+
+//16:-declaimer on every comment section
+//17:-social media verified users, only show if have values
+//18:-hotel to top hotels restaurants too
+//19:-logout issue,
+//20:ios pdf download issue-->view on browser
+//21:-html problem
+//22:-profile update
+//23:verified users show more
+//24:-event save- working but not properly
+//25 :-Language -arabic [wp]
+//26:- restaurants, hotle form edited
+//27:- 404 page api
+//28:-skip button change style,
+//29:- classifieds,job add image --> style change to like forum
+//30:- remove venue from classifieds and jobs
+//31:-share button sharing title, not the link
+//32- html tag issue on title {home-classifieds-promotions, comments}
+//33:- pdf open instead of download >>view broucher
+//34:- job post new https://docs.google.com/document/d/1140yZtoaRfdyocyf2kQOuMngFyf2mQL-apr8q4AgB3k/edit
+//35: inner pages--> verified users badge and name [is_verified_user=1]
+//36:-innerpages views [http://development.muscateer.om/en]
+//37:-app language selection navigation drawer
+//38:-change movie icon
+//39:-legal_url ar/ en
+//40:edit delete ar css
+
+//41:-add events categories list and filter option
+//42:-add event post with category option
+
+
+//43:-show tabs every page
+//44:-job available job wanted inner pages
+//45:-service suggest like hotel
+//46:- rating style changed
+47:-comment report option all inner pages [bug]
+//48:-Recommendation-show home reviews and recommendation instead of promotion
+//49:add banner like notification
+//50:change global search >> placeholder changed wp on api
+51:- check report and share every page [bug], style
+//52:- pdf upload
+//53:-todo suggest  l location
+//54:change suggest option from inner pages to listing page
+55:-show all fields in job detail pages
+//56:-browse popular categories option job inner page
+//57:-add start and end date on events
+//58:-navigation drawer 'change language' option to arabic / english //opposite of app language
+//59:-change location [olx] ==> wp api
+60:-notification under bell icon (isreaded)?
+//61:-in classified add show popup ask make premium?  
+//62:remove tab name
+//63:-home page double loader
+//64:-filter every get with location done [wp] when user update location //should update on api
+//65:-notification inner page add all inner pages
+
+
+
+jhone doe 93841235 > pass@123
+natasha 93841236 > 123456
+
+24-03-2019 > 10 hr
+25-03-2019 > 3 hr
+27-03-2019 > 3 hr
+01-04-2019 > 5 hr
+02-04-2019 > 3 hr
+03-04-2019 > 3 hr
+09-04-2019 > 3 hr
+10-04-2019 > 4 hr
+11-04-2019 > 4 hr 
+23-04-2019 > 2 hr
+27-04-2019 > 5:30 hr
+
+//new
+fire base error >> replace cordova.system.library.3=com.google.firebase:firebase-core:16.0.8
+cordova.system.library.4=com.google.firebase:firebase-messaging:17.5.0;
+
+
+pending
+[done] 1: timeline section check on arabic
+2: movie > ticket booking
+[done] 3: comment >like,dislike, reply
+[done] 4: timeline api calling
+[done] 5: Multiple image slide option not available for recommendations listings.
+[done] 6: call button added to services inner page
+[done] 7: Services sub categories are not displayed. Show its sub-category when a primary category is selected. Also show an option to go back to primary category list.
+[done] 8: No pull down to reload function for recommendations (hotels, restaurants, etc)
+[done] 9: Add Event start and End Date in app.
+[done] 10: forum posted on date changed to current date.
+
+[done] 11 : tab services loading,scrolling,no item found issues
+[done] 12 : show total rating in forum-tourism categories and services inner page.
+[done] 13 : check also live build
+[done] 14 : post review in services inner page 
+[done] 15 : normal comment section post id to eid
+[done] 16 : review comment delete option added
+
+platforms->android-->project.properties
+15-05-2019 > 3 hr
+16-05-2019 > 11 hr
+17-05-2019 > 9 hr
+18-05-2019 > 3 hr
+19-05-2019 > 5hr
+20-05-2019 > 1 hr
+21-05-2019 > 5 hr
+23-05-2019 > 1/2 hr
+24-05-2019 > 1/2 hr
+25-05-2019 > 8 1/2 hr
+26-05-2019 > 2 hr

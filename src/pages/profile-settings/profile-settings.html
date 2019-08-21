@@ -1,0 +1,181 @@
+<!--
+  Generated template for the ProfileSettingsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-header>
+    <div class="back-box">
+        <ion-grid no-padding>
+            <ion-row no-padding>
+                <ion-col col-2 (click)="goback()">
+                    <p class="main icon-back"></p>
+                </ion-col>
+                <ion-col col-10>
+                    <!--<p>Back</p>-->
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+    </div>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+        <ion-row class="account-setting">
+            <ion-col col-12>
+                <p class="main-text">{{this.global_items.do_translation('Profile Settings')}} </p>
+                <p class="green-text">{{this.global_items.do_translation('Choose Profile Image')}}</p>
+                <ion-row style="text-align: center">
+                    <ion-col col-12 *ngIf="user.type=='2'">
+                        <img style="width: 50% !important" *ngIf="imageExists()" [src]="imageExists()" alt="" class="mb-10 img-responsive w-100">
+                        <ion-spinner icon="android" *ngIf="isUploading()"></ion-spinner>
+                    </ion-col>
+                    <ion-col col-12 *ngIf="user.type=='1'">
+                        <img style="width: 50% !important" src="{{avatar_image_path}}" alt="" class="mb-10 img-responsive w-100">
+                        <!-- <ion-spinner icon="android" *ngIf="isUploading()"></ion-spinner> -->
+                    </ion-col>
+                    <!-- <ion-col col-12 *ngIf="user.type=='0'">
+                        <img style="width: 50% !important" src="assets/images/photo-camera-cross.png" alt="" class="mb-10 img-responsive w-100">
+                    </ion-col> -->
+                </ion-row>
+
+
+                <ion-row>
+                    <ion-col col-6 text-center>
+                        <input (change)="getImage($event)" type="file" accept="image/jpeg" class="file-input">
+                        <button class="update-btn file-btn">{{this.global_items.do_translation('Upload')}}</button>
+                    </ion-col>
+                    <ion-col col-6 text-center>
+                        <button class="update-btn file-btn" (click)="setAvatar()">{{this.global_items.do_translation('Set Avatar')}}</button>
+                    </ion-col>
+
+                    <!-- <ion-col col-4 text-center>
+                        <button class="update-btn file-btn" (click)="remove_profile_pic()">Remove</button>
+                    </ion-col> -->
+                </ion-row>
+            </ion-col>
+            <ion-col col-12>
+                <p class="border-btm green-text">{{this.global_items.do_translation('General')}}</p>
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <div class="reg-box">
+                            <p>
+                                {{this.global_items.do_translation('Name')}}
+                            </p>
+                            <ion-input type="text" formControlName="name" placeholder="{{user.name}}"></ion-input>
+                            <small *ngIf="isTouchInvalid('name')" class="text-custom-red">
+                        * {{this.global_items.do_translation('Required')}}
+                        </small>
+
+                        </div>
+
+                        <div class="reg-box">
+                            <p>
+                                {{this.global_items.do_translation('Email')}}
+                            </p>
+                            <h6>{{user.email}}</h6>
+                            <!--<small *ngIf="isvalid('name')" class="text-custom-red">-->
+                            <!--* Vaild email-->
+                            <!--</small>-->
+                        </div>
+                        <div class="reg-box">
+                            <p>
+                                {{this.global_items.do_translation('Phone No')}}
+                            </p>
+                            <h6>
+                                {{user.phone}}
+                            </h6>
+                            <!--<small *ngIf="isvalid('name')" class="text-custom-red">-->
+                            <!--* Vaild email-->
+                            <!--</small>-->
+                        </div>
+
+                        <div class="reg-box">
+                            <p>
+                                {{this.global_items.do_translation('About')}}
+                            </p>
+                            <ion-textarea type="text" formControlName="about" placeholder="{{user.about}}"></ion-textarea>
+                            <small *ngIf="isTouchInvalid('name')" class="text-custom-red">
+                        <!-- * Vaild email -->
+                        </small>
+                        </div>
+
+
+                        <!-- <div class="reg-box" *ngIf="user.location!=null||user.location!=undefined||user.location!=''" >
+                          <p>Location</p>
+                          <ion-input type="text" formControlName="location" placeholder="{{user.location}}"></ion-input>
+                        </div> -->
+
+
+                        <!-- <div style="margin-bottom: 10px">
+                            <p>Location</p>
+                            <ng4geo-autocomplete [userSettings]="userSettings" (componentCallback)="autoCompleteCallback1($event)"></ng4geo-autocomplete>
+                        </div> -->
+
+                        <div>
+                            <p>{{this.global_items.do_translation('Website')}}</p>
+                            <ion-input type="text" formControlName="website" placeholder="{{user.website}}"></ion-input>
+                        </div>
+                        <div>
+                            <p>{{this.global_items.do_translation('Facebook')}}</p>
+                            <ion-input type="text" formControlName="facebook" placeholder="{{user.facebook}}"></ion-input>
+                        </div>
+                        <div>
+                            <p>{{this.global_items.do_translation('Instagram')}}</p>
+                            <ion-input type="text" formControlName="instagram" placeholder="{{user.instagram}}"></ion-input>
+                        </div>
+                        <div>
+                            <p>{{this.global_items.do_translation('Twitter')}}</p>
+                            <ion-input type="text" formControlName="twitter" placeholder="{{user.twitter}}"></ion-input>
+                        </div>
+
+                        <!-- <div class="reg-box">
+                            <p>
+                                Region
+                            </p>
+                            <ion-select placeholder="Choose Region" formControlName="region">
+                                <ion-option class="region-alert" selected="{{isSelected(region.pk_i_id)}}" *ngFor="let region of user.regions" value="{{region.pk_i_id}}">{{region.s_name}}
+                                </ion-option>
+                            </ion-select>
+                        </div> -->
+                    </div>
+                    <ion-row>
+                        <ion-col col-12 text-right>
+                            <div class="btn-wrapper m-t-10">
+                                <button class="update-btn">{{this.global_items.do_translation('Update')}}</button>
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </form>
+            </ion-col>
+            <ion-col col-12>
+                <p class="green-text border-btm">{{this.global_items.do_translation('Change Password')}}</p>
+
+                <ion-row>
+                    <ion-col col-12 text-right>
+                        <div class="btn-wrapper m-t-10">
+                            <button class="update-btn" (click)="presentModal()">{{this.global_items.do_translation('Update Password')}}</button>
+                        </div>
+                    </ion-col>
+                </ion-row>
+
+            </ion-col>
+
+
+            <!--<div class="reg-box">-->
+            <!--<p>-->
+            <!--Choose Profile Image-->
+            <!--</p>-->
+            <!--<ion-input placeholder="sdsdsd"></ion-input>-->
+            <!--</div>-->
+
+            <div *ngIf="errors.length > 0" class="text-custom-red m-t-10">
+                <strong>{{this.global_items.do_translation('Validation Error')}}</strong>
+                <p *ngFor="let error of errors">{{error.message}}</p>
+                <p>{{this.global_items.do_translation('Something Went Wrong')}}.</p>
+            </div>
+        </ion-row>
+    </ion-grid>
+</ion-content>

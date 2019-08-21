@@ -1,0 +1,22 @@
+page-tab-job-jobinner {
+    .more_details_visibility_hidden {
+        display: none;
+    }
+    .more_details_page_visibility_show {
+        display: block;
+    }
+    .more_details_theme {
+        border-bottom: 1px solid #e6e6e6;
+        color: #424242;
+        padding-bottom: 10px;
+    }
+    .loaded_more_details_theme {
+        color: #22b573;
+        margin-left: 5px;
+    }
+}
+
+[dir=rtl] page-tab-job-jobinner .list-inline {
+    padding-left: 0px;
+    padding-right: 5px;
+}

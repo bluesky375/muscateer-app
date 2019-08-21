@@ -1,0 +1,32 @@
+        page-events-upcoming {
+            .sub {
+                height: 45px !important;
+                margin: 0 auto !important;
+                -webkit-line-clamp: 3 !important;
+                -webkit-box-orient: vertical !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+                color: #808080 !important;
+                font-weight: 300;
+                font-size: 14px !important;
+                text-align: left;
+            }
+            .rtl_text_style {
+                text-align: right !important;
+            }
+            .selected_category_item {
+                background: white;
+                // border: 1px solid #ccc;
+                border-radius: 6px;
+                color: #5a4f4f;
+                text-transform: none;
+            }
+            .not_selected_category_item {
+                color: #5a4f4f;
+                // background: #f3f3f3;
+                background: #eaeaea;
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                text-transform: none;
+            }
+        }

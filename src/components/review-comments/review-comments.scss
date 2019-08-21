@@ -1,0 +1,53 @@
+review-comments {
+    p {
+        margin: 3px !important
+    }
+    ion-row {
+        width: 100% !important
+    }
+    .user_name_style {
+        text-align: center;
+        font-weight: bold;
+        color: #22b573;
+    }
+    img {
+        border: 1px solid #e4e4e4;
+        border-radius: 50%;
+    }
+    ion-textarea {
+        background: #eee;
+        border-radius: 10px 10px 10px 10px;
+    }
+    button {
+        font-size: 1.3em !important;
+        ion-badge {
+            // background: transparent;
+            // color: #22b573;
+            position: absolute;
+            top: -0.2rem;
+            right: -0.2rem;
+            opacity: 0.9;
+            &~ion-icon {
+                margin-right: 1.2rem;
+            }
+        }
+    }
+    .border_bottom {
+        border-bottom: 1px solid #cecece;
+        width: 100% !important
+    }
+    .new_user_icon_badge {
+        position: absolute;
+        top: 0;
+        /* right: 0px; */
+        left: 80%;
+        color: #22b573;
+        font-size: 1.5em;
+    }
+    .review_text {
+        background: #eee;
+        padding: 10px 5px;
+        border-radius: 10px 10px 10px 10px;
+        margin: 5px;
+    }
+}

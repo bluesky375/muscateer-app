@@ -1,0 +1,73 @@
+<ion-header class="main_header_shadow">
+    <ion-navbar>
+        <ion-grid style="width: 100%">
+            <ion-row no-padding style="direction: ltr">
+                <ion-col no-padding col-2>
+                    <button ion-button menuToggle class="toggle_style">
+                                <ion-icon name="menu"></ion-icon>
+                        </button>
+                </ion-col>
+                <ion-col class="disp-block" no-padding col-5>
+                    <img src="assets/images/Logo-2.png">
+                </ion-col>
+                <ion-col class="disp-block" no-padding col-2 text-center no-padding col-1 text-center>
+                    <ion-icon style="font-size: 25px;text-align: center" ios="ios-notifications-outline" md="ios-notifications-outline" (click)="moveToFav()"></ion-icon>
+                </ion-col>
+
+
+                <ion-col class="disp-block" no-padding col-1 text-center>
+                    <span (click)="toggleIcon()" class="icon-search h-font"></span>
+                </ion-col>
+                <ion-col class="disp-block" no-padding col-2 text-center (click)="moveToProfile()">
+                    <span class="icon-user-1 h-font"></span>
+                </ion-col>
+            </ion-row>
+            <ion-row no-padding style="width: 100%" *ngIf="toggle==true">
+                <ion-col col-12 no-padding>
+                    <!-- <ion-searchbar [(ngModel)]="myInput" [showCancelButton]="true" (ionCancel)="toggleIcon()" (keyup.enter)="search()" placeholder="{{this.global_items.do_translation(this.global_items.App_global_search_placeholder)}}">
+                    </ion-searchbar> -->
+
+                    <ion-searchbar [(ngModel)]="global_items.App_global_search_input" [showCancelButton]="false" (ionCancel)="toggleIcon()" (keyup.enter)="do_search(global_items.App_global_search_input)" placeholder="{{this.global_items.do_translation(this.global_items.App_global_search_placeholder)}}">
+                    </ion-searchbar>
+                </ion-col>
+            </ion-row>
+
+            <!-- UpdateLocation start -->
+            <ion-row>
+                <ion-col col-6 style="color:#22b573;" [ngClass]="{'ltr_text_align':global_items.App_direction=='ltr','rtl_text_align':global_items.App_direction=='rtl'}">
+                    <p style="font-size: 1.2em" no-margin>
+                        {{this.global_items.do_translation(this.global_items.App_global_tab_head)}}
+
+                    </p>
+                </ion-col>
+                <ion-col col-6 style="color:#22b573" (click)="update_location()" [ngClass]="{'ltr_text_align':global_items.App_direction=='rtl','rtl_text_align':global_items.App_direction=='ltr'}">
+                    <ion-icon md="md-pin" ios="md-pin" style="display: inline-block;
+                    width: 100%;
+                    white-space: nowrap;
+                    margin: auto;
+                    overflow: hidden !important;
+                    text-overflow: ellipsis;" no-margin> <span>{{global_items.do_translation(global_items.App_global_location)}}</span></ion-icon>
+                </ion-col>
+            </ion-row>
+            <!-- update location end -->
+        </ion-grid>
+    </ion-navbar>
+</ion-header>
+
+<ion-content #contentRef>
+
+    <ion-tabs tabsPlacement='bottom'>
+        <ion-tab [root]="tab1Root" tabIcon="ios-paper" (ionSelect)="tabSelected($event)"></ion-tab>
+        <ion-tab [root]="tab2Root" tabIcon="md-contacts" (ionSelect)="tabSelected($event)"></ion-tab>
+        <ion-tab [root]="tab3Root" tabIcon="ios-calendar" (ionSelect)="tabSelected($event)"></ion-tab>
+        <ion-tab [root]="tab4Root" tabIcon="ios-megaphone" (ionSelect)="tabSelected($event)"></ion-tab>
+        <ion-tab [root]="tab5Root" tabIcon="ios-construct" (ionSelect)="tabSelected($event)"></ion-tab>
+        <ion-tab [root]="tab6Root" tabIcon="ios-briefcase" (ionSelect)="tabSelected($event)"></ion-tab>
+    </ion-tabs>
+
+    <ion-fab bottom right edge id="fab">
+        <button (click)="postAdd()" ion-fab style="bottom:0px;">
+          <ion-icon style="font-size:28px;" name="add"></ion-icon>
+        </button>
+    </ion-fab>
+</ion-content>

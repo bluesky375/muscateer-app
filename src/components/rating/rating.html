@@ -1,0 +1,12 @@
+<ul class="list-inline rating" id="rating" [ngStyle]="{'font-size.px': fontSize}" >
+  <li *ngFor="let star of _rating;let i=index;"
+      (click)="ratingClick(i)"
+      [ngStyle]="disabled && {'cursor':'default'}">
+    <i [ngClass]="{'make-yellow': i<=hoverValue}"
+       class="ion-md-star">
+    </i>
+  </li>
+  <!--<li *ngIf="total">-->
+  <!--<span >({{total}})</span>-->
+  <!--</li>-->
+</ul>

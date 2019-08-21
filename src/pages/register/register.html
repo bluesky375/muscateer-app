@@ -1,0 +1,127 @@
+<!--
+  Generated template for the RegisterPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-header>
+    <div class="back-box">
+        <ion-grid no-padding>
+            <ion-row no-padding>
+                <ion-col col-2 text-center (click)="goback()">
+                    <p class="main icon-back"></p>
+                </ion-col>
+                <ion-col col-10>
+                    <!--<p>Back</p>-->
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+    </div>
+</ion-header>
+
+<ion-content padding>
+    <form class="reg-form" [formGroup]="form" (ngSubmit)="postItem(form.value)">
+        <p class="main">{{this.global_items.do_translation('Please fill in this form to create an account')}}!</p>
+        <div class="form-group">
+            <div class="reg-box">
+                <p>
+                    {{this.global_items.do_translation('Name')}}
+                </p>
+                <ion-item>
+                    <ion-input formControlName="name" placeholder="{{this.global_items.do_translation('Full name')}}"></ion-input>
+                </ion-item>
+                <small *ngIf="isvalid('name')" class="text-custom-red">
+        * {{this.global_items.do_translation('Required')}}
+      </small>
+
+            </div>
+
+            <div class="reg-box">
+                <p>
+                    {{this.global_items.do_translation('Email')}}
+                </p>
+                <ion-item>
+                    <ion-input type="email" formControlName="email" placeholder="jhon@xyz.com"></ion-input>
+                </ion-item> <small *ngIf="isvalid('name')" class="text-custom-red">
+              * Vaild email
+          </small>
+            </div>
+
+            <div class="reg-box">
+                <p>
+                    {{this.global_items.do_translation('Password')}}
+                </p>
+                <ion-item>
+                    <ion-input type="password" formControlName="password" placeholder="{{this.global_items.do_translation('Password')}}"></ion-input>
+
+                </ion-item> <small *ngIf="isvalid('name')" class="text-custom-red">
+          * {{this.global_items.do_translation('Required')}}
+        </small>
+            </div>
+
+            <div class="reg-box">
+                <p>
+                    {{this.global_items.do_translation('Confirm Password')}}
+                </p>
+                <ion-item>
+                    <ion-input type="password" formControlName="password_confirmation" placeholder="{{this.global_items.do_translation('Confirm Password')}}"></ion-input>
+
+                </ion-item> <small *ngIf="pass_miss" class="text-custom-red">
+          * {{this.global_items.do_translation('password mismatched')}}
+        </small>
+            </div>
+
+            <div class="reg-box">
+                <p>
+                    {{this.global_items.do_translation('Mobile no(oman)')}}
+                </p>
+                <ion-item>
+                    <ion-input type="tel" formControlName="number" placeholder="93841234"></ion-input>
+
+                </ion-item>
+            </div>
+
+            <!-- <div class="reg-box">
+                <p>
+                    Region
+                </p>
+                <ion-select placeholder="Choose Region" formControlName="region_id">
+                    <ion-option class="region-alert" *ngFor="let reg of region.data" [value]="reg.pk_i_id">{{ reg.s_name }}</ion-option>
+                </ion-select>
+            </div> -->
+
+
+            <div class="reg-box">
+                <p>
+                    {{this.global_items.do_translation('Location')}}
+                </p>
+                <ng4geo-autocomplete [userSettings]="userSettings" (componentCallback)="autoCompleteCallback1($event)"></ng4geo-autocomplete>
+            </div>
+            <div>
+                <ion-item style="background: transparent;padding-top: 10px">
+                    <ion-checkbox (ionChange)="isAccepted($event)"></ion-checkbox>
+                    <ion-label *ngIf="this.global_items.App_direction=='ltr'">I accept all <span style="color: #22b573" (click)="goTO_terms()">terms & conditions</span></ion-label>
+                    <ion-label *ngIf="this.global_items.App_direction=='rtl'" style="color: #22b573" (click)="goTO_terms()">{{this.global_items.do_translation('I accept all terms & conditions')}}</ion-label>
+                </ion-item>
+            </div>
+
+            <!--<div class="reg-box">-->
+            <!--<p>-->
+            <!--Choose Profile Image-->
+            <!--</p>-->
+            <!--<ion-input placeholder="sdsdsd"></ion-input>-->
+            <!--</div>-->
+
+            <div *ngIf="errors.length > 0" class="text-custom-red">
+                <!-- <strong>Validation Error</strong> -->
+                <p *ngFor="let error of errors">{{error.message}}</p>
+                <!-- <p>Something Went Wrong.</p> -->
+            </div>
+
+            <button ion-button class="reg-btn" type="submit" [disabled]="form.invalid ||  loading">Register</button>
+            <!-- <button ion-button class="reg-btn" (click)="postItem_()">go</button> -->
+        </div>
+    </form>
+</ion-content>

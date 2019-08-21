@@ -1,0 +1,7 @@
+{
+  "name": "omasouqApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

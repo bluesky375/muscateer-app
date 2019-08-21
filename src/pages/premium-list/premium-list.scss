@@ -1,0 +1,36 @@
+page-premium-list {
+    .checkmark_style {
+        font-size: 2.5em;
+        margin: 0px;
+        padding: 0px;
+        text-align: center;
+        color: #22b573;
+    }
+    .item-inner {
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+    }
+    .ion-item_style {
+        background: transparent;
+        margin: auto !important;
+        width: fit-content !important;
+    }
+    .p_style {
+        font-size: 1em;
+        color: #22b573;
+    }
+    .premium_title {
+        text-align: center;
+        font-size: 1.5em;
+        margin: 10px !important;
+        font-weight: bold;
+        color: #4c4c4c;
+    }
+    .card_style {
+        margin: 5px 10px !important;
+        padding: 5px 10px !important;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+        border-radius: 10px;
+    }
+}

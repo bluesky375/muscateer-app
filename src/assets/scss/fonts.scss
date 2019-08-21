@@ -1,0 +1,173 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "omasouq-app";
+  src: url("../assets/fonts/omasouq-app.eot");
+  src: url("../assets/fonts/omasouq-app.eot?#iefix") format("embedded-opentype"), url("../assets/fonts/omasouq-app.woff") format("woff"), url("../assets/fonts/omasouq-app.ttf") format("truetype"), url("../assets/fonts/omasouq-app.svg#omasouq-app") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+// [data-icon]:before {
+//   font-family: "omasouq-app" !important;
+//   content: attr(data-icon);
+//   font-style: normal !important;
+//   font-weight: normal !important;
+//   font-variant: normal !important;
+//   text-transform: none !important;
+//   speak: none;
+//   line-height: 1;
+//   -webkit-font-smoothing: antialiased;
+//   -moz-osx-font-smoothing: grayscale;
+// }
+
+// [class*=" icon-"]:before,
+// [class^="icon-"]:before {
+//
+// }
+
+@mixin makeIcon($arg, $val) {
+  .icon-#{$arg}:before,
+  // .ion-ios-icon-#{$arg}:before,
+  // .ion-md-icon-#{$arg}:before
+  {
+    content: $val;
+    font-family: "omasouq-app" !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@include makeIcon(automobile ,'\61');
+ .icon-automobile:before {
+  content: "\61";
+}
+@include makeIcon(electronics-gadgets,'\62');
+ .icon-electronics-gadgets:before {
+content: "\62";
+}
+@include makeIcon(jobs,'\63');
+ .icon-jobs:before {
+content: "\63";
+}
+@include makeIcon(lifestyle ,'\64');
+ .icon-lifestyle:before {
+content: "\64";
+}
+@include makeIcon(pets,'\65');
+ .icon-pets:before {
+content: "\65";
+}
+@include makeIcon(properties,'\66');
+ .icon-properties:before {
+content: "\66";
+}
+@include makeIcon(search, '\67');
+ .icon-search:before {
+content: "\67";
+}
+@include makeIcon(heart,'\68');
+ .icon-heart:before {
+content: "\68";
+}
+@include makeIcon(heart-o,'\69');
+ .icon-heart-o:before {
+content: "\69";
+}
+@include makeIcon(user-1,'\6b');
+ .icon-user-1:before {
+content: "\6b";
+}
+@include makeIcon(circle-true,'\6a');
+ .icon-circle-true:before {
+content: "\6a";
+}
+@include makeIcon(select,'\6c');
+ .icon-select:before {
+content: "\6c";
+}
+@include makeIcon(selected,'\6d');
+ .icon-selected:before {
+content: "\6d";
+}
+@include makeIcon(arrow-1-up,'\6f');
+ .icon-arrow-1-up:before {
+content: "\6f";
+}
+@include makeIcon(arrow-1-down,'\71');
+ .icon-arrow-1-down:before {
+content: "\71";
+}
+@include makeIcon(back,'\70');
+ .icon-back:before {
+content: "\70";
+}
+@include makeIcon(chevron-left,'\73');
+ .icon-chevron-left:before {
+content: "\73";
+}
+@include makeIcon(chevron-right,'\74');
+ .icon-chevron-right:before {
+content: "\74";
+}
+@include makeIcon(ellipsis-v,'\6e');
+ .icon-ellipsis-v:before {
+content: "\6e";
+}
+@include makeIcon(comment,'\72');
+ .icon-comment:before {
+content: "\72";
+}
+@include makeIcon(star,'\75');
+ .icon-star:before {
+content: "\75";
+}
+@include makeIcon(star-o,'\76');
+ .icon-star-o:before {
+content: "\76";
+}
+@include makeIcon(menu,'\77');
+ .icon-menu:before {
+content: "\77";
+}
+@include makeIcon(arrows,'\79');
+ .icon-arrows:before {
+content: "\79";
+}
+@include makeIcon(arrow-right-c,'\7a');
+ .icon-arrow-right-c:before {
+content: "\7a";
+}
+@include makeIcon(arrow-right,'\41');
+ .icon-arrow-right:before {
+content: "\41";
+}
+@include makeIcon(arrow-left-c,'\78');
+ .icon-arrow-left-c:before {
+content: "\78";
+}
+@include makeIcon(share-icon,'\42');
+ .icon-share-icon:before {
+content: "\42";
+}
+@include makeIcon(sort-desc,'\44');
+ .icon-sort-desc:before {
+content: "\44";
+}
+@include makeIcon(up-open,'\45');
+ .icon-up-open:before {
+content: "\45";
+}
+@include makeIcon(sort-asc,'\43');
+ .icon-sort-asc:before {
+  content: "\43";
+}
+@include makeIcon(Service,'\79' );
+.icon-Service:before {
+  content: "\79";
+}

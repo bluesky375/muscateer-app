@@ -1,0 +1,55 @@
+page-categories-service-listing {
+    .sub {
+        height: 45px !important;
+        margin: 0 auto !important;
+        -webkit-line-clamp: 3 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        color: #808080 !important;
+        font-weight: 300;
+        font-size: 14px !important;
+        text-align: left;
+    }
+    .rtl_text_style {
+        text-align: right !important;
+    }
+    .selected_category_item {
+        background: white !important;
+        // border: 1px solid #ccc;
+        border-radius: 6px;
+        color: #5a4f4f;
+        text-transform: none;
+        border: 1px solid #22b573 !important;
+    }
+    .not_selected_category_item {
+        color: #5a4f4f;
+        // background: #f3f3f3;
+        background: #eaeaea !important;
+        border: 1px solid #ccc !important;
+        border-radius: 6px;
+        text-transform: none;
+    }
+    ul#rating {
+        margin: 0px !important;
+        padding: 0px !important;
+    }
+    .card-md p {
+        font-size: 1.3rem;
+        font-weight: normal;
+        line-height: 1.5;
+        color: #222;
+    }
+    .dot_style {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        /* width: 160px; */
+        white-space: nowrap;
+    }
+    .text_align_right {
+        text-align: right !important;
+    }
+    .text_align_left {
+        text-align: left !important;
+    }
+}

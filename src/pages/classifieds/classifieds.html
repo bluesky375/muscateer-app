@@ -1,0 +1,436 @@
+<!--
+  Generated template for the ClassifiedsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-header>
+</ion-header>
+ -->
+
+<ion-content #contentRef (ionScroll)="scrollingFun($event)">
+    <!-- ion-refresher -->
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="{{this.global_items.do_translation('Pull to refresh')}}" refreshingSpinner="circles" refreshingText="{{this.global_items.do_translation('Refreshing')}}...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <!-- ion-refresher -->
+
+
+
+    <ion-grid>
+        <ion-row class="selection-box">
+            <ion-col>
+                <ion-row>
+                    <ion-col>
+                        <p class="main">{{this.global_items.do_translation('Browse Popular Categories')}}</p>
+                    </ion-col>
+                </ion-row>
+                <ion-row no-padding>
+                    <!-- <ion-col col-4 *ngFor="let cat of  categories" (click)="showRadioAlert(cat.pk_i_id)"> -->
+                    <ion-col col-4 *ngFor="let cat of  categories" (click)="move_to_category_page(cat.pk_i_id)">
+                        <p class="main-icon-green">
+                            <!-- <ion-icon name="{{cat.s_icon}}"></ion-icon> -->
+                            <i class="{{'icon-'+cat.s_icon}}"></i>
+                        </p>
+                        <p class="sub">{{cat.s_name}}</p>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <!-- torism lounch start -->
+    <ion-grid no-padding>
+        <!-- tourism lounch to home -->
+        <ion-row>
+            <ion-row>
+                <p class="p_style">{{this.global_items.do_translation("Reviews & Recommendations")}}</p>
+            </ion-row>
+            <ion-row class="ion_row_bg">
+                <ion-col col-3 class="col_style" (click)="viewAll('hotel')">
+                    <img class="image_style" width="80" height="80" src="assets/images/hotel.jpg" />
+                    <p>{{this.global_items.do_translation("HOTELS")}}</p>
+                </ion-col>
+                <ion-col col-3 class="col_style" (click)="viewAll('restaurant')">
+                    <img class="image_style" width="80" height="80" src="assets/images/restau.jpg" />
+                    <p>{{this.global_items.do_translation("RESTAURANTS")}}</p>
+                </ion-col>
+                <ion-col col-3 class="col_style" (click)="viewAll('todo')">
+                    <img class="image_style" width="80" height="80" src="assets/images/todo.jpg" />
+                    <p>{{this.global_items.do_translation("THINGS TO DO")}}</p>
+                </ion-col>
+                <ion-col col-3 class="col_style" (click)="viewAll('attraction')">
+                    <img class="image_style" width="80" height="80" src="assets/images/attrac.jpg" />
+                    <p>{{this.global_items.do_translation("MOVIES")}}</p>
+                </ion-col>
+            </ion-row>
+        </ion-row>
+        <!-- tourism lounch end -->
+    </ion-grid>
+    <!-- ---------------------------- -->
+    <!-- banner start -->
+    <ion-grid *ngIf="banner_collection.length>0">
+        <ion-row>
+            <ion-col col-12>
+                <ion-slides autoplay="2000" loop="true" speed="500" pager [dir]=this.global_items.App_direction>
+                    <ion-slide *ngFor="let item of banner_collection">
+                        <img src="{{item.image}}">
+                    </ion-slide>
+                </ion-slides>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <!-- banner end -->
+
+    <!-- promotions -->
+    <ion-grid no-padding>
+        <!-- Promotions to Home start -->
+        <ion-row *ngIf="can_show_promotions==true">
+            <ion-row no-padding class="heading-row" style="width: 100%">
+                <ion-col>
+                    <p>{{this.global_items.do_translation("Promotions")}}</p>
+                </ion-col>
+                <ion-col>
+                    <p (click)="viewall_promotions()">{{this.global_items.do_translation("View all")}}</p>
+                </ion-col>
+            </ion-row>
+
+
+        </ion-row>
+        <ion-row>
+            <ion-slides style="margin-top: -20px;" slidesPerView="1.5" spaceBetween="10" [dir]=this.global_items.App_direction>
+                <div *ngFor="let item of events['data']; let i=index">
+                    <ion-slide>
+                        <ion-card (click)="moveForward(item.pk_i_id);" *ngIf="i != events['data'].length-1">
+                            <img [src]="getImagesPath(item)" (error)="updateImageUrl($event)" alt="">
+                            <ion-card-content>
+                                <ion-row class="green-light ">
+                                    <ion-col no-padding text-left>
+                                        <p class="cl_title">{{item.title | removehtmltags}}</p>
+                                    </ion-col>
+                                </ion-row>
+                                <p class="card-main">{{item.description | removehtmltags}}</p>
+                                <!-- <p class="card-main" [innerHTML]='item.description'></p> -->
+                                <ion-row class="card-bottom">
+                                    <ion-col col-6 no-padding text-left>
+                                        <p class="promotion_venue_style">{{item.venue | removehtmltags}}</p>
+                                    </ion-col>
+                                    <ion-col col-6 no-padding>
+                                        <p class="card-date">{{item.new_date}}</p>
+                                    </ion-col>
+                                    <!-- <ion-col col-3 *ngIf="item.views!=null||item.views!=undefined" style="text-align: center;">
+                                        <ion-icon name="eye" style="text-align: center;font-size: 1.0rem">{{"\t"+item.views}}</ion-icon>
+                                    </ion-col> -->
+                                </ion-row>
+                            </ion-card-content>
+                        </ion-card>
+
+                        <ion-card (click)="viewall_promotions()" *ngIf="i==events['data'].length-1" class="view_all_style">
+                            <div class="view_all_item_style">
+                                <ion-icon *ngIf="this.global_items.App_direction=='ltr'" class="view_all_icon_style" ios="ios-arrow-dropright-circle-outline" md="ios-arrow-dropright-circle-outline"></ion-icon>
+                                <ion-icon *ngIf="this.global_items.App_direction=='rtl'" class="view_all_icon_style" ios="ios-arrow-dropleft-circle-outline" md="ios-arrow-dropleft-circle-outline"></ion-icon>
+                                <p class="view_all_p_style">{{this.global_items.do_translation("View all")}}</p>
+                            </div>
+                        </ion-card>
+                    </ion-slide>
+                </div>
+            </ion-slides>
+        </ion-row>
+        <!-- promotion end -->
+    </ion-grid>
+    <!------------------>
+
+    <!--ads near by-->
+    <ion-grid no-padding>
+        <ion-row no-padding>
+            <ion-col *ngIf="can_show_ads_nearby==true">
+                <ion-row no-padding class="heading-row">
+                    <ion-col>
+                        <p>{{this.global_items.do_translation("Ads nearby")}}</p>
+                    </ion-col>
+                    <ion-col>
+                        <p (click)="viewNearBy()">{{this.global_items.do_translation("View all")}}</p>
+                    </ion-col>
+                </ion-row>
+                <div [ngSwitch]="nearbyItems.switch">
+                    <!-- <div *ngSwitchCase="'loading'" class="loader">
+                        <ion-spinner name="bubbles"></ion-spinner>
+                    </div> -->
+                    <div *ngSwitchCase="'show'">
+                        <ion-slides *ngIf="nearbyItems.data.length" style="margin-top: -20px;" slidesPerView="1.5" spaceBetween="10" [dir]=this.global_items.App_direction>
+
+                            <div *ngFor="let item of nearbyItems.data;let i=index">
+                                <ion-slide>
+                                    <ion-card (click)="getItemId(item.item_id)" *ngIf="i != nearbyItems.data.length-1">
+                                        <div class="premium" *ngIf="item.b_premium==1">
+                                            <p icon-end style="color: white">
+                                                {{this.global_items.do_translation("Premium")}}
+                                            </p>
+                                        </div>
+                                        <img [src]="urlService.getImagePath(item)">
+                                        <ion-card-content>
+                                            <ion-row class="green-light ">
+                                                <ion-col no-padding text-left>
+                                                    <p class="cl_title">{{item.title | removehtmltags}}</p>
+                                                </ion-col>
+                                            </ion-row>
+                                            <p class="card-main">{{item.description | removehtmltags}}</p>
+                                            <!-- <p class="card-main" [innerHTML]='item.description'></p> -->
+                                            <ion-row class="card-bottom">
+                                                <ion-col col-4 no-padding text-left>
+                                                    <p class="third">{{item.i_price}}</p>
+                                                </ion-col>
+                                                <ion-col col-5 no-padding>
+                                                    <p class="card-date" style="text-align: center">{{item.new_date}}</p>
+                                                </ion-col>
+                                                <ion-col class="views_style" col-3 *ngIf="item.views!=null||item.views!=undefined" style="text-align: center;">
+                                                    <ion-icon name="eye" style="font-size: 1.0rem">{{"\t"+item.views}}</ion-icon>
+                                                </ion-col>
+                                            </ion-row>
+                                        </ion-card-content>
+                                    </ion-card>
+
+                                    <ion-card (click)="viewNearBy()" *ngIf="i==nearbyItems.data.length-1" class="view_all_style">
+                                        <div class="view_all_item_style">
+                                            <ion-icon *ngIf="this.global_items.App_direction=='ltr'" class="view_all_icon_style" ios="ios-arrow-dropright-circle-outline" md="ios-arrow-dropright-circle-outline"></ion-icon>
+                                            <ion-icon *ngIf="this.global_items.App_direction=='rtl'" class="view_all_icon_style" ios="ios-arrow-dropleft-circle-outline" md="ios-arrow-dropleft-circle-outline"></ion-icon>
+                                            <p class="view_all_p_style">{{this.global_items.do_translation("View all")}}</p>
+                                        </div>
+                                    </ion-card>
+                                </ion-slide>
+                            </div>
+                        </ion-slides>
+                    </div>
+                    <!-- <div *ngSwitchCase="'empty'">
+                        <p class="empty">No Items In This Category</p>
+                    </div> -->
+                </div>
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <!-------------------------->
+
+    <!-- popular slides -->
+    <ion-grid no-padding>
+        <ion-row no-padding>
+            <ion-col>
+                <ion-row no-padding class="heading-row">
+                    <ion-col>
+                        <p>{{this.global_items.do_translation("Popular Ads")}}</p>
+                    </ion-col>
+                    <ion-col>
+                        <p (click)="viewPopular()">{{this.global_items.do_translation("View all")}}</p>
+                    </ion-col>
+                </ion-row>
+                <div [ngSwitch]="popularItems.switch">
+                    <!-- <div *ngSwitchCase="'loading'" class="loader">
+                        <ion-spinner name="bubbles"></ion-spinner>
+                    </div> -->
+
+                    <div *ngSwitchCase="'show'">
+                        <ion-slides *ngIf=popularItems.data.length style="margin-top: -20px;" slidesPerView="1.5" spaceBetween="10" [dir]=this.global_items.App_direction>
+                            <div *ngFor="let item of popularItems.data;let i=index">
+                                <ion-slide>
+                                    <ion-card (click)="getItemId(item.item_id)" *ngIf="i != popularItems.data.length-1">
+                                        <div class="premium" *ngIf="item.b_premium==1">
+                                            <p icon-end style="color: white">
+                                                {{this.global_items.do_translation("Premium")}}
+                                            </p>
+                                        </div>
+                                        <img [src]="urlService.getImagePath(item)">
+                                        <ion-card-content>
+                                            <ion-row class="green-light ">
+                                                <ion-col no-padding text-left>
+                                                    <p class="cl_title">{{item.title |removehtmltags}}</p>
+                                                </ion-col>
+                                            </ion-row>
+                                            <p class="card-main">{{item.description | removehtmltags}}</p>
+                                            <!-- <p class="card-main" [innerHTML]='item.description'></p> -->
+                                            <ion-row class="card-bottom">
+                                                <ion-col col-4 no-padding text-left>
+                                                    <p class="third">{{item.i_price}}</p>
+                                                </ion-col>
+                                                <ion-col col-5 no-padding>
+                                                    <p class="card-date" style="text-align: center">{{item.new_date}}</p>
+                                                </ion-col>
+                                                <ion-col col-3 class="views_style" *ngIf="item.views!=null||item.views!=undefined" style="text-align: center;">
+                                                    <ion-icon name="eye" style="font-size: 1.0rem">{{"\t"+item.views}}</ion-icon>
+                                                </ion-col>
+                                            </ion-row>
+                                        </ion-card-content>
+                                    </ion-card>
+
+                                    <ion-card (click)="viewPopular()" *ngIf="i==popularItems.data.length-1" class="view_all_style">
+                                        <div class="view_all_item_style">
+                                            <ion-icon *ngIf="this.global_items.App_direction=='ltr'" class="view_all_icon_style" ios="ios-arrow-dropright-circle-outline" md="ios-arrow-dropright-circle-outline"></ion-icon>
+                                            <ion-icon *ngIf="this.global_items.App_direction=='rtl'" class="view_all_icon_style" ios="ios-arrow-dropleft-circle-outline" md="ios-arrow-dropleft-circle-outline"></ion-icon>
+                                            <p class="view_all_p_style">{{this.global_items.do_translation("View all")}}</p>
+                                        </div>
+                                    </ion-card>
+                                </ion-slide>
+                            </div>
+                        </ion-slides>
+                    </div>
+
+                    <!-- <div *ngSwitchCase="'empty'">
+                        <p class="empty">No Items In This Category</p>
+                    </div> -->
+                </div>
+
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <!-- popular slides -->
+
+    <!-- recently viewed -->
+    <ion-grid no-padding *ngIf="recentItems.data">
+        <ion-row no-padding>
+            <ion-col>
+                <ion-row no-padding class="heading-row">
+                    <ion-col>
+                        <p>{{this.global_items.do_translation("Recently Viewed")}}</p>
+                    </ion-col>
+                    <ion-col>
+                        <p (click)="viewRecent()">{{this.global_items.do_translation("View all")}}</p>
+                    </ion-col>
+                </ion-row>
+
+                <div [ngSwitch]="recentItems.switch">
+                    <!-- <div *ngSwitchCase="'loading'" class="loader">
+                        <ion-spinner name="bubbles"></ion-spinner>
+                    </div> -->
+                    <div *ngSwitchCase="'show'">
+                        <ion-slides *ngIf=recentItems.data.length style="margin-top: -20px;" slidesPerView="1.5" spaceBetween="10" [dir]=this.global_items.App_direction>
+
+                            <div *ngFor="let item of recentItems.data;let i=index">
+                                <ion-slide>
+                                    <ion-card (click)="getItemId(item.item_id)" *ngIf="i != recentItems.data.length-1">
+                                        <div class="premium" *ngIf="item.b_premium==1">
+                                            <p icon-end style="color: white">
+                                                {{this.global_items.do_translation("Premium")}}
+                                                <!-- <ion-icon name="star"></ion-icon> -->
+                                            </p>
+                                        </div>
+                                        <img [src]="urlService.getImagePath(item)">
+                                        <ion-card-content>
+                                            <ion-row class="green-light ">
+                                                <ion-col no-padding text-left>
+                                                    <p class="cl_title">{{item.title | removehtmltags}}</p>
+                                                </ion-col>
+                                            </ion-row>
+                                            <p class="card-main">{{item.description | removehtmltags}}</p>
+                                            <!-- <p class="card-main" [innerHTML]='item.description'></p> -->
+                                            <ion-row class="card-bottom">
+                                                <ion-col col-6 no-padding text-left>
+                                                    <p class="third">{{item.i_price}}</p>
+                                                </ion-col>
+                                                <ion-col col-6 no-padding>
+                                                    <p class="card-date">{{item.new_date}}</p>
+                                                </ion-col>
+                                                <!-- <ion-col col-3 *ngIf="item.views!=null||item.views!=undefined" style="text-align: center;">
+                                                    <ion-icon name="eye" style="text-align: center;font-size: 1.0rem">{{"\t"+item.views}}</ion-icon>
+                                                </ion-col> -->
+                                            </ion-row>
+                                        </ion-card-content>
+                                    </ion-card>
+                                    <ion-card (click)="viewRecent()" *ngIf="i==recentItems.data.length-1" class="view_all_style">
+                                        <div class="view_all_item_style">
+                                            <ion-icon *ngIf="this.global_items.App_direction=='ltr'" class="view_all_icon_style" ios="ios-arrow-dropright-circle-outline" md="ios-arrow-dropright-circle-outline"></ion-icon>
+                                            <ion-icon *ngIf="this.global_items.App_direction=='rtl'" class="view_all_icon_style" ios="ios-arrow-dropleft-circle-outline" md="ios-arrow-dropleft-circle-outline"></ion-icon>
+                                            <p class="view_all_p_style">{{this.global_items.do_translation("View all")}}</p>
+                                        </div>
+                                    </ion-card>
+                                </ion-slide>
+                            </div>
+                        </ion-slides>
+                    </div>
+                    <!-- <div *ngSwitchCase="'empty'">
+                        <p class="empty">No Items In This Category</p>
+                    </div> -->
+                </div>
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <!-- recently viewed -->
+
+
+    <!-- adds nearby -->
+    <ion-grid no-padding>
+        <ion-row no-padding>
+            <ion-col>
+                <ion-row no-padding class="heading-row">
+                    <ion-col>
+                        <p>{{this.global_items.do_translation("Newly Added")}}</p>
+                    </ion-col>
+                    <ion-col>
+                        <p (click)="viewNew()">{{this.global_items.do_translation("View all")}}</p>
+                    </ion-col>
+                </ion-row>
+                <!-- newly -->
+                <div [ngSwitch]="newItems.switch">
+                    <!-- <div *ngSwitchCase="'loading'" class="loader">
+                        <ion-spinner name="bubbles"></ion-spinner>
+                    </div> -->
+                    <div *ngSwitchCase="'show'">
+                        <ion-slides *ngIf=newItems.data.length style="margin-top: -20px;" slidesPerView="1.5" spaceBetween="10" [dir]=this.global_items.App_direction>
+
+                            <div *ngFor=" let newItem of newItems.data ;let i=index">
+                                <ion-slide>
+                                    <ion-card (click)="getItemId(newItem.item_id)" *ngIf="i != newItems.data.length-1">
+                                        <div class="premium" *ngIf="newItem.b_premium==1">
+                                            <p icon-end style="color: white">
+                                                {{this.global_items.do_translation("Premium")}}
+                                                <!-- <ion-icon name="star"></ion-icon> -->
+                                            </p>
+                                        </div>
+                                        <img [src]="urlService.getImagePath(newItem)">
+                                        <ion-card-content>
+                                            <ion-row class="green-light ">
+                                                <ion-col no-padding text-left>
+                                                    <p class="cl_title">{{newItem.title | removehtmltags}}</p>
+                                                </ion-col>
+                                            </ion-row>
+                                            <p class="card-main">{{newItem.description | removehtmltags}}</p>
+                                            <!-- <p class="card-main" [innerHTML]='newItem.description'></p> -->
+                                            <ion-row class="card-bottom">
+                                                <ion-col col-4 no-padding text-left>
+                                                    <p class="third">{{newItem.i_price}}</p>
+                                                </ion-col>
+                                                <ion-col col-5 no-padding>
+                                                    <p class="card-date" style="text-align: center">{{newItem.new_date}}</p>
+                                                </ion-col>
+                                                <ion-col col-3 class="views_style" *ngIf="newItem.views!=null||newItem.views!=undefined">
+                                                    <ion-icon name="eye" style="text-align: center;font-size: 1.0rem">{{"\t"+newItem.views}}</ion-icon>
+                                                </ion-col>
+                                            </ion-row>
+                                        </ion-card-content>
+                                    </ion-card>
+
+                                    <ion-card (click)="viewNew()" *ngIf="i==newItems.data.length-1" class="view_all_style">
+                                        <div class="view_all_item_style">
+                                            <ion-icon *ngIf="this.global_items.App_direction=='ltr'" class="view_all_icon_style" ios="ios-arrow-dropright-circle-outline" md="ios-arrow-dropright-circle-outline"></ion-icon>
+                                            <ion-icon *ngIf="this.global_items.App_direction=='rtl'" class="view_all_icon_style" ios="ios-arrow-dropleft-circle-outline" md="ios-arrow-dropleft-circle-outline"></ion-icon>
+                                            <p class="view_all_p_style">{{this.global_items.do_translation("View all")}}</p>
+                                        </div>
+                                    </ion-card>
+                                </ion-slide>
+                            </div>
+                        </ion-slides>
+                    </div>
+                    <!-- <div *ngSwitchCase="'empty'">
+                        <p class="empty">No Items In This Category</p>
+                    </div> -->
+
+                    <!--<ion-slide>-->
+                    <!--&lt;!&ndash; need a empty slide to avoid last item to be inaccessible &ndash;&gt;-->
+                    <!--</ion-slide>-->
+                </div>
+                <!-- newly -->
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <!-- adds nearby -->
+</ion-content>

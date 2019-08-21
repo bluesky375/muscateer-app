@@ -1,0 +1,113 @@
+<ion-content class="log-grid" no-bounce style="overflow: hidden;position: relative;" *ngIf="isShow_pager==false">
+    <div ion-fixed style="position: absolute;">
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <div class="log-box">
+                        <img src="assets/images/Logo-2-White.png">
+                        <div class="login-user-in">
+                            <ion-item no-lines>
+                                <ion-input type="text" [(ngModel)]="username" placeholder="{{this.global_items.do_translation('Username (Email / Mobile Number)')}}" class="rtl_style"></ion-input>
+                            </ion-item>
+                        </div>
+                        <div class="login-pass-in">
+                            <ion-item no-lines>
+                                <ion-input type="password" [(ngModel)]="password" placeholder="{{this.global_items.do_translation('Password')}}"></ion-input>
+
+                            </ion-item>
+                        </div>
+                        <p (click)="forgotPass()" class="forgot-pass"><i>{{this.global_items.do_translation('forgot password?')}}</i></p>
+                        <div *ngIf="errors.length > 0" class="text-custom-red">
+                            <!-- <strong>Validation Error</strong> -->
+                            <!-- <p *ngFor="let error of errors">{{error.message}}</p> -->
+                            <p style="color: brown">{{this.global_items.do_translation('Invalid username or password')}}</p>
+                        </div>
+                        <!-- <p class="text-custom-red" *ngIf="val_error">{{val_error}}</p> -->
+                        <button ion-button full (click)="login(username,password)">{{this.global_items.do_translation('Login')}}</button>
+
+                        <p class="sub" style="    margin-top: 20px !important;
+                        font-size: 1.2em;
+                        background: #4285f4;
+                        padding: 10px;
+                        color: white;" (click)="goToRegister()">{{this.global_items.do_translation("Don't have an account? Sign Up")}}</p>
+                    </div>
+                    <p class="bottom-skip" style="background: #000000;
+                    opacity: 0.3;" (click)="goTohome()">{{this.global_items.do_translation('Skip & enter as a guest')}}</p>
+
+
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</ion-content>
+<ion-content *ngIf="isShow_pager==true" no-bounce class="animated fadeIn">
+    <ion-slides #slides class="full" style="background: #64c190" pager (ionSlideDidChange)="slideChanged($event)" dir="ltr">
+        <ion-slide>
+
+            <div class="slide_body">
+                <img src="assets/images/Logo-2-White.png" style="padding: 0% 15%;
+                padding-bottom: 5%;" />
+                <img src="assets/images/slide1.svg" style="height: 80% !important;" />
+                <p style="text-align: center" class="title_text_style">Welcome to Muscateer
+                </p>
+            </div>
+        </ion-slide>
+        <ion-slide>
+            <div class="slide_body ">
+                <img src="assets/images/slide2.svg" class="slider_style" id="slide1_img" />
+                <div no-padding no-margin id="slide1_title" class="visble_hidden">
+                    <p class="title_text_style ">Classifieds !
+                    </p>
+                    <p class="title_description ">Platform for connecting buyers & sellers. Post your ads for free on Muscateer. Happy Buy & Sell.</p>
+                </div>
+            </div>
+        </ion-slide>
+        <ion-slide>
+            <div class="slide_body"> <img src="assets/images/slide3.svg" class="slider_style" id="slide2_img" />
+                <div no-padding no-margin id="slide2_title" class="visble_hidden">
+                    <p class="title_text_style">Reviews & Recommendations !
+                    </p>
+                    <p class="title_description">Feature helps you discover and rate top Restaurants, Hotels & Things to Do, as per your requirements.</p>
+
+                </div>
+            </div>
+        </ion-slide>
+        <ion-slide>
+            <div class="slide_body"> <img src="assets/images/slide4.svg" class="slider_style" id="slide3_img" />
+                <div no-padding no-margin id="slide3_title" class="visble_hidden">
+                    <p class="title_text_style">Forums !</p>
+                    <p class="title_description">Need Advice? Directions? Recommendations? Here any members can participate and share their ideas in respective category.</p>
+                </div>
+            </div>
+        </ion-slide>
+        <ion-slide>
+            <div class="slide_body"> <img src="assets/images/slide5.svg" class="slider_style" id="slide4_img" />
+                <div no-padding no-margin id="slide4_title" class="visble_hidden">
+                    <p class="title_text_style">Events !</p>
+                    <p class="title_description">Discover upcoming nearby events and activities. Stay updated on events and promotions.</p>
+                </div>
+            </div>
+        </ion-slide>
+        <ion-slide>
+            <div class="slide_body"> <img src="assets/images/slide6.svg" class="slider_style" id="slide5_img" />
+                <div no-padding no-margin id="slide5_title" class="visble_hidden">
+                    <p class="title_text_style" style="text-align: center">Hey Congratulations !</p>
+                    <p class="title_description" style="text-align: center">you are officially a #Muscateer Welcome</p>
+                </div>
+            </div>
+        </ion-slide>
+    </ion-slides>
+    <!-- <button ion-button icon-only clear class="button_style_right" (click)="end_pager()" *ngIf="page_slider_index==true">Done</button>
+    <button ion-button icon-only clear class="button_style_left" (click)="end_pager()" *ngIf="page_slider_index==false">Skip</button>
+    <button ion-button icon-only clear class="button_style_right" (click)="end_pager()" *ngIf="page_slider_index==false">
+      <ion-icon ios="ios-arrow-forward"md="ios-arrow-forward"></ion-icon>
+    </button> -->
+
+    <div class="button_body_style">
+        <button ion-button clear class="button_style_right disable-ripple" (click)="end_pager()" *ngIf="page_slider_index==true">Done</button>
+        <button ion-button clear class="button_style_left disable-ripple" (click)="end_pager()" *ngIf="page_slider_index==false">Skip</button>
+        <button ion-button icon-only clear class="button_style_right" (click)="next()" *ngIf="page_slider_index==false">
+          <ion-icon ios="ios-arrow-forward" md="ios-arrow-forward"></ion-icon>
+        </button>
+    </div>
+</ion-content>

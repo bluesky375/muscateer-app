@@ -1,0 +1,53 @@
+<!--
+  Generated template for the ClassifiedsAddListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <div class="back-box">
+        <ion-grid no-padding>
+            <ion-row no-padding>
+                <ion-col col-2 (click)="goback()">
+                    <p class="main icon-back"></p>
+                </ion-col>
+                <ion-col col-8>
+                    <!--<p>Back</p>-->
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+    </div>
+</ion-header>
+<ion-content>
+    <div class="class-post-section">
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <p class="border-btm p-b-10">{{this.global_items.do_translation('What do you wish to post today')}}?</p>
+                    <div class="btn-wrapper">
+                        <button ion-button class="reg-btn" (click)="postClassifieds()" type="submit">{{this.global_items.do_translation('Classifieds')}}</button>
+                    </div>
+
+                    <div class="btn-wrapper">
+                        <button ion-button class="reg-btn" (click)="postForums()" type="submit">{{this.global_items.do_translation('Forums')}}</button>
+                    </div>
+
+                    <div class="btn-wrapper">
+                        <button ion-button class="reg-btn" (click)="postEvents()" type="submit">{{this.global_items.do_translation('Events')}}</button>
+                    </div>
+
+                    <!-- <div class="btn-wrapper">
+                        <button ion-button class="reg-btn" (click)="postJobs()" type="submit">{{this.global_items.do_translation("Jobs")}}</button>
+                    </div> -->
+                    <p class="p-t-40" *ngIf="this.global_items.App_direction=='ltr'">
+                        <span>Disclaimer:</span> By posting your classified ad here, you agree that it is in compliance with our terms and conditions
+                    </p>
+                    <p class="p-t-40" *ngIf="this.global_items.App_direction=='rtl'">
+                        <span>{{this.global_items.do_translation('Disclaimer:By posting your classified ad here, you agree that it is in compliance with our terms and conditions')}} </span>
+                    </p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</ion-content>

@@ -1,0 +1,204 @@
+<!--
+  Generated template for the EventsInnerPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <div class="back-box">
+        <ion-grid no-padding>
+            <ion-row no-padding>
+                <ion-col col-2 (click)="goback()">
+                    <p class="main icon-back"></p>
+                </ion-col>
+                <ion-col col-10>
+                    <p [ngClass]="{'rtl_align':this.global_items.App_direction=='rtl'}">{{this.global_items.do_translation('Back to Events')}}</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+    </div>
+</ion-header>
+
+<ion-content class="has-subheader">
+    <div class="events-inner">
+        <div>
+            <div>
+                <ion-row no-padding>
+                    <ion-col col-12 no-padding *ngIf="slide_imageslist.length==0">
+                        <img [src]="getImagesPath(items.data)" (error)="updateImageUrl($event)" imageViewer alt="" class="img-responsive">
+                        <p class="icon-book" style="font-size: 2em" (click)="onFav()">
+                            <span [class.grey]="!isSaved" [class.red]="isSaved" class="ion-md-bookmark"></span>
+                        </p>
+
+                    </ion-col>
+
+                    <ion-col col-12 no-padding *ngIf="slide_imageslist.length>0">
+                        <ion-slides pager [dir]="this.global_items.App_direction">
+                            <div *ngFor="let image of slide_imageslist" style="height: 250px">
+                                <ion-slide class="inner-slide" style="position: relative; width: 411px">
+                                    <img src="{{settings.IMAGE_URL+image.path}}" style="height: auto !important" imageViewer>
+                                    <p class="icon-book" style="font-size: 2em" (click)="onFav()">
+                                        <span [class.grey]="!isSaved" [class.red]="isSaved" class="ion-md-bookmark"></span>
+                                    </p>
+                                </ion-slide>
+                            </div>
+                        </ion-slides>
+                    </ion-col>
+
+                </ion-row>
+                <ion-grid>
+                    <ion-row no-padding>
+                        <ion-col col-11 class="p-t-0">
+                            <p class="main" style="width:100% ;text-align:left" [ngClass]="{'rtl_align':this.global_items.App_direction=='rtl'}">
+                                {{items.title |removehtmltags}}
+                            </p>
+                        </ion-col>
+
+                        <ion-col col-1>
+                            <span (click)="report('events')" class="ion-md-alert f-16"></span>
+                        </ion-col>
+
+                        <ion-col col-12>
+                            <ion-row class="border-btm" no-padding>
+                                <ion-col col-4 no-padding>
+                                    <p class="inner-user" [ngClass]="{'rtl_align':this.global_items.App_direction=='rtl'}" *ngIf="this.global_items.App_direction=='ltr'">
+                                        <ion-icon *ngIf="items.is_verified_user==1" ios="ios-checkmark" md="ios-checkmark" style="color: #22b573;font-size: 2.0em;position: absolute;
+                                        left: 15px;
+                                        bottom: 5px;"></ion-icon>
+                                        <span class="icon-user-1">
+                                    </span>
+                                        <span>{{items.user_name}}</span>
+                                    </p>
+
+                                    <p class="inner-user" [ngClass]="{'rtl_align':this.global_items.App_direction=='rtl'}" *ngIf="this.global_items.App_direction=='rtl'">
+                                        <span>{{items.user_name}}</span>
+                                        <ion-icon *ngIf="items.is_verified_user==1" ios="ios-checkmark" md="ios-checkmark" style="color: #22b573;font-size: 2.0em;position: absolute;
+                                    right: -5px;
+                                    bottom: 5px;"></ion-icon>
+                                        <span class="icon-user-1">
+                                </span>
+                                    </p>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                    <p class="inner-date" [ngClass]="{'rtl_align':this.global_items.App_direction=='rtl'}">{{this.global_items.do_translation('Posted on')}} {{items.date}}
+                                    </p>
+                                </ion-col>
+                                <ion-col col-2 no-padding>
+                                    <p class="inner-share" (click)="share(items)">
+                                        <span>{{this.global_items.do_translation('Share')}}</span>
+                                        <span class="icon-share-icon"></span>
+                                    </p>
+                                </ion-col>
+                            </ion-row>
+                        </ion-col>
+                        <ion-col col-12>
+                            <p class="m-0" [ngClass]="{'rtl_align_left':this.global_items.App_direction=='rtl'}">
+                                <span class="date-gr">{{this.global_items.do_translation('Start date')}} :</span>
+                                <span class="date-green">{{starting_date}}</span>
+                                <span class="add_to_calender" (click)="add_to_calanedr(starting_date,items.title)">{{this.global_items.do_translation('Add to calendar')}}</span>
+                            </p>
+                            <p>
+                                <span class="date-gr">{{this.global_items.do_translation('End date')}}:</span>
+                                <span class="date-green">{{ending_date |removehtmltags}}</span>
+                            </p>
+                            <p>
+                                <span class="date-gr">{{this.global_items.do_translation('Venue')}}:</span>
+                                <span class="date-green">{{items.venue |removehtmltags}}</span>
+                            </p>
+                            <p class="sub">{{items.description | removehtmltags}}</p>
+                            <!-- <p class="sub">{{items.description}}</p> -->
+                            <!-- <p class="sub" [innerHTML]='items.description'></p> -->
+                        </ion-col>
+                        <!-- <ion-col col-12 class="location" *ngIf="items.location">
+                            <p>Location</p>
+                            <iframe [src]=getUrl() width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        </ion-col> -->
+                        <ion-col col-12 *ngIf="items.isShowlocation==true">
+                            <button ion-button (click)="Gotomap(items.latitude , items.longitude)">{{this.global_items.do_translation('View On Map')}}</button>
+                        </ion-col>
+                        <ion-col col-12>
+                            <ion-row *ngIf="items.pdf!='0'">
+                                <ion-col text-center>
+                                    <!-- <button ion-button icon-start (click)="View_pdf(items.pdf,items.title)">
+                                    <ion-icon ios="ios-cloud-download" md="ios-cloud-download"></ion-icon>
+                               {{this.global_items.do_translation('View Offer')}} {{progress}}
+                              </button> -->
+                                    <button ion-button icon-start (click)="View_pdf(items.pdf,items.title)">{{this.global_items.do_translation('View Offer')}} {{progress}}
+                              </button>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col col-12>
+                                    <table class="post-comment">
+                                        <tr>
+                                            <td style="padding-right: 0px;
+                                            text-align: center;font-size: 1.0em;padding-top: 1%;">
+                                                <span class="icon-user-1"></span>
+                                            </td>
+                                            <td>
+                                                <!-- (change)="toggleIcon()" -->
+                                                <ion-input [(ngModel)]="commentValue" placeholder="{{this.global_items.do_translation('Comment here')}}" (keyup.enter)="hide_keyboard()"></ion-input>
+                                            </td>
+                                            <td>
+                                                <!-- [ngClass]="{'dsp-blck': toggle}" -->
+                                                <span type="submit" [ngClass]="{'dsp-blck': true}" (click)="onPost(commentValue)" class="triangle ion-md-send"></span>
+
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </ion-col>
+                                <ion-col col-12 *ngIf="global_items.App_direction=='ltr'">
+                                    <p class="comment_head">{{this.global_items.do_translation('Disclaimer')}}</p> <span class="comment_description">{{this.global_items.comment_Disclaimer_ltr}}</span>
+                                </ion-col>
+
+                                <ion-col col-12 *ngIf="global_items.App_direction=='rtl'">
+                                    <p class="comment_head">{{this.global_items.do_translation('Disclaimer')}}</p> <span class="comment_description">{{this.global_items.comment_Disclaimer_rtl}}</span>
+                                </ion-col>
+
+                                <ion-col>
+                                    <table class="comment-table">
+                                        <tr *ngFor="let user of users['comments'] let i = index">
+                                            <td class="user_icon_div" *ngIf="user.author.is_verified_user==1; else else_template">
+                                                <img [src]="getOtherPath(user.author)">
+                                                <ion-icon ios="md-checkmark" md="md-checkmark" class="user_icon_badge"></ion-icon>
+                                            </td>
+                                            <ng-template #else_template>
+                                                <td>
+                                                    <img [src]="getOtherPath(user.author)">
+                                                </td>
+                                            </ng-template>
+                                            <td style="padding-left:10px ">
+                                                <p>{{user.author.name}}</p>
+                                                <p>{{user.comment | removehtmltags}}</p>
+                                            </td>
+                                            <!-- <td class="width-10">
+                                                <span (click)="report('comment',user.pk_i_id)" class="ion-md-alert f-16"></span>
+                                            </td> -->
+                                            <td class="width-10" style="position: relative">
+                                                <span style="position: absolute;top: 20px;" *ngIf="userId == user.author.pk_i_id" (click)="deleteComment(user.pk_i_id,i)" class="ion-md-trash"></span>
+                                            </td>
+                                        </tr>
+                                        <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+                                            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+                                        </ion-infinite-scroll>
+                                    </table>
+                                </ion-col>
+                            </ion-row>
+                        </ion-col>
+                    </ion-row>
+
+                    <!-- <ion-row>
+                        <ion-col style="text-align: center">
+                            <button ion-button icon-start (click)="Download_pdf()">
+                              <ion-icon ios="ios-cloud-download" md="ios-cloud-download"></ion-icon>
+                         Download pdf
+                        </button>
+                        </ion-col>
+                    </ion-row> -->
+                </ion-grid>
+            </div>
+        </div>
+    </div>
+</ion-content>

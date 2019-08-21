@@ -1,0 +1,112 @@
+<ion-header>
+    <div class="back-box">
+        <ion-grid no-padding>
+            <ion-row no-padding>
+                <ion-col col-3 (click)="goback()">
+                    <p class="main icon-back"></p>
+                </ion-col>
+                <ion-col col-7>
+                    <!-- <p>ADD EVENTS</p> -->
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+    </div>
+</ion-header>
+
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-12>
+                <form class="reg-form" [formGroup]="myForm" (ngSubmit)="postData()">
+                    <div formArrayName="fieldsArray">
+                        <div formGroupName="0">
+                            <div class="image-upload">
+                                <multiple-image *ngIf="inputImageData['imageInput']" [edit]="true" (onremove)="handleImageOnRemove($event)" [imagesInput]="inputImageData['imageInput']" (onupload)="handleImageChange($event)">
+                                </multiple-image>
+                            </div>
+                            <div class="form-group" *ngFor="let field of categoryType[type]">
+
+                                <div class="reg-box " *ngIf="field.type==='TEXT'">
+                                    <p>
+                                        {{this.global_items.do_translation(field.name)}}
+                                    </p>
+                                    <ion-input placeholder="{{this.global_items.do_translation(field.name)}}" formControlName="{{field.name}}"></ion-input>
+                                    <small *ngIf="field.required" class="text-custom-red">
+                                            * {{this.global_items.do_translation('Required')}}
+                                        </small>
+
+                                </div>
+
+                                <div class="reg-box" *ngIf="field.type==='TEXTAREA'">
+                                    <p>
+                                        {{this.global_items.do_translation(field.name)}}
+                                    </p>
+                                    <ion-textarea placeholder="{{this.global_items.do_translation(field.name)}}" formControlName="{{field.name}}"></ion-textarea>
+                                    <small *ngIf="field.required" class="text-custom-red">
+                                            * {{this.global_items.do_translation('Required')}}
+                                        </small>
+                                </div>
+
+                                <!--<div class="reg-box">-->
+                                <!--<p>-->
+                                <!--{{field.name}}-->
+                                <!--</p>-->
+                                <!--<ion-input   placeholder="venue" formControlName="{{field.name}}"></ion-input>-->
+                                <!--<small   *ngIf="field.required" class="text-custom-red">-->
+                                <!--* {{this.global_items.do_translation('Required')}}-->
+                                <!--</small>-->
+                                <!--</div>-->
+
+                                <!--<div class="reg-box">-->
+                                <!--<p>-->
+                                <!--{{field.name}}-->
+                                <!--</p>-->
+                                <!--<ion-input type="Location"  placeholder="Location_url" formControlName="{{field.name}}"></ion-input>-->
+                                <!--&lt;!&ndash;<small   *ngIf="isTouchedAndInvalid('location_url')" class="text-custom-red">&ndash;&gt;-->
+                                <!--&lt;!&ndash;* {{this.global_items.do_translation('Required')}}&ndash;&gt;-->
+                                <!--&lt;!&ndash;</small>&ndash;&gt;-->
+                                <!--</div>-->
+
+                                <div class="reg-box" *ngIf="field.type==='DATE'">
+                                    <p>
+                                        {{this.global_items.do_translation(field.name)}}
+                                    </p>
+                                    <ion-datetime placeholder="{{this.global_items.do_translation(field.name)}}" formControlName="{{field.name}}" max="2030-10-31" displayFormat="MM/DD/YYYY"></ion-datetime>
+                                    <small *ngIf="field.required" class="text-custom-red">
+                                            * {{this.global_items.do_translation('Required')}}
+                                        </small>
+                                </div>
+
+                                <!-- <div class="reg-box" *ngIf="field.type==='CHECKBOX'">
+                                    <p>
+                                        {{field.name}}
+                                    </p>
+                                    <ion-checkbox formControlName="{{field.name}}"></ion-checkbox>
+                                </div> -->
+
+                                <!-- <div class="reg-box" *ngIf="field.type==='IMAGE' && isPromotion()">
+                                    <p>
+                                        Brochure Image
+                                    </p>
+                                    <multiple-image *ngIf="inputImageData['brochureImageInput']" [edit]="true" [imagesInput]="inputImageData['brochureImageInput']" [count]=1 (onupload)="handleBrochureImage($event)" (onremove)="handleImageOnRemove($event)">
+                                    </multiple-image>
+                                </div> -->
+
+
+                            </div>
+                            <div *ngIf="errors.length > 0" class="text-custom-red">
+                                <strong>{{this.global_items.do_translation('Validation Error')}}</strong>
+                                <p *ngFor="let error of errors">{{error.message}}</p>
+                                <p>{{this.global_items.do_translation('Something Went Wrong')}}.</p>
+                            </div>
+                            <button ion-button class="reg-btn" type="submit" [disabled]=set_disable>{{this.global_items.do_translation('POST')}}</button>
+                        </div>
+                    </div>
+                </form>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>

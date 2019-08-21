@@ -1,0 +1,71 @@
+<!--
+  Generated template for the PremiumListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>premium-list</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-header>
+    <div class="back-box">
+        <ion-grid no-padding>
+            <ion-row no-padding>
+                <ion-col col-2 (click)="goback()">
+                    <p class="main icon-back"></p>
+                </ion-col>
+                <ion-col col-6>
+                    <p [ngClass]="{'rtl_text_align':global_items.App_direction=='rtl'}">{{global_items.do_translation('Place an Ad')}}</p>
+                </ion-col>
+                <ion-col col-4 (click)="goback()">
+                    <p style="text-align: center">
+                        {{global_items.do_translation('Cancel')}}
+                    </p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+    </div>
+</ion-header>
+<ion-content no-padding>
+    <ion-grid no-padding>
+        <ion-row no-padding>
+            <ion-col col-12 style="display: flex;background: #dbffef;">
+                <ion-item class="ion-item_style">
+                    <ion-icon class="checkmark_style" item-left name="checkmark-circle"></ion-icon>
+                    <p class="p_style">{{global_items.do_translation('Ad has been added')}}</p>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-12>
+                <p class="premium_title">{{global_items.do_translation('Feature your ad and get up to 10x more views')}}</p>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="card_style" *ngFor="let item of data.premium_plans">
+            <ion-col col-4 style="display: flex">
+                <ion-icon name="trending-up" style="margin: auto;
+                font-size: 4em;color: gold"></ion-icon>
+            </ion-col>
+            <ion-col col-8>
+                <ion-row>
+                    <p style="font-size: 1.2em;
+                    font-weight: bold;">{{(global_items.App_direction=='ltr')? item.title_en:item.title_ar}}</p>
+                </ion-row>
+                <ion-row>
+                    <p>{{(global_items.App_direction=='ltr')? item.description_en:item.description_ar}}</p>
+                </ion-row>
+                <ion-row>
+                    <button ion-button block (click)="buy(item.id)">{{item.price}} OMR</button>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

@@ -1,0 +1,151 @@
+page-classifieds {
+    .image_style {
+        background: transparent;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+    }
+    .col_style {
+        text-align: center;
+        font-size: 0.8em
+    }
+    .p_style {
+        color: #4d4d4d;
+        font-weight: 700;
+        padding: 5px 5px 0px 5px;
+    }
+    .ion_row_bg {
+        background: white;
+        width: 100%;
+        padding: 10px 0px 0px 0px;
+    }
+    .show_ {
+        display: block !important;
+    }
+    .hide_ {
+        display: none !important;
+    }
+    .promotion_ion_slide {
+        width: 60%;
+    }
+    .promotion_venue_style {
+        height: 21px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        /* font-size: 16px; */
+        white-space: nowrap;
+        font-weight: 500;
+        color: #22b573 !important;
+        font-size: 12px;
+        font-weight: 700;
+    }
+    .main_icon_style {
+        color: #22b573;
+        font-size: 3em;
+        text-align: center !important;
+    }
+    .main_icon_name {
+        color: #4d4d4d;
+        font-weight: 300;
+        font-size: 1em;
+        text-align: center;
+        padding-right: 5px;
+    }
+    .view_all_style {
+        height: 93% !important;
+        position: absolute;
+    }
+    // .view_all_item_style {
+    //     margin-bottom: 0px;
+    //     transform: translate(-50%, -50%);
+    //     top: 50%;
+    //     position: absolute;
+    //     left: 50%;
+    //     color: #504a4a;
+    // }
+    .view_all_icon_style {
+        font-size: 5em;
+        color: #22b573;
+    }
+    // .view_all_item_style {
+    //     margin-bottom: 0px;
+    //     transform: translate(-50%, -50%);
+    //     top: 50%;
+    //     position: absolute;
+    //     left: 50%;
+    // }
+    .view_all_p_style {
+        color: #504a4a;
+    }
+
+
+
+    .blinking{
+        animation:blinkingText 0.8s infinite;
+        color: #3b5998
+        }
+    @keyframes blinkingText{
+        0%{opacity: 0;}
+        50%{opacity: .5;}
+        100%{opacity: 1;}
+    }
+}
+
+[dir=ltr] page-classifieds .premium {
+    position: absolute;
+    padding: 5px 15px 5px 5px;
+    background: #22b573;
+    border-radius: 0px 15px 15px 0px
+}
+
+[dir=rtl] page-classifieds .premium {
+    position: absolute;
+    padding: 5px 8px 5px 15px;
+    background: #22b573;
+    border-radius: 15px 0px 0px 15px
+}
+
+[dir=rtl] page-classifieds .cl_title {
+    text-align: right
+}
+
+[dir=rtl] page-classifieds p.promotion_venue_style {
+    height: 21px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* font-size: 16px; */
+    white-space: nowrap;
+    font-weight: 500;
+    color: #22b573 !important;
+    font-size: 12px;
+    text-align: right;
+    font-weight: 700;
+}
+
+[dir=rtl] page-classifieds .view_all_item_style {
+    margin-bottom: 0px;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    position: absolute;
+    left: 50%;
+}
+
+[dir=ltr] page-classifieds .view_all_item_style {
+    margin-bottom: 0px;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    position: absolute;
+    left: 50%;
+}
+
+[dir=rtl] page-classifieds ion-card-content {
+    padding-left: 3px !important;
+    padding-right: 3px !important;
+    padding-bottom: 4px !important
+}
+
+[dir=ltr] page-classifieds ion-card-content {
+    padding-left: 3px !important;
+    padding-right: 3px !important;
+    padding-bottom: 4px !important
+}

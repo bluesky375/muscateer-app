@@ -1,0 +1,137 @@
+<!--
+  Generated template for the SuggestPageAttractionPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <div class="back-box">
+        <ion-grid no-padding>
+            <ion-row no-padding>
+                <ion-col col-2 (click)="goback()">
+                    <p class="main icon-back"></p>
+                </ion-col>
+                <ion-col col-8>
+                    <p [ngClass]="{'rtl_align':this.global_items.App_direction=='rtl'}">{{this.global_items.do_translation('Suggest Movies')}}</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+    </div>
+</ion-header>
+
+<ion-content no-padding style="background: #f9f9f9">
+    <div>
+        <ion-list padding>
+
+            <!--add image start-->
+            <div>
+                <p>{{this.global_items.do_translation('Upload Photo (Max 5)')}}</p>
+                <ion-row>
+                    <multiple-image [count]=5 (onupload)="post_suggest($event)"></multiple-image>
+                </ion-row>
+            </div>
+            <!--add image stop-->
+
+            <p>{{this.global_items.do_translation('Title of Movie')}} <span class="error" *ngIf="!title" danger> *</span></p>
+            <ion-item class="outline">
+                <ion-input type="text" [(ngModel)]="title" placeholder="{{this.global_items.do_translation('Title of Movie')}}" maxlength="100"></ion-input>
+            </ion-item>
+
+            <!-- <p>Average Price <span class="error" *ngIf="!average_price" danger> *</span></p>
+            <ion-item class="outline">
+                <ion-input type="number" [(ngModel)]="average_price" placeholder="Average Price"></ion-input>
+            </ion-item>
+
+            <p>Meals <span class="error" *ngIf="!meals" danger> *</span></p>
+            <ion-item class="outline">
+                <ion-input type="text" [(ngModel)]="meals" placeholder="Meals"></ion-input>
+            </ion-item>
+
+            <p>Good For <span class="error" *ngIf="!good_for" danger> *</span></p>
+            <ion-item class="outline">
+                <ion-input type="text" [(ngModel)]="good_for" placeholder="Good For"></ion-input>
+            </ion-item> -->
+
+            <!-- <p>Location <span class="error" *ngIf="!location" danger> *</span></p>
+            <ion-item class="outline">
+                <ion-input type="text" [(ngModel)]="location" placeholder="Location"></ion-input>
+            </ion-item> -->
+
+            <!-- <p>Venue <span class="error" *ngIf="!venue" danger> *</span></p>
+            <ion-item class="outline">
+                <ion-input type="text" [(ngModel)]="venue" placeholder="Venue"></ion-input>
+            </ion-item>
+
+            <p>Cuisine <span class="error" *ngIf="!cuisine" danger> *</span></p>
+            <ion-item class="outline">
+                <ion-input type="text" [(ngModel)]="cuisine" placeholder="Cuisine"></ion-input>
+            </ion-item>
+
+            <p>Features <span class="error" *ngIf="!features" danger> *</span></p>
+            <ion-item class="outline">
+                <ion-input type="text" [(ngModel)]="features" placeholder="Features"></ion-input>
+            </ion-item> -->
+
+            <p>{{this.global_items.do_translation('Contact Info')}} <span class="error" *ngIf="!contact_info" danger></span></p>
+            <ion-item class="outline">
+                <ion-input type="text" [(ngModel)]="contact_info" placeholder="{{this.global_items.do_translation('Contact Info')}}"></ion-input>
+            </ion-item>
+            <p>{{this.global_items.do_translation('Language')}} <span class="error"></span></p>
+            <ion-item class="outline">
+                <ion-input type="text" [(ngModel)]="language" placeholder="{{this.global_items.do_translation('Language')}}"></ion-input>
+            </ion-item>
+            <p>{{this.global_items.do_translation('Show times')}} <span class="error"></span></p>
+            <ion-item class="outline">
+                <ion-input type="text" [(ngModel)]="show_times" placeholder="{{this.global_items.do_translation('Show times')}}"></ion-input>
+            </ion-item>
+            <p>{{this.global_items.do_translation('Theatre')}} <span class="error"></span></p>
+            <ion-item class="outline">
+                <ion-input type="text" [(ngModel)]="theatre" placeholder="{{this.global_items.do_translation('Theatre')}}"></ion-input>
+            </ion-item>
+            <p>{{this.global_items.do_translation('Genre')}} <span class="error"></span></p>
+            <ion-item class="outline">
+                <ion-input type="text" [(ngModel)]="genre" placeholder="{{this.global_items.do_translation('Genre')}}"></ion-input>
+            </ion-item>
+            <p>{{this.global_items.do_translation('Trailer')}} <span class="error"></span></p>
+            <ion-item class="outline">
+                <ion-input type="text" [(ngModel)]="youtube_trailer" placeholder="{{this.global_items.do_translation('Trailer')}}"></ion-input>
+            </ion-item>
+
+            <!-- <p>Category <span class="error" *ngIf="!category_id" danger> *</span></p>
+      <ion-item class="outline">
+          <ion-label>Choose Category</ion-label>
+          <ion-select [(ngModel)]="category_id" (ionChange)="choose_categories($event)" name="category">
+            <ion-option *ngFor="let category of categories_json_list.data" [value] ="category.id">
+              {{category.name}}
+          </ion-option>
+          </ion-select>
+        </ion-item> -->
+
+            <p>{{this.global_items.do_translation('Description')}} <span class="error" *ngIf="!description" danger> *</span></p>
+            <ion-item class="outline">
+                <ion-textarea [(ngModel)]="description" placeholder="{{this.global_items.do_translation('Description')}}" maxlength="200"></ion-textarea>
+            </ion-item>
+
+            <div>
+                <ion-item style="background: transparent;padding-top: 10px" *ngIf="this.global_items.App_direction=='ltr'">
+                    <ion-checkbox (ionChange)="isAccepted($event)"></ion-checkbox>
+                    <ion-label>I accept all <span style="color: #22b573" (click)="goTO_terms()">terms & conditions</span></ion-label>
+                </ion-item>
+
+                <ion-item style="background: transparent;padding-top: 10px" *ngIf="this.global_items.App_direction=='rtl'">
+                    <ion-checkbox (ionChange)="isAccepted($event)"></ion-checkbox>
+                    <ion-label style="color: #22b573" (click)="goTO_terms()">{{this.global_items.do_translation('I accept all terms & conditions')}}</ion-label>
+                </ion-item>
+            </div>
+
+
+            <div style="margin-top:15px">
+                <button ion-button color="#22B572" outline (click)="goback()">{{this.global_items.do_translation('Cancel')}}</button>
+                <button id="id_submit_button" margin-left="10px" class="main-btn" ion-button (click)="submit()" [disabled]="disable">{{this.global_items.do_translation('Submit')}}</button>
+            </div>
+
+
+        </ion-list>
+    </div>
+</ion-content>

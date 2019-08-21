@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "649027961014",
+    "firebase_url": "https://omasuq-5cd62.firebaseio.com",
+    "project_id": "omasuq-5cd62",
+    "storage_bucket": "omasuq-5cd62.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:649027961014:android:a166893b8bd19742",
+        "android_client_info": {
+          "package_name": "com.muscateers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "649027961014-vnckvf33qrppls44eapbnf9h3pheugcu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsknwZD36k3OYIYoK5tl2LDGhb4tTaBRE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

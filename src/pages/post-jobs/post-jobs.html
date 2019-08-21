@@ -1,0 +1,241 @@
+<!--
+  Generated template for the PostClassifiedsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <div class="back-box">
+        <ion-grid no-padding>
+            <ion-row no-padding>
+                <ion-col col-2 (click)="goback()">
+                    <p class="main icon-back"></p>
+                </ion-col>
+                <ion-col col-10>
+                    <!--<p>Back</p>-->
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+    </div>
+</ion-header>
+
+<ion-content>
+    <div class="post-class-section">
+        <ion-grid>
+            <form class="reg-form" [formGroup]="form" (ngSubmit)="postItem(form.value)">
+                <ion-row>
+                    <ion-col col-12>
+                        <p class="main">
+                            {{this.globalItems.do_translation('Complete the steps below to submit your job')}}
+                        </p>
+                    </ion-col>
+                    <ion-col col-12>
+                        <!-- <p>
+                            Choose Category
+                        </p> -->
+                        <!-- <div class="m-t-10" *ngFor="let cat of categroyArray ; let i=index; ">
+                            <ion-select placeholder="Select {{i==0 ? 'Category' :'Subcategory'}}" formControlName="category_id">
+                                <ion-option *ngFor="let item of cat.data ;" [value]="item.pk_i_id" (ionSelect)="chooseCategory(item,i)">
+                                    {{ item.s_name }}
+                                </ion-option>
+                            </ion-select>
+                        </div> -->
+
+
+                        <div class="m-t-10">
+                            <ion-select placeholder="{{this.globalItems.do_translation('Select Subcategory')}}" okText="{{globalItems.do_translation('OK')}}" cancelText="{{globalItems.do_translation('CANCEL')}}">
+                                <ion-option *ngFor="let item of job_sub_category_list" [value]="item.pk_i_id" (ionSelect)="chooseSubcategory(item)">
+                                    {{ item.s_name }}
+                                </ion-option>
+                            </ion-select>
+                        </div>
+
+                    </ion-col>
+                    <ion-col col-12 *ngIf="show_job_available_subcategory">
+                        <div class="m-t-10">
+                            <ion-select placeholder="{{this.globalItems.do_translation('Select Subcategory')}}" formControlName="category_id" okText="{{globalItems.do_translation('OK')}}" cancelText="{{globalItems.do_translation('CANCEL')}}">
+                                <ion-option *ngFor="let item of job_available_sub_category_list ;" [value]="item.pk_i_id">
+                                    {{ item.s_name }}
+                                </ion-option>
+                            </ion-select>
+                        </div>
+                    </ion-col>
+                    <ion-col col-12>
+                        <p>
+                            {{this.globalItems.do_translation('Images')}}
+                        </p>
+                        <!-- <ion-row class="image-list">
+                            <ion-col col-6 *ngFor="let imageItem of maxImagesAllowed ; let i =index" style="height:140px;">
+                                <div class="image-item">
+                                    <i class="ion-md-close" name=" " (click)="removeImage(i)"></i>
+                                    <p style="margin-top: 0px">
+                                        <input (change)="onImageChange($event,i)" type="file" accept="image/jpeg">
+                                        <i class="ion-md-add" *ngIf="!isUploading(i)" style=" margin-top: 10px;"></i>
+                                        <ion-spinner icon="android" *ngIf="isUploading(i)"></ion-spinner>
+                                    </p>
+                                    <img *ngIf="imageExists(i)" [src]="imageExists(i)" alt="" class="img-responsive">
+                                </div>
+                                <small *ngIf="i==0" class="light text-dark">{{this.globalItems.do_translation('This will be the display image')}}</small>
+                                <small *ngIf="isError(i)" class="light text-custom-red">Error while uploading image</small>
+                            </ion-col>
+                        </ion-row> -->
+                        <div class="image-upload">
+                            <multiple-image (onupload)="handleImageChange($event)"></multiple-image>
+                        </div>
+                    </ion-col>
+                    <ion-col col-12>
+                        <p>
+                            {{this.globalItems.do_translation('Your Job title')}}
+                        </p>
+                        <ion-item>
+                            <ion-input placeholder="{{this.globalItems.do_translation('Enter your job title')}}" formControlName="title"></ion-input>
+
+                        </ion-item> <small *ngIf="isTouchedAndInvalid('title')" class="text-custom-red">
+                        * Enter a  title (Maximum 70 characters are allowed)
+                    </small>
+                    </ion-col>
+                    <ion-col col-12>
+                        <p>{{this.globalItems.do_translation('Salary (in Oman Riyals)')}}</p>
+                        <ion-item>
+                            <ion-input type="number" placeholder="{{this.globalItems.do_translation('Salary')}}" formControlName="price"></ion-input>
+
+                        </ion-item> <small *ngIf="isTouchedAndInvalid('price')" class="text-custom-red">
+                        * Must  be a  valid price
+                    </small>
+                    </ion-col>
+                    <ion-col col-12>
+                        <p>{{this.globalItems.do_translation('Description')}}</p>
+                        <ion-item>
+                            <ion-textarea placeholder="{{this.globalItems.do_translation('Enter your job description')}}" formControlName="description"></ion-textarea>
+
+                        </ion-item> <small *ngIf="isTouchedAndInvalid('description')" class="text-custom-red">
+                        *{{this.global_items.do_translation('Minimum 10 charecters required')}}.
+                    </small>
+                    </ion-col>
+                    <ion-col col-12 *ngIf="isShow_price">
+                        <p>{{this.global_items.do_translation('Location')}}</p>
+                        <ng4geo-autocomplete [userSettings]="userSettings" (componentCallback)="autoCompleteCallback1($event)"></ng4geo-autocomplete>
+                    </ion-col>
+                    <!-- <ion-col col-12>
+                        <p>
+                            {{this.globalItems.do_translation('Region')}}
+                        </p>
+                        <ion-select placeholder="{{this.globalItems.do_translation('Choose Region')}}" formControlName="region_id">
+                            <ion-option *ngFor="let reg of region.data" (ionSelect)="getCity(reg.pk_i_id)" [value]="reg.pk_i_id">
+                                {{ reg.s_name }}
+                            </ion-option>
+                        </ion-select>
+                        <small *ngIf="isTouchedAndInvalid('region_id')" class="text-custom-red">
+                        {{this.global_items.do_translation('Required')}}.
+                    </small>
+                    </ion-col> -->
+                    <!-- <ion-col col-12 *ngIf="cityData">
+                    <p>
+                        City
+                    </p>
+                    <ion-select placeholder="Choose City" formControlName="city_id">
+                        <ion-option *ngFor="let city of cityData " [value]="city.pk_i_id">
+                            {{ city.s_name }}
+                        </ion-option>
+                    </ion-select>
+                    <small *ngIf="isTouchedAndInvalid('city_id')" class="text-custom-red">
+                        {{this.global_items.do_translation('Required')}}.
+                    </small>
+                </ion-col> -->
+                    <!-- <ion-col col-12>
+                        <p>
+                            {{this.globalItems.do_translation('Address')}}
+                        </p>
+                        <ion-item>
+                            <ion-textarea placeholder="{{this.globalItems.do_translation('Your address')}}" formControlName="address"></ion-textarea>
+
+                        </ion-item> <small *ngIf="isTouchedAndInvalid('address')" class="text-custom-red">
+                        {{this.global_items.do_translation('Required')}}.
+                    </small>
+                    </ion-col> -->
+                    <!-- <ion-col col-12>
+                    <ion-item>
+                        <ion-label>Show email</ion-label>
+                        <ion-checkbox formControlName="show_mail" checked="down" color="#22b573"></ion-checkbox>
+                    </ion-item>
+                </ion-col> -->
+                    <ion-col col-12>
+                        <ion-item>
+                            <ion-label>{{this.globalItems.do_translation("Show contact")}}</ion-label>
+                            <ion-checkbox formControlName="show_contact" checked="down" color="#22b573"></ion-checkbox>
+                        </ion-item>
+                    </ion-col>
+                    <!-- <ion-col col-12>
+                        <ion-item>
+                            <ion-label>{{this.globalItems.do_translation('Show chat option')}}</ion-label>
+                            <ion-checkbox formControlName="show_chat" checked="down" color="#22b573"></ion-checkbox>
+                        </ion-item>
+                    </ion-col> -->
+
+                    <ion-col col-12>
+                        <ion-item style="background: transparent;padding-top: 10px">
+                            <ion-checkbox (ionChange)="isAccepted($event)"></ion-checkbox>
+                            <ion-label *ngIf="this.globalItems.App_direction=='ltr'">I accept all <span style="color: #22b573" (click)="goTO_terms()">terms & conditions</span></ion-label>
+                            <ion-label *ngIf="this.globalItems.App_direction=='rtl'" style="color: #22b573" (click)="goTO_terms()">{{this.globalItems.do_translation('I accept all terms & conditions')}}</ion-label>
+                        </ion-item>
+
+                    </ion-col>
+                    <ion-col col-12>
+                        <div class="post-additional-fields" formArrayName="additionalFields">
+                            <div *ngFor="let field of additionalFields" formGroupName="0" class="form-group mt-20">
+                                <p class="f-16">{{field.name }}</p>
+                                <div *ngIf="field.type=='TEXT'">
+                                    <ion-item>
+                                        <ion-input type="text" formControlName="{{field.slug }}" class="form-control" id="exampleInputText1" placeholder="Add {{field.name  }}"></ion-input>
+
+                                    </ion-item> <small *ngIf="addtionalFieldValidation(0,field.slug)" class="text-custom-red">{{this.global_items.do_translation('Required')}} </small>
+                                </div>
+                                <div *ngIf="field.type=='DROPDOWN'">
+                                    <ion-select placeholder="{{field.name}}" formControlName="{{field.slug}}" okText="{{globalItems.do_translation('OK')}}" cancelText="{{globalItems.do_translation('CANCEL')}}">
+                                        <ion-option *ngFor="let option of field.options" [value]="option">
+                                            {{ option }}
+                                        </ion-option>
+                                    </ion-select>
+                                    <small *ngIf="addtionalFieldValidation(0,field.slug)" class="text-custom-red">{{this.global_items.do_translation('Required')}} </small>
+                                </div>
+                                <div *ngIf="field.type=='RADIO'">
+                                    <ion-row>
+                                        <ion-col col-6 *ngFor="let option of field.options">
+                                            <ion-item>
+                                                <ion-label>{{option}}</ion-label>
+                                                <ion-radio formControlName="{{field.slug}}" checked="false" value="{{option}}"></ion-radio>
+                                            </ion-item>
+                                        </ion-col>
+                                    </ion-row>
+                                    <small *ngIf="addtionalFieldValidation(0,field.slug)" class="text-custom-red">{{this.global_items.do_translation('Required')}} </small>
+                                </div>
+                                <div *ngIf="field.type=='TEXTAREA'">
+                                    <ion-item>
+                                        <ion-textarea formControlName="{{field.slug}}" rows="6"></ion-textarea>
+
+                                    </ion-item> <small *ngIf="addtionalFieldValidation(0,field.slug)" class="text-custom-red">{{this.global_items.do_translation('Required')}} </small>
+                                </div>
+                                <div *ngIf="field.type=='CHECKBOX'">
+                                    <ion-checkbox formControlName="{{field.slug}}">{{field.name}}</ion-checkbox>
+                                    <small *ngIf="addtionalFieldValidation(0,field.slug)" class="text-custom-red">{{this.global_items.do_translation('Required')}} </small>
+                                </div>
+                            </div>
+                        </div>
+                    </ion-col>
+                    <div *ngIf="errors.length > 0" class="alert alert-danger">
+                        <strong>{{this.global_items.do_translation('Validation Error')}}</strong>
+                        <p *ngFor="let error of errors">{{error.message}}</p>
+                    </div>
+                    <!--<ion-col col-12>-->
+                    <!--<div class="g-recaptcha" data-callback="checkReCaptcha"  data-sitekey="6LcboTAUAAAAAIXE5UZCyiEuFc6eS4GVGLwyfLLS"></div>-->
+                    <!--</ion-col>-->
+                    <ion-col>
+                        <button ion-button class="reg-btn" type="submit" [disabled]=disable>{{this.globalItems.do_translation('POST')}}
+                    </button>
+                    </ion-col>
+                </ion-row>
+            </form>
+        </ion-grid>
+    </div>
+</ion-content>

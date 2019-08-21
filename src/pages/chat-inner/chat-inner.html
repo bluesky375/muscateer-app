@@ -1,0 +1,105 @@
+<!--
+  Generated template for the ChatInnerPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header #chatHead class="chat-head">
+    <div class="back-box">
+        <ion-grid no-padding>
+            <ion-row no-padding>
+                <ion-col col-2 (click)="goback()">
+                    <p class="main icon-back"></p>
+                </ion-col>
+                <ion-col col-8>
+                    <p [ngClass]="{'rtl_align':this.global_items.App_direction=='rtl','rtl_align_left':this.global_items.App_direction=='ltr'}">{{name}}</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</ion-header>
+
+
+
+<ion-content class="chat-content">
+    <ion-grid class="chat-inner">
+        <ion-refresher (ionRefresh)="loadMore($event)">
+            <ion-refresher-content></ion-refresher-content>
+        </ion-refresher>
+        <ion-row style="padding-top: 25px;">
+            <ion-col col-12>
+                <ion-row *ngFor="let message of messageList">
+                    <ion-col col-10 *ngIf="message.sender==recipientId; else senderBlock">
+                        <span [ngClass]="{'recieve_rtl':this.global_items.App_direction=='rtl','recieve':this.global_items.App_direction=='ltr'}"
+                            class="recieve">
+                            <ng-container *ngIf="message.type == 'image';else text_block">
+                                <img [src]="message.data" style="max-width: 100%;">
+                            </ng-container>
+                            <ng-template #text_block>
+                                {{message.data}}
+                            </ng-template>
+                        </span>
+                    </ion-col>
+                    <ng-template #senderBlock>
+                        <ion-col col-10 offset-2>
+                            <span [ngClass]="{'send_rtl':this.global_items.App_direction=='rtl','send':this.global_items.App_direction=='ltr'}"
+                                class="send">
+                                <ng-container *ngIf="message.type == 'image';else text_block">
+                                    <img [src]="message.data" style="max-width: 100%;">
+                                </ng-container>
+                                <ng-template #text_block>
+                                    {{message.data}}
+                                </ng-template>
+
+                            </span>
+                        </ion-col>
+                    </ng-template>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+
+
+    </ion-grid>
+
+</ion-content>
+<ion-footer class="chat-footer">
+    <ion-grid no-padding>
+        <ion-row no-padding>
+            <ion-col no-padding col-12 class="pos-bot chat_out_spl" style="padding: 0% 2% 1% 2%;">
+                <ion-row no-padding class="bg-white chatmsg_spl">
+                    <ion-col col-10 no-padding>
+
+                        <div class="file-icon" (click)="openDD();">
+                            <ion-icon name="camera"></ion-icon>
+                        </div>
+
+                        <ion-textarea #myInput id="myInput" style="padding: 0px 20px 0 0;margin-left: 40px;" rows="1" (keyup)="resize()"
+                            maxLength="500" [(ngModel)]="message" placeholder="{{global_items.do_translation('Type Here....')}}"></ion-textarea>
+                    </ion-col>
+                    <ion-col col-2 text-center>
+                        <span *ngIf="global_items.App_direction=='ltr'" (click)="sendMessage()" class="ion-md-send send-btn"></span>
+                        <span *ngIf="global_items.App_direction=='rtl'" (click)="sendMessage()" class="ion-md-send send-btn"
+                            [ngClass]="{'flip':global_items.App_direction=='rtl'}"></span>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer>
+
+<div *ngIf="ddIsOpen" class="chat-dd-backdrop" (click)="closeDD()"></div>
+<div *ngIf="ddIsOpen" class="chat-dd-content">
+  <div class="chat-dd-item" (click)="openCamera()">
+    <img src="assets/images/icons/camera.svg">
+    <div class="dd-item-title">Camera</div>
+  </div>
+  <div class="chat-dd-item" (click)="openGallery()">
+    <img src="assets/images/icons/gallery.svg">
+    <div class="dd-item-title">Gallery</div>
+  </div>
+</div>
+
+
+<!-- <ion-textarea #myInput id="myInput" rows="5" (keyup)="resize()" maxLength="500" [(ngModel)]="message" placeholder=""></ion-textarea>
+  <span (click)="sendMessage()" class="ion-md-send send-btn"></span>
+                        -->

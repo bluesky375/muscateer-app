@@ -1,0 +1,85 @@
+<!--
+  Generated template for the SubCategoryInnerPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <div class="back-box">
+        <ion-grid no-padding>
+            <ion-row no-padding>
+                <ion-col col-2 (click)="goback()">
+                    <p class="main icon-back"></p>
+                </ion-col>
+                <ion-col col-10>
+                    <p [ngClass]="{'rtl_text_align':this.global_providers.App_direction=='rtl'}">{{head}}</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+    </div>
+</ion-header>
+
+
+<ion-content no-padding>
+    <ion-grid *ngIf="isShow_item_list">
+        <ion-row>
+            <ion-searchbar [(ngModel)]="global_providers.App_global_search_input" [showCancelButton]="false" (keyup.enter)="do_search(global_providers.App_global_search_input)" placeholder="{{global_providers.do_translation('Search')}}">
+            </ion-searchbar>
+        </ion-row>
+        <ion-row>
+            <ion-col no-padding col-6 *ngFor="let item of item_list_array; let i=index" (click)="check_token(item.title,i,item.item_id)">
+                <ion-card>
+                    <ion-card-header no-padding>
+                        <img [src]="urlService.getImagePath(item)" />
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-row class="green-light ">
+                            <ion-col no-padding text-left>
+                                <p [ngClass]="{'rtl_text_align':this.global_providers.App_direction=='rtl'}">{{ item.title |removehtmltags}}</p>
+                            </ion-col>
+                        </ion-row>
+                        <p class="card-main" [ngClass]="{'rtl_text_align':this.global_providers.App_direction=='rtl'}">{{item.description | removehtmltags}}</p>
+                        <!-- <p class="card-main" [innerHTML]="item.description"></p> -->
+                        <ion-row class="card-bottom">
+                            <ion-col col-7 no-padding text-left>
+                                <p class="third">{{ item.i_price }}</p>
+                            </ion-col>
+                            <ion-col col-5 no-padding>
+                                <p class="card-date">{{ item.new_date }}</p>
+                            </ion-col>
+                        </ion-row>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-list *ngIf="isShow_subcategory">
+        <ion-item (click)="show_inner_sub_jobs('All')" style="border-bottom: 3px solid whitesmoke;">
+            <ion-avatar item-start style="margin-top: 10px;text-align: center;
+          font-size: 1.5em;
+          margin-bottom: 0px;">
+                <ion-icon ios="ios-arrow-dropright-outline" md="ios-arrow-dropright-outline"></ion-icon>
+            </ion-avatar>
+            <h2>{{global_providers.do_translation("All")}}</h2>
+        </ion-item>
+        <!-- <ion-item style="border-bottom: 3px solid whitesmoke;" *ngFor="let item of subcategories" (click)="show_inner_sub_categories(item.pk_i_id,item.name)"> -->
+        <ion-item style="border-bottom: 3px solid whitesmoke;" *ngFor="let item of subcategories" (click)="show_inner_sub_jobs(item.pk_i_id,item.name)">
+            <ion-avatar item-start style="margin-top: 10px;
+          margin-bottom: 0px;">
+                <p class="main-icon-green" style="font-size: 2em;
+              text-align: center;
+              margin-bottom: 0px;">
+                    <!-- <ion-icon name="{{cat.s_icon}}"></ion-icon> -->
+                    <i class="{{'icon-'+item.s_icon}}"></i>
+                </p>
+            </ion-avatar>
+            <h2>{{item.name}}</h2>
+        </ion-item>
+    </ion-list>
+    <div style="height: 100%;width: 100%" *ngIf="isShow_no_data">
+        <img class="vertical_center" style="width: 25%" src="assets/images/sad.png" />
+        <p style="top: 60%;
+        color: #818181dd;" class="vertical_center">{{this.global_providers.do_translation('No results found')}}</p>
+    </div>
+</ion-content>

@@ -1,0 +1,129 @@
+<ion-menu [content]="content" id="myMenu">
+    <!-- [side]="(global_item.App_direction=='rtl')?'right':'left'" -->
+    <ion-header class="menu-oma">
+        <div class="menu-side">
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-12>
+                        <img src="assets/images/Logo-2-White.png">
+                    </ion-col>
+                    <!--<ion-col col-8><p>OMASOUQ</p></ion-col>-->
+                </ion-row>
+            </ion-grid>
+        </div>
+    </ion-header>
+
+    <ion-content>
+        <ion-content class="menu-body">
+            <div style="height: 100%;width: 100%">
+                <ion-grid>
+                    <ion-row menuClose (click)="postHome()">
+                        <ion-col col-2>
+                            <ion-icon ios="md-home" md="md-home" class="navigation_icon"></ion-icon>
+                        </ion-col>
+                        <ion-col col-10>
+                            <p class="navigation_text">{{this.global_item.do_translation("HOME")}}</p>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row menuClose (click)="postClick()">
+                        <ion-col col-2>
+                            <ion-icon name="add-circle" class="navigation_icon"></ion-icon>
+                        </ion-col>
+                        <ion-col col-10>
+                            <p class="navigation_text">
+                                {{this.global_item.do_translation("POST AND AD")}}</p>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row menuClose (click)="postChat()">
+                        <ion-col col-2>
+                            <ion-icon name="chatbubbles" class="navigation_icon"></ion-icon>
+                        </ion-col>
+                        <ion-col col-10>
+                            <p class="navigation_text">
+                                {{this.global_item.do_translation('LIVE CHAT')}}</p>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row menuClose (click)="postAccount()">
+                        <ion-col col-2>
+                            <ion-icon name="person" class="navigation_icon"></ion-icon>
+                        </ion-col>
+                        <ion-col col-10>
+                            <p class="navigation_text">
+                                {{this.global_item.do_translation("ACCOUNT")}}</p>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row menuClose (click)="aboutUs()">
+                        <ion-col col-2>
+                            <ion-icon name="contact" class="navigation_icon"></ion-icon>
+                        </ion-col>
+                        <ion-col col-10>
+                            <p class="navigation_text">
+                                {{this.global_item.do_translation("ABOUT")}}</p>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row menuClose (click)="contactUs()">
+                        <ion-col col-2>
+                            <ion-icon name="call" class="navigation_icon"></ion-icon>
+                        </ion-col>
+                        <ion-col col-10>
+                            <p class="navigation_text">
+                                {{this.global_item.do_translation("CONTACT FORM")}}</p>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row menuClose (click)="privacy_and_policy()">
+                        <ion-col col-2>
+                            <ion-icon ios="md-lock" md="md-lock" class="navigation_icon"></ion-icon>
+                        </ion-col>
+                        <ion-col col-10 style="padding-bottom:0px">
+                            <p class="navigation_text">
+                                {{this.global_item.do_translation("LEGAL")}}</p>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row menuClose (click)="verified_users()">
+                        <ion-col col-2>
+                            <ion-icon ios="md-checkmark" md="md-checkmark" class="navigation_icon"></ion-icon>
+                        </ion-col>
+                        <ion-col col-10 style="padding-bottom:0px">
+                            <p class="navigation_text">
+                                {{this.global_item.do_translation("VERIFIED USERS")}}</p>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row menuClose (click)="change_language(global_item.App_direction)">
+                        <ion-col col-2>
+                            <ion-icon ios="md-shuffle" md="md-shuffle" class="navigation_icon"></ion-icon>
+                        </ion-col>
+                        <ion-col col-10 style="padding-bottom:0px">
+                            <!-- <p class="navigation_text">
+                                {{this.global_item.do_translation("CHANGE LANGUAGE")}}</p> -->
+                                <p class="navigation_text">
+                                        {{this.global_item.App_direction=='ltr'?'عربى':'ENGLISH'}}</p>
+                        </ion-col>
+                    </ion-row>
+
+
+                    <ion-row (click)="logout_or_login(global_item.nav_auth)">
+                        <ion-col col-2>
+                            <ion-icon name="ios-key" class="navigation_icon"></ion-icon>
+                        </ion-col>
+                        <ion-col col-10>
+                            <p class="navigation_text">{{this.global_item.do_translation(global_item.nav_auth)}}</p>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+
+        </ion-content>
+    </ion-content>
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="true"></ion-nav>

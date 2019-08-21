@@ -1,0 +1,169 @@
+<!--
+  Generated template for the ViewAllClassifiedsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <div class="back-box">
+        <ion-grid no-padding>
+            <ion-row no-padding>
+                <ion-col col-2 (click)="goback()">
+                    <p class="main icon-back"></p>
+                </ion-col>
+                <ion-col col-10>
+                    <p *ngIf="head.popular" [ngClass]="{'rtl_text_align':this.global_provier.App_direction=='rtl'}">{{this.global_provier.do_translation('Popular Search')}}</p>
+                    <p *ngIf="head.newlyAdded" [ngClass]="{'rtl_text_align':this.global_provier.App_direction=='rtl'}">{{this.global_provier.do_translation('New Items')}}</p>
+                    <p *ngIf="head.NEARBY" [ngClass]="{'rtl_text_align':this.global_provier.App_direction=='rtl'}">{{this.global_provier.do_translation('Ads Near By')}}</p>
+                    <p *ngIf="head.RECENT" [ngClass]="{'rtl_text_align':this.global_provier.App_direction=='rtl'}">{{this.global_provier.do_translation('Recently Searched')}}</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+    </div>
+</ion-header>
+
+
+<ion-content>
+
+    <ion-grid no-padding>
+        <ion-row *ngIf="banner_collection.length>0">
+            <ion-col col-12>
+                <ion-slides autoplay="2000" loop="true" speed="500" pager [dir]=this.global_provier.App_direction>
+                    <ion-slide *ngFor="let item of banner_collection">
+                        <img src="{{item.image}}">
+                    </ion-slide>
+                </ion-slides>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="popularItems.data">
+            <ion-col col-6 *ngFor="let item of popularItems.data">
+                <ion-card (click)="getItemId(item.item_id)">
+                    <img class="om-view-img" [src]="urlService.getImagePath(item)">
+                    <ion-card-content>
+                        <ion-row class="green-light ">
+                            <ion-col no-padding text-left>
+                                <p [ngClass]="{'rtl_text_align':this.global_provier.App_direction=='rtl'}">{{item.title |removehtmltags}}</p>
+                            </ion-col>
+                        </ion-row>
+                        <p class="card-main">{{item.description | removehtmltags}}</p>
+                        <!-- <p class="card-main" [innerHTML]='item.description'></p> -->
+                        <ion-row class="card-bottom">
+                            <ion-col col-4 no-padding text-left>
+                                <p class="third">{{item.i_price}}</p>
+                            </ion-col>
+                            <ion-col col-5 no-padding>
+                                <p class="card-date">{{item.new_date}}</p>
+                            </ion-col>
+                            <ion-col col-3 *ngIf="item.views!=null||item.views!=undefined" style="text-align: center;" [ngClass]="{'ltr_text_align':this.global_provier.App_direction=='rtl'}">
+                                <ion-icon name="eye" style="text-align: center;font-size: 1.0rem">{{"\t"+item.views}}</ion-icon>
+                            </ion-col>
+                        </ion-row>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="newItems.data">
+            <ion-col col-6 *ngFor=" let newItem of newItems.data">
+                <ion-card (click)="getItemId(newItem.item_id)">
+                    <img class="om-view-img" [src]="urlService.getImagePath(newItem)">
+                    <ion-card-content>
+                        <ion-row class="green-light ">
+                            <ion-col no-padding text-left>
+                                <p>{{newItem.title | removehtmltags}}</p>
+                            </ion-col>
+                        </ion-row>
+                        <p class="card-main">{{newItem.description | removehtmltags}}</p>
+                        <!-- <p class="card-main" [innerHTML]='newItem.description'></p> -->
+                        <ion-row class="card-bottom">
+                            <ion-col col-4 no-padding text-left>
+                                <p class="third">{{newItem.i_price}}</p>
+                            </ion-col>
+                            <ion-col col-5 no-padding>
+                                <p class="card-date">{{newItem.new_date}}</p>
+                            </ion-col>
+                            <ion-col col-3 *ngIf="newItem.views!=null||newItem.views!=undefined" style="text-align: center;">
+                                <ion-icon name="eye" style="text-align: center;font-size: 1.0rem">{{"\t"+newItem.views}}</ion-icon>
+                            </ion-col>
+                        </ion-row>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <!--<ion-infinite-scroll *ngIf="newItems.data" (ionInfinite)="loadNewItem($event)">-->
+            <!--<ion-infinite-scroll-content></ion-infinite-scroll-content>-->
+            <!--</ion-infinite-scroll>-->
+        </ion-row>
+        <ion-row *ngIf="nearbyItems.data">
+            <ion-col col-6 *ngFor=" let newItem of nearbyItems.data">
+                <ion-card (click)="getItemId(newItem.item_id)">
+                    <img class="om-view-img" [src]="urlService.getImagePath(newItem)">
+                    <ion-card-content>
+                        <ion-row class="green-light ">
+                            <ion-col no-padding text-left>
+                                <p>{{newItem.title |removehtmltags}}</p>
+                            </ion-col>
+                        </ion-row>
+                        <p class="card-main">{{newItem.description | removehtmltags}}</p>
+                        <!-- <p class="card-main" [innerHTML]='newItem.description'></p> -->
+                        <ion-row class="card-bottom">
+                            <ion-col col-4 no-padding text-left>
+                                <p class="third">{{newItem.i_price}}</p>
+                            </ion-col>
+                            <ion-col col-5 no-padding>
+                                <p class="card-date">{{newItem.new_date}}</p>
+                            </ion-col>
+                            <ion-col col-3 *ngIf="newItem.views!=null||newItem.views!=undefined" style="text-align: center;">
+                                <ion-icon name="eye" style="text-align: center;font-size: 1.0rem">{{"\t"+newItem.views}}</ion-icon>
+                            </ion-col>
+                        </ion-row>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <!--<ion-infinite-scroll *ngIf="newItems.data" (ionInfinite)="loadNewItem($event)">-->
+            <!--<ion-infinite-scroll-content></ion-infinite-scroll-content>-->
+            <!--</ion-infinite-scroll>-->
+        </ion-row>
+        <ion-row *ngIf="recentItems.data">
+            <ion-col col-6 *ngFor=" let newItem of recentItems.data">
+                <ion-card (click)="getItemId(newItem.item_id)">
+                    <img class="om-view-img" [src]="urlService.getImagePath(newItem)">
+                    <ion-card-content>
+                        <ion-row class="green-light ">
+                            <ion-col no-padding text-left>
+                                <p>{{newItem.title |removehtmltags}}</p>
+                            </ion-col>
+                        </ion-row>
+                        <p class="card-main">{{newItem.description | removehtmltags}}</p>
+                        <!-- <p class="card-main" [innerHTML]='newItem.description'></p> -->
+                        <ion-row class="card-bottom" *ngIf="newItem.views!=null||newItem.views!=undefined">
+                            <ion-col col-4 no-padding text-left>
+                                <p class="third">{{newItem.i_price}}</p>
+                            </ion-col>
+                            <ion-col col-5 no-padding>
+                                <p class="card-date">{{newItem.new_date}}</p>
+                            </ion-col>
+                            <ion-col col-3 *ngIf="newItem.views!=null||newItem.views!=undefined" style="text-align: center;">
+                                <ion-icon name="eye" style="text-align: center;font-size: 1.0rem">{{"\t"+newItem.views}}</ion-icon>
+                            </ion-col>
+                        </ion-row>
+                        <!-- <ion-row class="card-bottom" *ngIf="newItem.views==null||newItem.views==undefined">
+                            <ion-col col-6 no-padding text-left>
+                                <p class="third">{{newItem.i_price}}</p>
+                            </ion-col>
+                            <ion-col col-6 no-padding>
+                                <p class="card-date">{{newItem.new_date}}</p>
+                            </ion-col>
+                        </ion-row> -->
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <!--<ion-infinite-scroll *ngIf="newItems.data" (ionInfinite)="loadNewItem($event)">-->
+            <!--<ion-infinite-scroll-content></ion-infinite-scroll-content>-->
+            <!--</ion-infinite-scroll>-->
+        </ion-row>
+        <ion-infinite-scroll (ionInfinite)="loadInfinite($event, type)">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </ion-grid>
+
+</ion-content>

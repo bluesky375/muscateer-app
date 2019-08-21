@@ -1,0 +1,87 @@
+<!--
+  Generated template for the PostForumsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <div class="back-box">
+        <ion-grid no-padding>
+            <ion-row no-padding>
+                <ion-col col-2 (click)="goback()">
+                    <p class="main icon-back"></p>
+                </ion-col>
+                <ion-col col-8>
+                    <p [ngClass]="{'headstyle':this.globalItems.App_direction=='rtl'}">{{this.globalItems.do_translation('ADD FORUMS')}}</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+    </div>
+</ion-header>
+
+
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-12>
+                <form class="reg-form" [formGroup]="form" (ngSubmit)="postItem(form.value)">
+                    <div class="form-group">
+                        <div class="reg-box">
+                            <ion-select placeholder="{{this.globalItems.do_translation('Choose Category')}}" okText="{{globalItems.do_translation('OK')}}" cancelText="{{globalItems.do_translation('CANCEL')}}">
+                                <ion-option *ngFor="let option of categoryOption" [value]="option.value" (ionSelect)="selectType(option)">
+                                    {{option.name}}
+                                </ion-option>
+                            </ion-select>
+                        </div>
+                        <div class="reg-box">
+                            <p>
+                                {{this.globalItems.do_translation('Title')}}
+                            </p>
+                            <ion-item>
+                                <ion-input placeholder="{{this.globalItems.do_translation('Title')}}" formControlName="title"></ion-input>
+                            </ion-item> <small *ngIf="isTouchedAndInvalid('title')" class="text-custom-red">
+                                * {{this.globalItems.do_translation('Required')}}
+                            </small>
+
+                        </div>
+
+                        <div class="reg-box">
+                            <p>
+                                {{this.globalItems.do_translation('Description')}}
+                            </p>
+                            <ion-item>
+                                <ion-textarea placeholder="{{this.globalItems.do_translation('Description')}}" formControlName="description"></ion-textarea>
+
+                            </ion-item> <small *ngIf="isTouchedAndInvalid('description')" class="text-custom-red">
+                                * {{this.globalItems.do_translation('Required')}}
+                            </small>
+                        </div>
+                        <div class="reg-box">
+                            <div class="image-upload">
+                                <multiple-image (onupload)="handleImageChange($event)"></multiple-image>
+                            </div>
+
+                            <div>
+                                <ion-item style="background: transparent;padding-top: 10px">
+                                    <ion-checkbox (ionChange)="isAccepted($event)"></ion-checkbox>
+                                    <ion-label *ngIf="this.globalItems.App_direction=='ltr'">I accept all <span style="color: #22b573" (click)="goTO_terms()">terms & conditions</span></ion-label>
+                                    <ion-label *ngIf="this.globalItems.App_direction=='rtl'" (click)="goTO_terms()" style="color: #22b573">{{this.globalItems.do_translation('I accept all terms & conditions')}}</ion-label>
+                                </ion-item>
+                            </div>
+
+                            <div *ngIf="errors.length > 0" class="text-custom-red">
+                                <strong>Validation Error</strong>
+                                <p *ngFor="let error of errors">{{error.message}}</p>
+                                <!-- <p>Something Went Wrong.</p> -->
+                            </div>
+                            <button ion-button class="reg-btn" type="submit" [disabled]="disabled">{{this.globalItems.do_translation('POST')}}</button>
+                        </div>
+                    </div>
+                </form>
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>

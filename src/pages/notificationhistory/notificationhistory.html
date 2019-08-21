@@ -1,0 +1,54 @@
+<!--
+  Generated template for the NotificationhistoryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <div class="back-box">
+        <ion-grid no-padding>
+            <ion-row no-padding>
+                <ion-col col-2 (click)="goback()">
+                    <p class="main icon-back"></p>
+                </ion-col>
+                <ion-col col-10>
+                    <p [ngClass]="{'head_style': this.global_items.App_direction=='rtl'}">{{this.global_items.do_translation('Notification History')}}</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+    </div>
+</ion-header>
+
+
+<ion-content no-padding>
+    <ion-grid>
+        <ion-row class="item_grid_style card_style" *ngFor="let item of notification_history_array" (click)="redirect_page(item.type,item.property,item.property_id)">
+            <ion-col col-12>
+                <ion-row>
+                    <ion-col col-12>
+                        <p class="title_style">{{item.title}}</p>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-12>
+                        <p class="description" [ngClass]="{'rtl_text_align':this.global_items.App_direction=='rtl'}">{{item.description}}</p>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <!-- <ion-col col-5>
+                        <p *ngIf="item.type!='app'" class="time_and_date_style" style="text-align: left">Type: {{item.type}}</p>
+                        <p *ngIf="item.type=='app'" class="time_and_date_style" style="text-align: left">Type: {{item.property}}</p>
+                    </ion-col> -->
+                    <ion-col push-5 col-7>
+                        <p class="time_and_date_style rtl_date_time_style">{{item.time}}</p>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <div *ngIf="notification_history_array_length==0" style="position: relative; height: 100%; width: 100%; overflow: hidden">
+        <img class="background" style="height: 80px;width: 80px" src="assets/images/sad.png">
+        <p class="no_item_style">No results found</p>
+    </div>
+</ion-content>

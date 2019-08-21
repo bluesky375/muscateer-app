@@ -1,0 +1,65 @@
+<!--
+  Generated template for the EventsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+
+<!-- <ion-content>
+
+    <ion-grid class="events-wrapper">
+        <ion-row class="top-row">
+            <ion-col col-6>
+                <ion-item>
+
+                    <ion-datetime displayFormat="DD MMMM YYYY" min="{{current_date}}" max="2018" [(ngModel)]="myDate" placeholder="Events on {{current_date}}" (ngModelChange)="saveDate($event)">
+                    </ion-datetime>
+                </ion-item>
+            </ion-col>
+            <ion-col col-6 text-right>
+                <button (click)="goToPromotions()" class="main-btn">Promotions</button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-12>
+                <ion-card let *ngFor="let item of events.data" (click)="moveForward(item.pk_i_id)">
+                    <ion-row>
+                        <ion-col col-5>
+                            <img [src]="getImagesPath(item)" (error)="updateImageUrl($event)" alt="" class="img-responsive" style="height: auto !important">
+                        </ion-col>
+                        <ion-col col-7>
+                            <p class="mains">{{item.title}}</p>
+
+                            <p><span class="date-gr">Date:</span><span class="date-green">{{item.new_date}}</span></p>
+                            <p><span class="date-gr">Venue:</span><span class="date-green">{{item.venue}}</span></p>
+                            <p class="sub" [innerHTML]='item.description'></p>
+                        </ion-col>
+                    </ion-row>
+                </ion-card>
+            </ion-col>
+            <ion-infinite-scroll (ionInfinite)="loadMore($event)">
+                <ion-infinite-scroll-content></ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+
+            <ion-col col-12>
+                <p class="empty-msg" *ngIf="events.display == 'empty'">
+                    No Events to be displayed on this date
+                </p>
+            </ion-col>
+            <ion-col>
+                <p (click)="clearFilter()" class="clear-filter" *ngIf="clearpage.true == 1">
+                    Clear Filters
+                </p>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content> -->
+
+<ion-content>
+    <ion-tabs>
+        <ion-tab [root]="tab1Root" tabIcon="md-calendar" tabTitle="{{this.global_items.do_translation('Upcoming')}}" (ionSelect)="tabSelected($event)"></ion-tab>
+        <ion-tab [root]="tab2Root" tabIcon="md-clock" tabTitle="{{this.global_items.do_translation('Todays')}}" (ionSelect)="tabSelected($event)"></ion-tab>
+        <!-- <ion-tab [root]="tab3Root" tabTitle="{{this.global_items.do_translation('Promotions')}}"></ion-tab> -->
+    </ion-tabs>
+</ion-content>

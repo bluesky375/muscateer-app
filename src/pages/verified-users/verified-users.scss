@@ -1,0 +1,57 @@
+page-verified-users {
+    .head_style {
+        text-align: center
+    }
+    ion-icon {
+        font-size: 2.5em;
+    }
+    .icon_col_style {
+        text-align: center;
+    }
+    .card_style {
+        background: white;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+        border-radius: 5px;
+        padding: 10px !important;
+    }
+    .about_style {
+        letter-spacing: 0.1em;
+        line-height: 1.3em;
+    }
+    .background {
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0px !important;
+        background: #f9f9f9;
+        left: 50%;
+    }
+    .no_item_style {
+        position: absolute;
+        bottom: -60%;
+        margin: 0px !important;
+        color: #a5a5a5;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+    }
+    .no-scroll .scroll-content {
+        overflow: hidden;
+    }
+    .social_website {
+        color: #4285f4
+    }
+    .social_facebook {
+        color: #3b5998;
+    }
+    .social_instagram {
+        color: #c11468
+    }
+    .social_twitter {
+        color: #1d9ceb
+    }
+    .rtl_text_align {
+        text-align: right;
+    }
+}

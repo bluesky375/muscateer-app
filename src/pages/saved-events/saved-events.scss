@@ -1,0 +1,29 @@
+page-saved-events {}
+
+[dir=rtl] page-saved-events ion-card-content {
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+    padding-bottom: 4px !important
+}
+
+[dir=ltr] page-saved-events ion-card-content {
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+    padding-bottom: 4px !important
+}
+
+[dir=ltr] page-saved-events .venue_style {
+    text-align: left !important
+}
+
+[dir=ltr] page-saved-events .date_style {
+    text-align: right !important
+}
+
+[dir=rtl] page-saved-events .venue_style {
+    text-align: right !important
+}
+
+[dir=rtl] page-saved-events .date_style {
+    text-align: left !important
+}

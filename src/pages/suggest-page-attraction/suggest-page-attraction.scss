@@ -1,0 +1,95 @@
+page-suggest-page-attraction {
+  .image_view_layout_setup {
+    z-index: 2;
+    width: 100px;
+    height: 100px;
+    background: transparent;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-top: auto;
+    margin-bottom: auto;
+    object-fit: cover;
+    $img-placeholder-background: #BF4747;
+  }
+  .cencel_img_layout {
+    z-index: 1;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.315);
+    left: 85%;
+    bottom: 60%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    padding: 12px 24px;
+  }
+  .src_setup {
+    background: transparent;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .add_image_button {
+    width: 100px;
+    height: 100px;
+    background: transparent;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  ion-img.img-loaded img {
+    display: block;
+    margin: 30%;
+  }
+  .grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 10px;
+    padding: 10px;
+  }
+  .grid-container>div {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 30px;
+  }
+  .gallery_img_style {
+    background-size: cover;
+    height: 100px;
+    background-repeat: repeat-y;
+    background-position: center;
+    position: relative;
+  }
+  .visible {
+    display: block;
+  }
+  .invisible {
+    display: none;
+  }
+  .overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.678);
+    height: 100%;
+    width: 100%;
+  }
+  .outline {
+    width: 100%;
+    display: inline-block;
+    border: 0.1px solid #ccc;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+  .item-inner {
+    border-bottom-color: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .error {
+    color:  #BF4747;
+  }
+}

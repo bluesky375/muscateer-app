@@ -1,0 +1,72 @@
+page-tab-recommendation {
+    .ion_row_bg {
+        background: white;
+        width: 100%;
+        padding: 10px 0px 0px 0px;
+    }
+    .col_style {
+        text-align: center;
+        font-size: 0.8em
+    }
+    .image_style {
+        background: transparent;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+    }
+    .searchbar-clear-icon {
+        display: none !important;
+    }
+    ul#rating {
+        margin: 0;
+    }
+    .rating_msg {
+        color: #808080;
+        font-size: 1.6rem !important;
+    }
+    .rating_p {
+        color: #808080;
+        margin: 0 0 2px;
+        font-size: 1.5rem !important;
+        font-weight: normal;
+        line-height: 1.1;
+    }
+    .selected_category_item {
+        background: white;
+        // border: 1px solid #ccc;
+        border-radius: 6px;
+        color: #5a4f4f;
+        text-transform: none;
+    }
+    .not_selected_category_item {
+        color: #5a4f4f;
+        // background: #f3f3f3;
+        background: #eaeaea;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        text-transform: none;
+    }
+    .rtl_align {
+        text-align: right;
+    }
+    .rtl_rating {
+        padding-right: 0 !important;
+    }
+    .selected_head_style {
+        font-weight: bold !important;
+        color: #22b573 !important;
+    }
+    .unselected_head_style {
+        font-weight: normal !important;
+        color: #4e4e4e !important;
+    }
+}
+
+[dir=rtl] page-tab-recommendation .list-inline {
+    padding-right: 5px !important;
+    padding-left: 0px !important;
+}
+
+[dir=rtl] page-searchresult .rtl_card {
+    padding: 0px !important
+}

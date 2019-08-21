@@ -1,0 +1,107 @@
+<ion-header>
+    <div class="back-box">
+        <ion-grid no-padding>
+            <ion-row no-padding>
+                <ion-col col-2 (click)="goback()">
+                    <p class="main icon-back"></p>
+                </ion-col>
+                <ion-col col-7>
+                    <p [ngClass]="{'rtl_text_align':this.global_items.App_direction=='rtl'}">{{this.global_items.do_translation('Back to '+this.head['title'])}}</p>
+                </ion-col>
+                <ion-col col-3 (click)="suggest(head['title'])">
+                    <p [ngClass]="{'rtl_align':this.global_items.App_direction=='rtl'}">{{this.global_items.do_translation('SUGGEST')}}</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+    </div>
+</ion-header>
+
+<ion-content class="has-subheader">
+    <div class="inner-classifieds">
+        <!-- <img [src]="getImagesPath(items)" alt="" class="img-responsive w-100" imageViewer> -->
+        <img [src]="getImagesPath(items)" alt="" class="img-responsive w-100" imageViewer *ngIf="slide_image_list.length==0">
+        <ion-slides pager [dir]="this.global_items.App_direction" *ngIf="slide_image_list.length>0">
+            <div *ngFor="let image of slide_image_list" style="height: 250px">
+                <ion-slide class="inner-slide" style="position: relative; width: 411px">
+                    <img src="{{settings.IMAGE_URL+image.path}}" style="height: auto !important" imageViewer>
+                </ion-slide>
+            </div>
+        </ion-slides>
+        <ion-grid>
+            <ion-row no-padding>
+                <ion-col col-11 class="p-t-0">
+                    <p class="main dot_style">{{items['title'] | removehtmltags}}
+                    </p>
+                </ion-col>
+                <ion-col col-1>
+                    <span (click)="report('report-spam',items['pk_i_id'])" class="ion-md-alert f-16"></span>
+                </ion-col>
+
+                <ion-col col-12>
+                    <ion-row class="border-btm" no-padding>
+                        <ion-col col-4 no-padding>
+                            <p class="inner-user" [ngClass]="{'rtl_text_align':this.global_items.App_direction=='rtl'}" *ngIf="this.global_items.App_direction=='ltr'">
+                                <ion-icon *ngIf="items['is_verified_user']==1" ios="ios-checkmark" md="ios-checkmark" style="color: #22b573;font-size: 2.0em;position: absolute;left: 15px;bottom: 5px;"></ion-icon>
+                                <span class="icon-user-1">
+                          </span>
+                                <span class="dot_style">{{items['company_name']}}</span>
+                            </p>
+
+                            <p class="inner-user" [ngClass]="{'rtl_text_align':this.global_items.App_direction=='rtl'}" *ngIf="this.global_items.App_direction=='rtl'">
+                                <span>{{items['title']}}</span>
+                                <ion-icon *ngIf="items['is_verified_user']==1" ios="ios-checkmark" md="ios-checkmark" style="color: #22b573;font-size: 2.0em;position: absolute;right: -5px;bottom: 5px;"></ion-icon>
+                                <span class="icon-user-1">
+                          </span>
+                            </p>
+                        </ion-col>
+                        <ion-col col-6 no-padding>
+                            <p class="inner-date" [ngClass]="{'rtl_text_align':this.global_items.App_direction=='rtl'}">{{this.global_items.do_translation('Posted on')}} {{items['created_at'] | date}}</p>
+                        </ion-col>
+                        <ion-col col-2 no-padding>
+                            <p class="inner-share" (click)="share(items)">
+                                <span>{{this.global_items.do_translation('Share')}}</span>
+                                <span class="icon-share-icon"></span>
+                            </p>
+                        </ion-col>
+                    </ion-row>
+                </ion-col>
+                <ion-col col-12>
+                    <p class="sub">{{items['description'] | removehtmltags}}</p>
+                </ion-col>
+                <ion-col col-12 id="test">
+                    <p *ngIf="items['career_level']" class="more_details_theme">{{this.global_items.do_translation('Career Level')}} :
+                        <span class="loaded_more_details_theme">{{items['career_level'] | removehtmltags}}</span>
+                    </p>
+                    <p *ngIf="items['experience']" class="more_details_theme"> {{this.global_items.do_translation('Experience')}} :
+                        <span class="loaded_more_details_theme">{{items['experience']}}</span>
+                    </p>
+                    <p *ngIf="items['employment_type']" class="more_details_theme"> {{this.global_items.do_translation('Employment Type')}} :
+                        <span class="loaded_more_details_theme">{{items['employment_type'] |removehtmltags}}</span>
+                    </p>
+                    <p *ngIf="items['salary']" class="more_details_theme"> {{this.global_items.do_translation('Monthly Salary')}} :
+                        <span class="loaded_more_details_theme">{{items['salary'] | removehtmltags}}</span>
+                    </p>
+                    <p *ngIf="items['education']" class="more_details_theme"> {{this.global_items.do_translation('Education Level')}} :
+                        <span class="loaded_more_details_theme">{{items['education'] | removehtmltags}}</span>
+                    </p>
+                    <p *ngIf="items['company_name']" class="more_details_theme"> {{this.global_items.do_translation('Company')}} :
+                        <span class="loaded_more_details_theme">{{items['company_name'] | removehtmltags}}</span>
+                    </p>
+
+                    <p *ngIf="items['contact_info']" class="more_details_theme"> {{this.global_items.do_translation('Address')}} :
+                        <span class="loaded_more_details_theme">{{items['contact_info'] | removehtmltags}}</span>
+                    </p>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-6 *ngIf="items['isShowlocation']==true">
+                    <button style="width: 100%" ion-button (click)="Gotomap(items['latitude'] , items['longitude'])">{{this.global_items.do_translation('View On Map')}}</button>
+                </ion-col>
+                <ion-col col-6 *ngIf="head['title'] == 'Jobs Available'">
+                    <button style="width: 100%" ion-button (click)="Apply(items['apply_method'],items['apply_url'],items['pk_i_id'])">{{this.global_items.do_translation('Apply')}}</button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</ion-content>

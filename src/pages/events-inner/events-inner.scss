@@ -1,0 +1,22 @@
+.grey {
+    color: color($colors, d-grey);
+}
+
+.red {
+    color: #ff6161;
+}
+
+.add_to_calender {
+    float: right;
+    color: #0091ea !important;
+    font-weight: 500;
+    font-size: 14px !important;
+}
+
+.rtl_align {
+    text-align: right !important
+}
+
+.rtl_align_left {
+    text-align: left !important
+}

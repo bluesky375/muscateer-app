@@ -1,0 +1,28 @@
+<!--
+  Generated template for the OtpPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+
+<ion-content padding>
+    <div class="otp-section">
+        <p>
+            {{this.global_items.do_translation("Please enter the OTP")}}
+        </p>
+
+        <div class="reg-box">
+            <ion-input [(ngModel)]="OTP" placeholder=I82vBr>{{otp_text}}</ion-input>
+        </div>
+        <div *ngIf="errors" class="text-custom-red">
+            <p>{{errors}}</p>
+        </div>
+        <div>
+
+            <button ion-button (click)="otp(OTP)" class="reg-btn" type="submit">{{this.global_items.do_translation('Verify')}}</button>
+            <button ion-button clear class="reg-btn" *ngIf="show_resend_btn==true" (click)="resendOtp()">{{this.global_items.do_translation('resend otp')}}</button>
+        </div>
+    </div>
+
+</ion-content>

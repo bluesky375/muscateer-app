@@ -1,0 +1,239 @@
+<!--
+  Generated template for the InnerClassifiedsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <div class="back-box">
+        <ion-grid no-padding>
+            <ion-row no-padding>
+                <ion-col col-2 (click)="goback()">
+                    <p class="main icon-back"></p>
+                </ion-col>
+                <ion-col col-10>
+                    <p [ngClass]="{'rtl_align':this.global_items.App_direction=='rtl'}">{{this.global_items.do_translation('Back to Classifieds')}}</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</ion-header>
+
+
+<ion-content class="has-subheader">
+    <!-- contact -->
+    <ion-fab bottom right edge fab-bottom fab-right style="position: fixed !important;
+    bottom: 10px !important;
+    right: 10px !important;
+    z-index: 10000 !important" *ngIf="this.items['s_contact_email']!=null">
+        <button [disabled]="show_call==true" ion-fab (click)="contact_to_person()"><ion-icon ios="ios-call-outline" md="ios-call-outline" style="font-size: 2.5em"></ion-icon></button></ion-fab>
+    <!-- contact -->
+
+
+    <!-- chat -->
+    <ion-fab bottom left edge fab-bottom fab-right style="position: fixed !important;
+bottom: 10px !important;
+left: 10px !important;
+z-index: 10000 !important">
+        <button ion-fab (click)="createChat()"><ion-icon ios="ios-chatbubbles" md="ios-chatbubbles" style="font-size: 2.5em"></ion-icon></button></ion-fab>
+    <!-- chat -->
+
+    <!-- </div> -->
+    <div class="inner-classifieds">
+        <div [ngSwitch]="loader">
+            <div *ngSwitchCase="'loading'" class="loader">
+                <ion-spinner name="bubbles"></ion-spinner>
+            </div>
+            <div *ngSwitchCase="'loaded-ok'">
+                <ion-slides pager [dir]="this.global_items.App_direction">
+                    <div *ngFor="let image of items.resource" style="height: 250px">
+                        <ion-slide class="inner-slide" style="position: relative; width: 411px">
+                            <img [src]="urlService.getImagePath(image)" style="height: auto !important" imageViewer>
+                            <p class="icon-fav" style="font-size: 2em" (click)="onFav()">
+                                <span [class.grey]="!isFavourite" [class.red]="isFavourite" class="ion-md-heart"></span>
+                            </p>
+                        </ion-slide>
+                    </div>
+                </ion-slides>
+
+                <ion-grid>
+                    <ion-row no-padding>
+                        <!--<ion-col col-12>-->
+                        <!--<ul class="star">-->
+                        <!--<li class="icon-star-o"></li>-->
+                        <!--<li class="icon-star-o"></li>-->
+                        <!--<li class="icon-star-o"></li>-->
+                        <!--<li class="icon-star-o"></li>-->
+                        <!--<li class="icon-star-o"></li>-->
+                        <!--</ul>-->
+                        <!--</ion-col>-->
+                        <ion-col col-11 class="p-t-0">
+                            <p class="main">{{items.title | removehtmltags}}
+                            </p>
+                        </ion-col>
+                        <ion-col col-1>
+                            <span (click)="report('classifieds')" class="ion-md-alert f-16"></span>
+                        </ion-col>
+                        <ion-col col-12 class="p-t-0">
+                            <p class="main">{{items.price | removehtmltags}}
+                            </p>
+                        </ion-col>
+                        <ion-col col-12>
+                            <ion-row class="border-btm" no-padding>
+                                <ion-col col-4 no-padding>
+                                    <p class="inner-user" [ngClass]="{'rtl_align':this.global_items.App_direction=='rtl'}" *ngIf="this.global_items.App_direction=='ltr'">
+                                        <ion-icon *ngIf="items.is_verified_user==1" ios="ios-checkmark" md="ios-checkmark" class="verified_user_style"></ion-icon>
+                                        <span class="icon-user-1">
+                                        </span>
+                                        <span>{{items.s_contact_name | removehtmltags}}</span>
+                                    </p>
+
+                                    <p class="inner-user" [ngClass]="{'rtl_align':this.global_items.App_direction=='rtl'}" *ngIf="this.global_items.App_direction=='rtl'">
+                                        <span>{{items.s_contact_name | removehtmltags}}</span>
+                                        <ion-icon *ngIf="items.is_verified_user==1" ios="ios-checkmark" md="ios-checkmark" class="verified_user_style"></ion-icon>
+                                        <span class="icon-user-1">
+                                        </span>
+                                    </p>
+                                </ion-col>
+                                <ion-col col-6 no-padding>
+                                    <p class="inner-date" [ngClass]="{'rtl_align':this.global_items.App_direction=='rtl'}">{{this.global_items.do_translation('Posted on')}} {{items.date}}</p>
+                                    <!--<p class="inner-date">Posted on {{items.date | date:'dd/MM/yyyy'}}</p>-->
+                                </ion-col>
+                                <ion-col col-2 no-padding>
+                                    <p class="inner-share" (click)="share(items)">
+                                        <span>{{this.global_items.do_translation('Share')}}</span>
+                                        <span class="icon-share-icon"></span>
+                                    </p>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col col-12>
+                                    <p>{{this.global_items.do_translation('Contact')}}: {{items.s_contact_email}}</p>
+                                </ion-col>
+                            </ion-row>
+                        </ion-col>
+                        <ion-col col-12>
+                            <p class="sub">{{items.description | removehtmltags}}</p>
+                            <!-- <p class="sub" [innerHTML]='items.description'></p> -->
+                        </ion-col>
+
+                        <ion-col col-12 *ngIf="items.isShowlocation==true">
+                            <button ion-button (click)="Gotomap(items.latitude , items.longitude)">{{this.global_items.do_translation('View On Map')}}</button>
+                        </ion-col>
+                        <ion-col col-12>
+                            <ion-row>
+                                <ion-col col-12>
+                                    <table class="post-comment">
+                                        <tr>
+                                            <td style="padding-right: 0px;
+                                            text-align: center;font-size: 1.0em;padding-top: 1%;">
+                                                <span class="icon-user-1"></span>
+                                            </td>
+                                            <td>
+                                                <ion-input [(ngModel)]="commentValue" type="text" class="comment-input" placeholder="{{this.global_items.do_translation('Comment here')}}" (keyup.enter)="hide_keyboard()"></ion-input>
+                                            </td>
+                                            <td>
+                                                <span type="submit" [ngClass]="{'dsp-blck': true}" (click)="onPost(commentValue)" class="triangle ion-md-send"></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </ion-col>
+
+                                <ion-col col-12>
+                                    <!-- <p class="comment_head">{{this.global_items.do_translation('Disclaimer')}}</p> <span class="comment_description">{{this.global_items.comment_Disclaimer}}</span> -->
+                                    <ion-col col-12 *ngIf="global_items.App_direction=='ltr'">
+                                        <p class="comment_head">{{this.global_items.do_translation('Disclaimer')}}</p> <span class="comment_description">{{this.global_items.comment_Disclaimer_ltr}}</span>
+                                    </ion-col>
+
+                                    <ion-col col-12 *ngIf="global_items.App_direction=='rtl'">
+                                        <p class="comment_head">{{this.global_items.do_translation('Disclaimer')}}</p> <span class="comment_description">{{this.global_items.comment_Disclaimer_rtl}}</span>
+                                    </ion-col>
+
+                                </ion-col>
+                                <ion-col>
+                                    <table class="comment-table">
+                                        <tr let *ngFor="let user of users['comments']; let i = index">
+                                            <td class="user_icon_div" *ngIf="user.author.is_verified_user==1; else else_template">
+                                                <img [src]="getOtherPath(user.author)">
+                                                <ion-icon ios="md-checkmark" md="md-checkmark" class="user_icon_badge"></ion-icon>
+                                            </td>
+                                            <ng-template #else_template>
+                                                <td>
+                                                    <img [src]="getOtherPath(user.author)">
+                                                </td>
+                                            </ng-template>
+                                            <td style="padding-left:10px ">
+                                                <p>{{user.author.name}}</p>
+                                                <p>{{user.comment | removehtmltags}}</p>
+                                            </td>
+                                            <!-- <td class="width-10">
+                                                <span (click)="report('comment',user.pk_i_id)" class="ion-md-alert f-16"></span>
+                                            </td> -->
+                                            <td class="width-10" style="position: relative">
+                                                <span style="position: absolute;top: 20px;" *ngIf="userId == user.author.pk_i_id" (click)="deleteComment(user.pk_i_id,i)" class="ion-md-trash"></span>
+                                            </td>
+                                        </tr>
+                                        <ion-infinite-scroll (ionInfinite)="loadComments($event)">
+                                            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+                                        </ion-infinite-scroll>
+                                    </table>
+                                </ion-col>
+                            </ion-row>
+                        </ion-col>
+                        <ion-col col-12 *ngIf="items.related_ads.length>0">
+                            <ion-grid no-padding>
+                                <ion-row no-padding>
+                                    <ion-col>
+                                        <ion-row no-padding class="heading-row">
+                                            <ion-col>
+                                                <p>{{this.global_items.do_translation('Related Ads')}}</p>
+                                            </ion-col>
+                                            <ion-col>
+                                                <p>{{this.global_items.do_translation('next')}}</p>
+                                            </ion-col>
+                                        </ion-row>
+                                        <ion-slides style="margin-top: -20px;" slidesPerView="1.5" spaceBetween="10" [dir]='this.global_items.App_direction'>
+                                            <div *ngFor="let related of items.related_ads">
+                                                <ion-slide>
+                                                    <ion-card (click)="getItemId(related.item_id)">
+                                                        <img [src]="urlService.getImagePath(related)">
+                                                        <ion-card-content>
+                                                            <ion-row class="green-light ">
+                                                                <ion-col no-padding text-left>
+                                                                    <!-- <p [innerHTML]='related.title'></p> -->
+                                                                    <p [ngClass]="{'rtl_align':this.global_items.App_direction=='rtl'}">{{related.title | removehtmltags}}</p>
+                                                                </ion-col>
+                                                            </ion-row>
+                                                            <p class="card-main">{{related.description | removehtmltags}}</p>
+                                                            <!-- <p class="card-main" [innerHTML]='related.description'></p> -->
+                                                            <ion-row class="card-bottom">
+                                                                <ion-col col-5 no-padding text-left>
+                                                                    <p class="third">OMR {{related.i_price}}</p>
+                                                                </ion-col>
+                                                                <ion-col col-7 no-padding>
+                                                                    <!-- <p style="max-width: 16ch;
+                                                                    max-height: 3ch;" class="card-date">{{related.dt_pub_date}}
+                                                                    </p> -->
+                                                                    <p class="card-date">{{related.dt_pub_date | slice:0:10}}
+                                                                    </p>
+                                                                </ion-col>
+                                                            </ion-row>
+                                                        </ion-card-content>
+                                                    </ion-card>
+                                                </ion-slide>
+                                            </div>
+                                            <!--<ion-slide>-->
+                                            <!--&lt;!&ndash; need a empty slide to avoid last item to be inaccessible &ndash;&gt;-->
+                                            <!--</ion-slide>-->
+                                        </ion-slides>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+        </div>
+    </div>
+</ion-content>

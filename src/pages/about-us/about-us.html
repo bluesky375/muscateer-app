@@ -1,0 +1,58 @@
+<!--
+  Generated template for the AboutUsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-header>
+    <div class="back-box">
+        <ion-grid no-padding>
+            <ion-row no-padding>
+                <ion-col col-2 (click)="goback()">
+                    <p class="main icon-back"></p>
+                </ion-col>
+                <ion-col col-10>
+                    <p [ngClass]="{'rtl_text_style':this.global_items.App_direction=='rtl'}">{{this.global_items.do_translation('About Us')}}</p>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+    </div>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-grid class="contact-us">
+        <ion-row>
+            <ion-col col-12>
+                <p class="head about_us_direction">Muscateer v0.0.{{global_items.App_version}}</p>
+                <p class="sub about_us_direction">
+                    Muscateer is all about you - Our aim is to empower every person in Muscat to independently connect with buyers and sellers online. Muscateer is widely known as Muscat’s no. 1 social & classifieds platform - and there’s a reason behind that. We care about
+                    you - and the transactions that bring you closer to your dreams. Want to buy your first car? We’re here for you. Want to sell commercial property to buy a home for your family? We’re here for you. Whatever job you’ve got, we promise
+                    to get it done.
+
+                </p>
+                <p class="sub about_us_direction">On top of buying and selling everyday items, our users can also discover:
+                </p>
+
+                <div class="sub about_us_direction">
+                    <ul class="about_us_direction">
+                        <li class="about_us_direction">Dream jobs, vehicles and properties.
+                        </li>
+                        <li class="about_us_direction">Muscateer Forums to interact with people who share similar interests as you.
+                        </li>
+                        <li class="about_us_direction">Upcoming events in Muscat.
+                        </li>
+                        <li class="about_us_direction">Great offers and promotions near you.
+                        </li>
+                        <li class="about_us_direction">Best restaurants, hotels, movies and attractions.</li>
+                    </ul>
+                </div>
+                <p class="sub about_us_direction">And that’s not it. We’re determined to become a top 10 digital destination in the Sultanate of Oman, and help more people find opportunities to improve their lives through Muscateer.
+                </p>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>
